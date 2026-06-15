@@ -1,8 +1,8 @@
 # SecondBrain
 
-Un método simple e instalable para ordenar cómo trabajás con **Claude Code** (o **Cowork**) y hacerlo crecer en el tiempo. Un archivo te deja arrancando. Un skill `/second-brain-coach` te va subiendo de nivel, de a un escalón.
+Un método simple e instalable para ordenar cómo trabajás con **Claude Code** (o **Cowork**) y hacerlo crecer en el tiempo. Instalás una sola cosa, un coach, y él arma y hace crecer el resto con vos, de a un escalón.
 
-Es para cualquiera: no hace falta que programes. Si programás, la división código/contexto ya viene contemplada.
+Es para cualquiera: desde el que arranca de cero hasta el que ya la tiene clara. No hace falta que programes. Si programás, la división código/contexto ya viene contemplada.
 
 ---
 
@@ -10,7 +10,7 @@ Es para cualquiera: no hace falta que programes. Si programás, la división có
 
 Claude es un cerebro que genera texto. El harness (Claude Code, Cowork) le da manos y memoria. **Tus carpetas son lo que lo convierte en _tu_ asistente.** Unos archivos de texto, que el asistente lee al arrancar cada sesión, lo hacen dejar de adivinar quién sos y cómo trabajás. Ese es todo el truco. El resto es ordenar.
 
-Casi nadie escribe esos archivos. Esto te da la semilla y te lleva de la mano para hacerla crecer.
+Casi nadie escribe esos archivos. Esto te da la semilla y un coach que te lleva de la mano para hacerla crecer.
 
 ## Instalación
 
@@ -18,34 +18,39 @@ Casi nadie escribe esos archivos. Esto te da la semilla y te lleva de la mano pa
 curl -fsSL https://raw.githubusercontent.com/brunogiel/secondbrain-claude/main/install.sh | bash
 ```
 
-Te crea las carpetas PARA y los archivos base en la carpeta actual, y deja los skills instalados.
+Te crea las carpetas PARA y los archivos base, arma una carpeta oculta `.secondbrain/` para la maquinaria, e instala los skills. Tu carpeta queda limpia: ves solo lo tuyo, el proceso queda fuera de vista.
 
 ¿No estás en la terminal (ej. Cowork desktop)? Bajá el zip o hacé `git clone`, o abrí Claude en la carpeta y decile *"armame el sistema"*.
 
 Después abrí Claude Code o Cowork en la carpeta y escribí **`/second-brain-coach`**.
 
-## La escalera (crecé de a poco)
+## La escalera (crecé de a un escalón)
 
-No armás todo el día uno. Subís de a un escalón.
+No armás todo el día uno. Subís. El coach te enseña la idea de cada escalón, no solo qué hacer.
 
-| Nivel | Qué sumás |
+| Nivel | Qué aprendés + sumás |
 |---|---|
-| **0** | Te conoce (`sobre-mi` + `como-trabajo`) |
-| **1** | Tu primer proyecto |
-| **2** | Atajos |
-| **3** | Tu primer skill (la regla de 3) |
-| **4** | (si programás) split código/contexto |
+| **0** | Las 3 capas (modelo / harness / tus carpetas). Te conoce (`sobre-mi` + `como-trabajo`) |
+| **1** | Tu primer proyecto (su propio cerebro + log de decisiones) |
+| **2** | Atajos (rutean al asistente al toque) |
+| **3** | Tu primer skill, y qué es un script: el chequeador de updates del kit |
+| **4** | Tu primera rutina (algo que corre solo) |
+| **5** | (si programás) el split código/contexto |
 
-¿No sabés en qué escalón estás o qué sigue? Pedile **`/second-brain-coach`**. Te ubica y te propone el próximo paso. Propone, vos decidís.
+¿En bolas o avanzado? El coach se adapta: de a un escalón con todo explicado si arrancás, o un setup rápido de varios escalones más un track avanzado si ya la tenés clara. Pedile **`/second-brain-coach`** cuando quieras: te ubica y te propone el próximo paso. Propone, vos decidís.
+
+## Cowork primero, migrá a Code
+
+Tu sistema entero vive en una carpeta sincronizada, así que es el mismo cerebro abras donde abras. Arrancá en **Cowork** (sin terminal). Cuando crezcas al código, abrí la misma carpeta en **Claude Code**: no hay migración, el cerebro ya está ahí.
 
 ## Qué trae adentro
 
-- **`CLAUDE.md`** — tu archivo raíz, lo primero que se lee en cada sesión. Funciona el día uno y trae la escalera adentro.
+- **`CLAUDE.md`** — tu archivo raíz, un router fino que se lee al arrancar cada sesión.
+- **`ESTADO.md`** — tu tablero: dónde estás, qué hay activo.
 - **`sobre-mi.md` / `como-trabajo.md`** — quién sos y cómo te gusta trabajar (templates para llenar).
-- **`reference.md`** — el manual que crece: PARA, la regla de 3, pasos mecánicos vs de criterio (DET/LAT), convenciones.
-- **`MEMORIA.md`** — hechos que tu asistente acumula con el tiempo.
+- **`.secondbrain/`** (oculto) — el proceso: `reference.md` (el manual) y el control de versión. Fuera de vista, sincroniza igual.
 - **Skills** (dormidos hasta que una frase los despierta):
-  - **`second-brain-coach`** — te sube de nivel.
+  - **`second-brain-coach`** — te sube de nivel y te enseña mientras subís.
   - **`redactar`** — escribe en tu voz (la aprende de textos tuyos).
   - **`anti-slop`** — le saca el olor a IA a cualquier texto.
 
@@ -53,7 +58,9 @@ No armás todo el día uno. Subís de a un escalón.
 
 - **Propone, vos decidís.** Nada se crea sin tu OK.
 - **Un escalón por vez.** Sin listas que abruman.
-- **Todo viaja dormido.** Un skill no hace nada hasta que una frase lo despierta, así podés tener muchos sin ruido.
+- **Enseña mientras subís.** Aprendés la idea, no solo la tarea.
+- **Liviano para correr.** Lee solo lo que necesita, así no te quema el plan de $20.
+- **Todo viaja dormido.** Un skill no hace nada hasta que una frase lo despierta.
 
 ## Autor
 
