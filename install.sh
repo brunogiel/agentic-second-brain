@@ -19,7 +19,7 @@ BRANCH="main"
 RAW="https://raw.githubusercontent.com/${REPO}/${BRANCH}"
 
 # Visible at root (your stuff). Never overwritten.
-ROOT_FILES=("CLAUDE.md" "sobre-mi.md" "como-trabajo.md" "mi-estilo.md" "MEMORIA.md" "ESTADO.md")
+ROOT_FILES=("CLAUDE.md" "sobre-mi.md" "como-trabajo.md" "mi-estilo.md" "soul.md" "dev-prefs.md" "MEMORIA.md" "ESTADO.md")
 # Skills (the coach is the entry point).
 SKILLS=("second-brain-coach" "redactar" "anti-slop")
 SKILLS_DIR="${HOME}/.claude/skills"
@@ -47,7 +47,7 @@ done
 
 # 3. Hidden process folder (.secondbrain/): doctrine + version. No se ve en Finder, sincroniza igual.
 mkdir -p "$SB_DIR"
-curl -fsSL "${RAW}/templates/reference.md" -o "${SB_DIR}/reference.md"
+curl -fsSL "${RAW}/process/reference.md" -o "${SB_DIR}/reference.md"
 curl -fsSL "${RAW}/VERSION"                -o "${SB_DIR}/VERSION"
 curl -fsSL "${RAW}/CHANGELOG.md"           -o "${SB_DIR}/CHANGELOG.md"
 echo "  ✓ proceso oculto en ${SB_DIR}/"

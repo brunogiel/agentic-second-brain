@@ -234,6 +234,18 @@ Regla de oro acá: no metas esto hasta que la escalera 0 a 5 te quede realmente 
 
 ---
 
+## 17. Conectar herramientas (MCP) y subagentes
+
+Dos cosas que, cuando las entendés, te cambian lo que podés hacer. No son del día uno, pero tampoco son posgrado: valen la pena.
+
+**Conectar herramientas (MCP).** Por default tu asistente toca archivos. Con MCP (un estándar para enchufarle herramientas) le das acceso a tus apps: Gmail, tu calendario, una base de datos, lo que sea. Recién ahí puede leer tu inbox, agendar, consultar tus datos. Ejemplo concreto: conectás Gmail por MCP y entonces sí podés tener una rutina que te arma el digest de los mails de la mañana. El MCP es la diferencia entre un asistente que solo ordena tus carpetas y uno que opera tu mundo. Cómo se conecta depende del cliente (Claude Code, Cowork): pedile a tu asistente que te guíe para enchufar el que necesites.
+
+**Subagentes.** Un subagente es otro asistente que lanzás para una parte del laburo, en paralelo, con su propio contexto limpio. Sirve para cosas grandes: revisar 20 archivos a la vez, investigar varios temas en simultáneo, o separar un trabajo en pedazos que corren juntos y después se juntan. La regla: usalo cuando una tarea es grande o tiene partes independientes. Para lo chico y secuencial, no hace falta, suma ruido.
+
+Las dos se combinan con lo de antes: una rutina (sección 10) que conecta una herramienta por MCP y reparte el trabajo en subagentes es, básicamente, un asistente que trabaja solo mientras dormís.
+
+---
+
 ## La escalera (tu índice de crecimiento)
 - **Nivel 0:** el asistente te conoce (`sobre-mi` + `como-trabajo`).
 - **Nivel 1:** tu primer proyecto con su `CLAUDE.md`.

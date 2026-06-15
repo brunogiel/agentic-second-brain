@@ -45,14 +45,15 @@ Tu sistema entero vive en una carpeta sincronizada, así que es el mismo cerebro
 
 ## Qué trae adentro
 
-- **`CLAUDE.md`** — tu archivo raíz, un router fino que se lee al arrancar cada sesión.
-- **`ESTADO.md`** — tu tablero: dónde estás, qué hay activo.
-- **`sobre-mi.md` / `como-trabajo.md`** — quién sos y cómo te gusta trabajar (templates para llenar).
-- **`.secondbrain/`** (oculto) — el proceso: `reference.md` (el manual) y el control de versión. Fuera de vista, sincroniza igual.
+- **`CLAUDE.md`**: tu archivo raíz, un router fino que se lee al arrancar cada sesión.
+- **`ESTADO.md`**: tu tablero (dónde estás, qué hay activo).
+- **`sobre-mi.md` / `como-trabajo.md`**: quién sos y cómo te gusta trabajar (templates para llenar).
+- **`soul.md` / `dev-prefs.md`**: lo de fondo (se llena con el tiempo, hablando) y, si programás, cómo te gusta laburar el código.
+- **`.secondbrain/`** (oculto): el proceso, o sea `reference.md` (el manual) y el control de versión. Fuera de vista, sincroniza igual.
 - **Skills** (dormidos hasta que una frase los despierta):
-  - **`second-brain-coach`** — te sube de nivel y te enseña mientras subís.
-  - **`redactar`** — escribe en tu voz (la aprende de textos tuyos).
-  - **`anti-slop`** — le saca el olor a IA a cualquier texto.
+  - **`second-brain-coach`**: te sube de nivel y te enseña mientras subís.
+  - **`redactar`**: escribe en tu voz (la aprende de textos tuyos).
+  - **`anti-slop`**: le saca el olor a IA a cualquier texto.
 
 ## Filosofía
 
