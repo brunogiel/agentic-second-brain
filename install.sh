@@ -36,7 +36,7 @@ SKILLS_MOTOR=("second-brain-coach" "actualizar" "migrar-de-claude-projects")
 # Skills de USO: el usuario los ve y los usa. NO se instalan acá; se dejan en el
 # catálogo oculto (.secondbrain/skills-disponibles/) y el coach los copia a skills/
 # (visible) a medida que el usuario avanza.
-SKILLS_USO=("abrir-sesion" "cerrar-sesion" "redactar" "anti-slop" "crear-skill" "auditar-sistema" "triage")
+SKILLS_USO=("abrir-sesion" "cerrar-sesion" "redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage")
 SKILLS_DIR="${HOME}/.claude/skills"
 SB_DIR=".secondbrain"
 CAT_DIR="${SB_DIR}/skills-disponibles"
@@ -70,11 +70,12 @@ for f in "${YO_FILES[@]}";    do fetch "templates/${f}" "yo/${f}";   done
 fetch "templates/arquitectura-skills.md" "recursos/arquitectura-skills.md"
 fetch "templates/INBOX.md"               "inbox/INBOX.md"
 fetch "templates/proyecto-CLAUDE.md"     "sb/plantilla-proyecto.md"
+fetch "templates/ejemplos.md"            "sb/ejemplos.md"
 fetch "process/reference.md"             "sb/reference.md"
 fetch "VERSION"                          "sb/VERSION"
 fetch "CHANGELOG.md"                     "sb/CHANGELOG.md"
 for s in "${SKILLS_MOTOR[@]}"; do fetch ".claude/skills/${s}/SKILL.md" "motor/${s}/SKILL.md"; done
-for s in "${SKILLS_USO[@]}";   do fetch ".claude/skills/${s}/SKILL.md" "uso/${s}/SKILL.md";   done
+for s in "${SKILLS_USO[@]}";   do fetch "templates/skills/${s}/SKILL.md" "uso/${s}/SKILL.md"; done
 # script opcional del skill actualizar (no aborta si no está)
 mkdir -p "${TMP}/motor/actualizar"
 curl -fsSL "${RAW}/.claude/skills/actualizar/check-update.sh" -o "${TMP}/motor/actualizar/check-update.sh" 2>/dev/null || true
@@ -112,6 +113,7 @@ place "inbox/INBOX.md"                  "0. Inbox/INBOX.md"
 mkdir -p "$SB_DIR"
 place "sb/reference.md"          "${SB_DIR}/reference.md"
 place "sb/plantilla-proyecto.md" "${SB_DIR}/plantilla-proyecto.md"
+place "sb/ejemplos.md"           "${SB_DIR}/ejemplos.md"
 cp "${TMP}/sb/VERSION"      "${SB_DIR}/VERSION"
 cp "${TMP}/sb/CHANGELOG.md" "${SB_DIR}/CHANGELOG.md"
 # El catálogo: las versiones-fuente de los skills de uso, ocultas. El coach copia de acá a skills/.

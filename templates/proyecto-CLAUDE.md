@@ -9,10 +9,14 @@
 ## Qué es
 <En 2 líneas: el objetivo y para cuándo. Un proyecto se termina; si no se termina, es un Área.>
 
-## Cómo trabajar acá  *(opcional — borralo si no aplica)*
-<La "persona" del asistente para ESTE proyecto. Mismo modelo, distinto compañero:
-ej. "Sé escéptico, verificá los números antes de afirmar." / "Sé breve, sin vueltas." /
-"Paso a paso, soy nuevo en este tema." Esto cambia cómo te responde sin que lo repitas cada vez.>
+## Rol acá  *(opcional — borralo si no aplica)*
+<El papel que el asistente actúa en ESTE proyecto. NO repitas tu identidad global (eso ya vive
+en `soul.md`): acá va SOLO lo que CAMBIA respecto de tu "yo" de base.
+Ej: "Más escéptico que de costumbre, verificá los números antes de afirmar." /
+"Modo concierge: breve y resolutivo." / "Socrático: contraargumentá, no me des la razón." /
+"Paso a paso, soy nuevo en este tema." Si el proyecto no cambia nada de tu soul, borrá esta sección.>
+
+> soul = el actor (quién sos siempre). "Rol acá" = el papel para esta obra. Mismo actor, distinto papel.
 
 ## Estado
 <Dónde está hoy, en una línea o dos.>

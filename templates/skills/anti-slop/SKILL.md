@@ -28,6 +28,10 @@ destilar, anclar, desempacar, cristalizar, potenciar, tejer, forjar, catalizar, 
 ### 4. Vocabulario muerto
 robusto, escalable (fuera de contexto técnico), holístico, sinérgico, innovador, disruptivo, transformador, sin fricción, intuitivo, empoderar, visionario. Si hay una palabra más simple que dice lo mismo, usala.
 
+### 5. Meta-señalización (el tic de "anunciar lo que vas a decir")
+Frases que narran el acto de hablar en vez de hablar: "te tiro la pregunta directa", "sin más rodeos", "te dejo planteado", "vale la pena destacar que", "es importante notar que". Sacalas: arrancá directo con la idea.
+- Mal: "Sin más rodeos, el problema es la retención." → Bien: "El problema es la retención."
+
 ## El guion largo (em-dash)
 El em-dash (—) metido por todos lados es marca típica de IA. En español, cambialo por coma, punto, dos puntos o paréntesis. En inglés es puntuación normal, dejalo. En texto bilingüe, juzgá por el idioma del bloque.
 
@@ -41,17 +45,44 @@ Si suena forzado, simplificá.
 - **No toques la voz si el problema es la idea.** Si el texto es vago, no es slop: es que no hay un claim. Decilo en vez de pulir.
 - **No sobre-corrijas.** No evites una palabra útil solo porque está en una lista. Si es la palabra exacta, va.
 
+## Qué lee y escribe
+- **Lee:** el texto que te pasan y, si existe, `2. Áreas/yo/mi-estilo.md` (para no pisar la jerga ni la voz del usuario).
+- **Escribe:** nada a archivos. Devolvés el texto limpio + el diff en el chat.
+
 ## Flujo
 1. **[DET]** Leé el texto entero.
-2. **[LAT]** Marcá los problemas por regla (1 a 4 + el em-dash).
+2. **[LAT]** Marcá los problemas por regla (1 a 5 + el em-dash).
 3. **[LAT]** Reescribí limpio, mismo mensaje, misma voz.
-4. **[DET]** Entregá el texto + 2-3 líneas de qué sacaste.
+4. **[DET]** Entregá con el formato de abajo.
+
+## Output esperado
+```
+## Versión corregida
+{texto limpio}
+
+## Cambios
+| # | Antes | Después | Regla |
+|---|---|---|---|
+
+## Notas
+- {lo que quedó a propósito y por qué, ej. "1 metáfora que pasa el test"}
+```
+Si el texto ya está limpio: devolvé `## Limpio ✅ — no detecté patrones.` y no inventes correcciones.
 
 ## Cuándo NO usar
 - Textos de un par de líneas: no hace falta.
 - Texto técnico, código o datos: ahí no hay slop que sacar.
 
-## Señales de que lo hiciste bien
-- Dice lo mismo pero suena humano.
-- No metiste ideas nuevas ni cambiaste el mensaje.
-- Fue una pasada, no diez.
+## Si algo sale raro
+| Situación | Qué hacer |
+|---|---|
+| Suena raro pero no hay patrón de la lista | Es ritmo, no slop: proponé 1-2 cortes, no inventes "correcciones". |
+| Las correcciones aplastan la voz del usuario | Bajá la agresividad; preservá su jerga y sus cierres. |
+| 30+ instancias en el texto | No edites oración por oración: decí "esto se rehace de cero, no se edita". |
+
+## Señales de que lo hiciste bien (chequeo binario)
+- [ ] 0 patrones "no es X, es Y" sin justificar.
+- [ ] 0 verbos metafóricos innecesarios y ≤1 metáfora en total.
+- [ ] 0 puffery / falsa profundidad / meta-señalización.
+- [ ] 0 em-dashes en texto en español.
+- [ ] Mismo mensaje y misma voz; fue 1 pasada, no 10.

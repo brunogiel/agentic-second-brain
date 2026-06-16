@@ -68,6 +68,7 @@ Siendo honestos con la línea: tu **cerebro** (tu texto) *y* tus **skills de uso
   - **`redactar`**: escribe en tu voz (la aprende de textos tuyos).
   - **`anti-slop`**: le saca el olor a IA a cualquier texto.
   - **`crear-skill`**: te ayuda a armar un skill nuevo bien hecho.
+  - **`evaluar-skill`**: mide un skill contra su propio SKILL.md y propone arreglos (para cuando tenés varios y querés mantenerlos afilados).
   - **`auditar-sistema`**: una revisión de salud de tu sistema (va bien como rutina).
   - **`triage`**: tu brief de la mañana y los accionables, cruzando tus fuentes: mail, calendario (reporte de citas) y tu chat/tareas de trabajo (Slack, Jira, Linear, Trello, Notion comments, lo que uses). Cada fuente necesita su MCP; con el mail solo ya arranca.
 

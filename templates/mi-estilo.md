@@ -13,10 +13,22 @@
 <!-- ej: frases cortas, directo, sin vueltas -->
 
 ## Vocabulario propio
-<!-- palabras y giros que usás seguido -->
+<!-- palabras y giros que usás seguido; muletillas características -->
 
-## Cómo abro y cómo cierro
-<!-- tus arranques y despedidas típicas -->
+## Apertura / Cierre / Firma
+<!-- cómo arrancás un mail/mensaje, cómo cerrás, cómo firmás (o si no firmás) -->
 
-## Qué evito
-<!-- ej: emojis, formalismos, guiones largos -->
+## Adaptación por canal / audiencia
+<!-- cómo cambia tu tono según a quién y por dónde -->
+| Canal / a quién | Cómo escribís ahí |
+|---|---|
+| mail a alguien cercano | <!-- ej: directo, sin saludo formal --> |
+| mail a un cliente | <!-- ej: más cuidado, igual sin acartonar --> |
+| Slack / WhatsApp | <!-- ej: telegráfico, sin mayúsculas --> |
+| reporte / documento | <!-- ej: estructurado, con bullets --> |
+
+## Qué evito (estilo)
+<!-- ej: emojis, formalismos, signos de más -->
+
+## Prohibido duro (NUNCA)
+<!-- líneas que no se cruzan nunca. ej: "nunca em-dashes", "nunca 'Estimado/a'", "nunca cerrar con 'quedo a disposición'" -->

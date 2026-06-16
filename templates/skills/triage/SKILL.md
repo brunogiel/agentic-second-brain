@@ -16,6 +16,11 @@ Lee tus fuentes y te las devuelve masticadas: arriba un **brief** (cómo viene e
 
 El **mail** es el corazón. El **calendario** (reporte de citas) y tu **chat/tareas** (Slack, Jira, Linear, Trello, Notion comments, o lo que uses) son extras que se ofrecen y se suman si los tenés conectados. No asume tu stack: trabaja con lo que haya.
 
+## Qué lee y escribe
+- **Lee:** mail / calendario / chat / tareas por MCP (las fuentes que tengas conectadas).
+- **Escribe:** NADA. No manda, no archiva, no cierra tickets, no responde. Solo lee y propone — actuar es siempre con tu OK (y lo hace otro skill, ej. `redactar`).
+- **Modo degradado:** si una fuente conectada falla a mitad, marcá `⚠ no pude leer X` arriba del brief; no la omitas en silencio.
+
 ## Precondición: las fuentes por MCP
 Cada fuente entra por su MCP (mirá `.secondbrain/reference.md`, sección 17):
 - **Mail** (Gmail u otro) — el piso. Si no está, frená y guiá a conectarlo.

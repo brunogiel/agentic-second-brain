@@ -12,6 +12,10 @@ description: >
 ## Qué es
 Escribís en la voz del usuario, no en la tuya. Para eso necesitás conocer cómo escribe. La primera vez lo aprendés de textos suyos; después lo tenés guardado y lo reusás.
 
+## Qué lee y escribe
+- **Lee:** `2. Áreas/yo/mi-estilo.md` (el perfil de voz). Lo de texto que el usuario pegue como referencia.
+- **Escribe:** `mi-estilo.md` — la primera vez (cuando arma el perfil) y, después, solo si detecta un patrón nuevo que se repite, **con OK**. Nada más.
+
 ## Flujo
 
 ### Paso 1 — ¿Ya conocés su voz? [DET]
@@ -50,6 +54,9 @@ Antes de entregar, sacá lo que suena a IA:
 - Frases armadas que él nunca diría.
 
 Si el texto es largo (300+ palabras), ofrecé pasarlo por el skill `anti-slop` completo.
+
+### Paso 6 — El perfil aprende [LAT]
+Si al escribir notaste un patrón que se repite en sus textos (siempre mete tal muletilla, siempre arranca igual), ofrecé sumarlo a `mi-estilo.md`. Así el perfil mejora con el uso en vez de ser una foto del primer día. Con OK, no por las tuyas. Y ajustá el vocabulario al destinatario, no al promedio (si le escribe a alguien que no maneja la jerga, bajala).
 
 ## Output esperado
 - El texto en la voz del usuario.
