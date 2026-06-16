@@ -52,16 +52,17 @@ Cuándo ofrecer cada uno (no los amontones, uno cuando toca):
 - **abrir-sesion / cerrar-sesion:** temprano (apenas tiene identidad o un proyecto). Son la disciplina de captura que hace que la 2da sesión se sienta distinta.
 - **redactar + anti-slop:** cuando aparece que escribe (mails, textos) y quiere que suene a él.
 - **crear-skill:** en el N3, cuando va a armar su primer skill propio.
-- **evaluar-skill:** cuando ya tiene varios skills propios y quiere mantenerlos afilados (mide un skill contra su propia rúbrica y propone mejoras). N3+ / N4.
-- **auditar-sistema:** en el N4, como rutina de salud (tipo sábado).
 - **triage:** en el N4, el brief del día (necesita Gmail/calendario por MCP).
+- **el orquestador de ejemplo (el de PPT):** en el N5, para que use un orquestador y vea el patrón antes de armar el suyo. <!-- TODO: sumar este skill a .secondbrain/skills-disponibles/ cuando Bruno pase el de PPT -->
+- **auditar-sistema:** en el N6 (mantenimiento), el chequeo de salud (tipo sábado).
+- **evaluar-skill:** en el N6 (mantenimiento), para medir un skill contra su rúbrica y afinarlo. (También suelto, antes, si un skill viene flojo.)
 
 El catálogo es la fuente; lo que usa vive en `skills/`. Si edita su copia, es suya; el catálogo queda como original.
 
 ## Cowork o Code (adaptate al cliente)
 El sistema vive entero en la carpeta sincronizada, así que es el mismo cerebro abras donde abras.
 - **Cowork (sin terminal, el default):** no corras comandos de shell; la parte mecánica hacela con tus herramientas. El motor (vos + `actualizar`/`migrar`) viaja dentro de la carpeta, en su `.claude/skills/`; así, al abrir la carpeta, ya estás disponible sin instalar nada. (Es el único caso donde el motor vive adentro de la carpeta; en Claude Code queda afuera, global e invisible. Igual no lo listes en `skills/`: ahí van solo los skills de uso.)
-- **Claude Code (terminal, más avanzado):** corré el `install.sh`, que además deja el motor global en `~/.claude/skills/` (funciona en cualquier carpeta) y arma scripts de verdad. Acá cobra sentido el Nivel 5 (split código/contexto).
+- **Claude Code (terminal, más avanzado):** corré el `install.sh`, que además deja el motor global en `~/.claude/skills/` (funciona en cualquier carpeta) y arma scripts de verdad. Acá cobra sentido la rama "si programás" (split código/contexto).
 - **Migrar de Cowork a Code = abrir la misma carpeta en Code.** No hay migración: el cerebro ya está en la carpeta.
 - **Y más allá de Claude:** el *cerebro* (carpetas, identidad, proyectos) **y los skills de uso** son portables: los skills viven en `skills/` y se disparan por la tabla "Mis skills" del `CLAUDE.md`, que leen Codex/Cursor igual (vía el `AGENTS.md` que apunta al `CLAUDE.md`). Lo único atado a Claude es el *motor de armado* (el comando `/second-brain-coach` y `actualizar`/`migrar`). El harness es las manos; el cerebro es del usuario.
 
@@ -83,8 +84,10 @@ La checklist (tachá lo que ya cumple, guardala en `ESTADO.md`):
 - [ ] Tabla de atajos con filas reales
 - [ ] Al menos un skill propio
 - [ ] Una rutina corriendo
-- [ ] (si programa) código y contexto separados + `dev-prefs` cargadas
-- [ ] (si programa) conecta herramientas por MCP o usa subagentes
+- [ ] Conectó una herramienta por MCP y algo la consume (ej: `triage`) — no requiere programar; si no tiene nada que conectar, marcalo n/a (no bloquea el nivel)
+- [ ] Usó un orquestador de ejemplo y armó el suyo (multiagente)
+- [ ] Le dio una revisión al sistema (`auditar-sistema`) y afinó un skill (`evaluar-skill`)
+- [ ] (rama si programa, fuera del conteo) código y contexto separados + `dev-prefs`; subagentes en su propio código
 
 El "nivel" de la escalera es un resumen de esta checklist, no un cajón. Lo usás para hablarle simple ("vas como por el Nivel 2"), pero por dentro pensás en ítems concretos.
 
@@ -106,17 +109,21 @@ Cada escalón es un concepto + algo que se construye.
 - **Nivel 1: Primer proyecto.** Un proyecto = objetivo + fecha, con su propio cerebro (CLAUDE.md + log). Construye: una carpeta en `1. Proyectos/`.
 - **Nivel 2: Atajos.** Una tabla frase → carpeta rutea al toque. Construye: filas reales en la tabla de atajos.
 - **Nivel 3: Primer skill.** Qué es un skill, la regla de 3, y qué es un script. El kit ya trae uno funcionando, `actualizar`: ábranlo juntos para ver la anatomía, y después arma EL SUYO (algo que repite 3 veces). Construye: su primer skill propio en `skills/` + su fila en la tabla "Mis skills".
-- **Nivel 4: Primera rutina.** Skill vs rutina, una rutina corre sola. Construye: agendar `actualizar` (que ya viene) + que deje un log de corrida (una línea: qué corrió, salió bien sí/no, cuándo).
-- **Nivel 5: (si programás) split código / contexto.** Construye: mover el código y dejar un puntero.
+- **Nivel 4: El sistema trabaja para vos.** Skill vs rutina, una rutina corre sola; y conectar herramientas por MCP le da ojos (mail, calendario), no solo tus archivos. Construye: agendar `actualizar` (que ya viene) + que deje un log de corrida (una línea: qué corrió, salió bien sí/no, cuándo), y conectar una herramienta para que `triage` arme el brief del día.
+- **Nivel 5: Orquestás.** Qué es un orquestador: un skill que no hace el trabajo, coordina a otros skills (o subagentes) y junta los resultados. El kit trae uno de ejemplo, el de PPT (arma una presentación coordinando varios skills): que lo use para ver el patrón, y después armá EL SUYO. Construye: usar el orquestador de ejemplo + armar el propio en `skills/`.
+- **Nivel 6: Mantenés el sistema.** Un sistema que no se revisa se pudre callado. Construye: primera corrida de `auditar-sistema` (salud) + afinar un skill con `evaluar-skill`.
+- **Rama (si programás), fuera del conteo:** split código / contexto (mover el código, dejar un puntero) y subagentes en tu propio código. Enganchás cuando toca; no es un escalón que todos pasan.
 
 ## Micro-lecciones por escalón (lo que enseñás antes de proponer)
 Cortas, en criollo. Base, no las recites textual.
-- **N0:** "El asistente es un cerebro que genera texto, no sabe quién sos. Estos archivos lo convierten en *tu* asistente: los lee al arrancar y deja de improvisar. Y un hábito clave desde hoy: lo que no querés decidir ahora no lo perdés, lo tirás al `0. Inbox/` y seguís."
+- **N0:** "El asistente es un cerebro que genera texto, no sabe quién sos. Estos archivos lo convierten en *tu* asistente: los lee al arrancar y deja de improvisar. Y un hábito clave desde hoy: lo que no querés decidir ahora no lo perdés, lo tirás al `0. Inbox/` y seguís. Y un truco que sirve siempre: cuando le pidas algo grande, cerrá con *'preguntame lo que necesites primero'* — te entrevista y clava la respuesta en vez de que adivines el prompt."
 - **N1:** "Un proyecto es algo que se termina. Le damos su propio archivo + un log: la próxima vez no reconstruís por qué hiciste las cosas, está escrito."
 - **N2:** "Con varios proyectos, esta tabla le dice al asistente dónde buscar apenas decís una frase. Acá se siente mágico."
 - **N3:** "Si le pediste lo mismo 3 veces, eso es un skill: una receta que se dispara con una frase. El kit ya trae uno hecho, `actualizar`; lo abrimos para ver cómo es por dentro, y después armás el tuyo. De paso, qué es un script: la parte mecánica la hace código, no el modelo adivinando."
-- **N4:** "Un skill lo disparás vos. Una rutina corre sola, en horario, sin que estés. Y una rutina sin log es ciega: que deje una línea al terminar, así sabés si salió bien sin estar mirando."
-- **N5:** "Si programás, el código va en su repo y el contexto se queda acá. Un archivo cortito en el repo apunta de vuelta."
+- **N4:** "Un skill lo disparás vos. Una rutina corre sola, en horario, sin que estés. Y una rutina sin log es ciega: que deje una línea al terminar, así sabés si salió bien sin estar mirando. La otra mitad del nivel es **conectar una herramienta** (Gmail, calendario, Notion) por MCP — eso no es programar, es darle ojos: recién ahí `triage` te arma el brief del día con tu mail y agenda de verdad."
+- **N5:** "Cuando tenés varios skills, el siguiente paso es que trabajen juntos. Un orquestador es un skill que no hace el laburo: reparte (a otros skills o a subagentes) y junta los resultados. El kit trae uno de ejemplo, el de PPT; usalo para ver cómo es, y después armás el tuyo."
+- **N6:** "Un sistema que no se revisa se pudre callado: skills que dejaron de cumplir, archivos viejos, rutinas que fallan sin avisar. `auditar-sistema` te da el chequeo de salud (tipo sábado) y `evaluar-skill` afina un skill contra su rúbrica. Mantener es un escalón, no un lujo."
+- **(rama si programás):** "El código va en su repo y el contexto se queda acá; un archivo cortito apunta de vuelta. Y para tareas grandes, subagentes en tu código. Esto no es un escalón que todos pasan: lo hacés si programás."
 
 ## Flujo
 
@@ -150,7 +157,7 @@ Leé `ESTADO.md` y `ESCALERA.md` primero (son chicos). Después tachá la checkl
 
 ### Paso 2: Ubicalo [LAT]
 Traducí la checklist a un nivel para hablarle simple:
-- Identidad con `<...>` → **N0**. Identidad llena, 0 proyectos → **N1**. 3+ proyectos, atajos vacíos → **N2**. Atajos llenos, sin skills propios → **N3**. Tiene su skill, sin rutina → **N4**. Programa y no separó código → **N5**. Tiene todo → "modo afinar".
+- Identidad con `<...>` → **N0**. Identidad llena, 0 proyectos → **N1**. 3+ proyectos, atajos vacíos → **N2**. Atajos llenos, sin skills propios → **N3**. Tiene su skill, sin rutina/herramienta → **N4**. Rutina + herramienta, sin orquestar → **N5**. Orquesta pero nunca revisó el sistema → **N6**. Tiene todo → "modo afinar". (El split código/contexto es rama aparte "si programás", no cuenta para el nivel.)
 
 ### Paso 3: Decile dónde está, en 3 líneas [LAT]
 ```
@@ -164,7 +171,7 @@ La micro-lección del escalón al que va (2-3 líneas), aunque después no lo co
 
 ### Paso 5: Proponé UN paso [LAT]
 > "El próximo paso es <X>. ¿Lo armamos juntos ahora?"
-Ejemplos: N0 "llenemos `sobre-mi` y `como-trabajo`, te hago 4 preguntas". N1 "creemos tu primer proyecto". N2 "armemos la tabla de atajos". N3 "abrimos el `actualizar` que ya viene para ver cómo es un skill por dentro, y armamos el tuyo". N4 "pongamos `actualizar` a correr solo, con un log". N5 "separemos código y contexto".
+Ejemplos: N0 "llenemos `sobre-mi` y `como-trabajo`, te hago 4 preguntas". N1 "creemos tu primer proyecto". N2 "armemos la tabla de atajos". N3 "abrimos el `actualizar` que ya viene para ver cómo es un skill por dentro, y armamos el tuyo". N4 "pongamos `actualizar` a correr solo + conectá una herramienta". N5 "usemos el orquestador de PPT y después armamos el tuyo". N6 "corramos `auditar-sistema` y afinemos un skill". (Si programás: "separemos código y contexto".)
 
 ### Paso 6: Si dice que sí, hacelo (según el modo) [DET/LAT]
 Solo con el OK.
@@ -172,8 +179,10 @@ Solo con el OK.
 - **N1:** `1. Proyectos/<nombre>/CLAUDE.md` con contexto + log, usando la plantilla `.secondbrain/plantilla-proyecto.md` (Qué es / Cómo trabajar acá / Estado / Decisiones / Próximo paso / Links). Ofrecé la línea **"Cómo trabajar acá"** (la persona del asistente para ese proyecto: "sé escéptico", "sé breve", "paso a paso"); si no la quiere, se borra.
 - **N2:** filas a la tabla de atajos.
 - **N3 (primer skill):** instalá `crear-skill` desde el catálogo a su `skills/` (con OK) — queda a la vista para que vea cómo está hecho un skill por dentro (frontmatter con las frases que disparan, pasos `[DET]`/`[LAT]`). Eso le enseña qué es un skill y qué es un script. Después, guiado por `crear-skill`, armá EL SUYO (algo que repita 3 veces, regla de 3) en `skills/<nombre>/SKILL.md`, y anotalo en la tabla "Mis skills" del `CLAUDE.md` raíz. Tu Recurso `3. Recursos/arquitectura-skills.md` es la referencia.
-- **N4:** agendá `actualizar` (motor, ya global) como rutina + anotala en "Rutinas" del root. Enseñá el log de corrida: que la rutina deje una línea al terminar (qué corrió, salió bien sí/no, cuándo), así sabés que anduvo sin estar mirando. Y sumá desde el catálogo, según le sirva: `auditar-sistema` (salud del sistema, tipo sábado) y `triage` (el brief del día: mail + calendario + chat/tareas, lo que tengas conectado por MCP). Quedan a la vista en `skills/`.
-- **N5:** mové el código a su repo + dejá un puntero. Si programa, ofrecé crear/llenar `2. Áreas/yo/dev-prefs.md`. Si además desarrolla software en serio (con epics, PRDs, equipo), aclarale que eso es otro deporte y existe BMAD-METHOD para ese ciclo; SecondBrain se queda con su contexto y decisiones.
+- **N4:** agendá `actualizar` (motor, ya global) como rutina + anotala en "Rutinas" del root. Enseñá el log de corrida: que la rutina deje una línea al terminar (qué corrió, salió bien sí/no, cuándo), así sabés que anduvo sin estar mirando. Y sumá desde el catálogo, según le sirva: `auditar-sistema` (salud del sistema, tipo sábado) y `triage` (el brief del día: mail + calendario + chat/tareas, lo que tengas conectado por MCP). Quedan a la vista en `skills/`. **Conectar una herramienta (Gmail/calendario/Notion) es la otra mitad del N4 y NO requiere programar:** es lo que hace que `triage` deje de leer solo archivos y mire tu mail y agenda de verdad. Si el usuario no tiene nada que conectar (o está en un harness sin MCP), marcá ese ítem n/a en la `ESCALERA` y no bloquea el nivel.
+- **N5 (orquestar):** instalá el orquestador de ejemplo desde el catálogo a su `skills/` (con OK) — el de PPT, que arma una presentación coordinando varios skills/subagentes. Que lo use una vez para sentir cómo es, y que abra su `SKILL.md` para ver el patrón (un coordinador que reparte y junta). Después, guiado, armá EL SUYO: un orquestador propio para algo que repita y tenga partes. La doctrina de cómo se arma está en `3. Recursos/arquitectura-skills.md` (sección "Cómo se arma un orquestador"). Anotá ambos en la tabla "Mis skills".
+- **N6 (mantener):** instalá `auditar-sistema` y `evaluar-skill` desde el catálogo (con OK). Corré la primera auditoría (salud del sistema, tipo sábado: archivos huérfanos, skills que no cumplen, rutinas mudas) y afiná un skill con `evaluar-skill`. Enseñá que esto es recurrente, no de una vez.
+- **(rama si programás, fuera del conteo):** mové el código a su repo + dejá un puntero. Ofrecé crear/llenar `2. Áreas/yo/dev-prefs.md`. Para tareas grandes, subagentes. Si además desarrolla software en serio (con epics, PRDs, equipo), aclarale que eso es otro deporte y existe BMAD-METHOD; SecondBrain se queda con su contexto y decisiones.
 
 **Los skills de sesión son lo primero que conviene sumarle (temprano, apenas tiene identidad o un proyecto).** Instalá `abrir-sesion` y `cerrar-sesion` desde el catálogo a su `skills/` (con OK) y contale: que diga *"retomemos"* / *"¿en qué estaba?"* y `abrir-sesion` lo briefea; *"cerremos por hoy"* y `cerrar-sesion` deja el `ESTADO.md`, el log y el **próximo paso** al día. Esa disciplina (capturar al cerrar, retomar al abrir) es lo que hace que la 2da sesión se sienta distinta — la versión liviana de "no cierro sin loguear qué pasó". Como quedan en `skills/`, los ve y aprende cómo están.
 

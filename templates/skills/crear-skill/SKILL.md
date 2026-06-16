@@ -18,6 +18,9 @@ Convertís una tarea que repetís en un skill: un `SKILL.md` que se dispara con 
 ## Antes de empezar: la regla de 3
 Preguntá: ¿ya hiciste esta tarea 3 veces? Si no, avisá que es prematuro y ofrecé esperar. Un skill para algo que hacés una sola vez es laburo al pedo.
 
+## Arrancá de lo que ya hiciste (no de cero)
+Si pasaste la regla de 3, esas 3 veces *son* el material: pedile que traiga los pedidos viejos (lo que le dijo al asistente esas veces) y destilá el proceso de ahí, en vez de inventar desde una hoja en blanco. Sale mejor y más rápido — ya tenés las frases reales y los pasos que de verdad usa. Si no los tiene a mano, seguí con la entrevista normal.
+
 ## Flujo
 1. **[LAT]** ¿Qué tarea automatiza? Que la describa en términos de su trabajo, no de código.
 2. **[LAT]** Las frases reales que lo disparan. No "hace reportes", sino "cargá la factura", "subí el resumen". Esto es lo que hace que se dispare solo cuando hace falta.
@@ -26,6 +29,7 @@ Preguntá: ¿ya hiciste esta tarea 3 veces? Si no, avisá que es prematuro y ofr
 5. **[LAT]** Cómo se ve un buen resultado: qué devuelve + 2 o 3 señales de que salió bien.
 6. **[LAT] (eval-first, recomendado)** Antes de escribir las instrucciones, anotá 2-3 casos concretos de prueba con su resultado esperado ("si digo X, debería hacer Y"). Es la práctica #1 de la doctrina oficial de skills: te asegura que resolvés un problema real, no uno imaginario, y te deja con qué chequearlo después. Ofrecelo; si dice que no, seguí.
 7. **[DET]** Escribí el `SKILL.md` en `skills/<nombre>/SKILL.md` **de la carpeta del usuario** (carpeta a secas y a la vista; la abre y la edita). **Y anotalo en la tabla "Mis skills" del `CLAUDE.md` raíz con su frase gatillo — ese paso es lo que lo hace disparar:** el asistente lo encuentra por la tabla, no por la carpeta. Sin la fila, el archivo está pero no se activa. (Así anda igual en Code, Cowork y Codex.)
+8. **[LAT] (verificá el disparo)** Antes de darlo por hecho, preguntá *"¿cuándo usarías el skill <nombre>?"*. Si recita algo que no matchea las frases reales con las que lo vas a llamar, afiná la descripción — el problema de un skill que no dispara casi siempre vive ahí, no en los pasos.
 
 ## Checklist del skill que armás (lo que tiene que tener)
 Un skill bien hecho declara, como mínimo:

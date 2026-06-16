@@ -23,7 +23,7 @@ Un `SKILL.md` en una carpeta, con:
 - **Descripción con frases reales** que lo disparan (no "hace reportes", sino "cargá la factura", "subí el resumen"). Eso es lo que hace que se dispare solo. Escribila en **tercera persona** ("Arma un reporte… Usalo cuando el usuario diga…"), no en segunda ("te ayuda a…"): es lo que recomienda la doctrina oficial de skills, porque la descripción se inyecta en el system prompt y el punto de vista mezclado confunde el disparo.
 - **Nombre** en minúscula-con-guiones, idealmente en gerundio (`armando-reportes`, `redactando`), sin las palabras `claude` ni `anthropic` (están reservadas).
 - **Contexto en 2 líneas:** qué hace y para quién, en términos de tu trabajo.
-- **Cuándo SÍ y cuándo NO** usarlo.
+- **Cuándo SÍ y cuándo NO** usarlo. El *cuándo NO* pesa más que el *cuándo SÍ*: es lo que evita que el skill secuestre charlas que no le tocan.
 - **Pasos marcados `[DET]` o `[LAT]`.**
 - **Qué archivos lee y escribe.**
 - **Cómo se ve un buen resultado:** qué devuelve + 2 o 3 señales de que salió bien.
@@ -33,6 +33,10 @@ Un `SKILL.md` en una carpeta, con:
 - **Pedirle al modelo cuentas grandes:** contar o cruzar muchas filas es script (DET), no criterio.
 - **Mega-skill:** si una parte sirve para varias cosas, sacala a su propio skill chico y reusala.
 - **Sin señales de éxito:** si al terminar no sabés si salió bien, falta definirlo.
+- **Hornear el tono adentro del skill:** la voz ya vive en tu identidad (`soul`/`como-trabajo`/`mi-estilo`) y dispara junto. El skill maneja el *proceso* (estructura, pasos, formato); el tono lo pone tu identidad. No los dupliques.
+
+## Si no se dispara (el debug más rápido)
+Tenés el skill pero no se activa cuando lo llamás. Preguntale al asistente: *"¿cuándo usarías el skill X?"*. Te recita la descripción tal cual la entiende, y ahí ves al toque qué está vago, qué falta o por qué matchea otra cosa. El problema de un skill que no engancha casi siempre vive en las **frases de la descripción**, no en los pasos. (Distinto de `evaluar-skill`, que mide la *calidad* de una corrida que ya pasó; esto arregla que ni arranque.)
 
 ## Skill vs rutina vs orquestador (para cuando crezcas)
 - **Skill:** receta, corre con vos presente, puede preguntarte.
@@ -40,6 +44,14 @@ Un `SKILL.md` en una carpeta, con:
 - **Orquestador:** no hace el trabajo, coordina a otros skills y junta los resultados.
 
 Empezás con skills. Lo demás viene después, cuando una tarea ya no te necesita ahí.
+
+## Cómo se arma un orquestador (Nivel 5)
+Un orquestador es un skill que NO hace el trabajo: reparte y junta. El patrón:
+1. **Parte el trabajo** en pedazos independientes (por archivo, por tema, por lente).
+2. **Reparte:** llama a otros skills en orden (orquestador con estado, arrastra contexto entre pasos) o lanza subagentes en paralelo, cada uno con su pedazo y su contexto limpio (multi-agente).
+3. **Junta:** toma los resultados y los sintetiza en una sola salida.
+
+Reglas: el coordinador queda fino (decide qué se reparte y cómo se junta); el laburo pesado vive en los skills/subagentes que llama. Paralelo solo cuando los pedazos son de verdad independientes; si cada paso necesita el anterior, es secuencial. Se aprende igual que un skill: usás uno de ejemplo (el de PPT) para ver el patrón y después armás el tuyo. El multi-agente brilla cuando una decisión necesita varias miradas (ver `council`: 4 lentes + síntesis).
 
 ## Dónde viven (y cómo se disparan)
 Los skills que usás viven en **`skills/`** de tu SB, a secas y a la vista (los ves, los abrís, aprendés cómo están). Lo que los dispara es **la tabla "Mis skills" de tu `CLAUDE.md`**: el asistente lee el `CLAUDE.md` al arrancar y, cuando decís una frase que matchea una fila (frase → skill), sigue ese `skills/<nombre>/SKILL.md`. Por eso andan **igual en Claude Code, Cowork y Codex** (los tres leen el `CLAUDE.md`; en Codex vía `AGENTS.md`), sin carpetas ocultas ni nada específico de un harness.

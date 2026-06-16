@@ -254,17 +254,20 @@ Vos solo ves lo que usás. El proceso y el motor trabajan de fondo.
 
 ---
 
-## 16. Más allá (track avanzado, opcional)
+## 16. Orquestar y mantener (Niveles 5-6)
 
-Si ya venís usando asistentes y la escalera te quedó chica, esto es el mapa de lo que sigue. No viene armado: es a medida tuya. Acá te dejo los conceptos y cuándo te sirven.
+Cuando ya tenés varios skills y una rutina, el sistema da para más. Ojo: esto **no es posgrado** — son los dos últimos escalones del espinazo. No viene armado: lo armás a tu medida. Acá los conceptos.
 
-- **Orquestadores con estado:** una receta que coordina varias y arrastra contexto entre pasos. Para procesos de varios pasos que se repiten.
-- **Agentes que corren solos:** procesos que arrancan por horario o evento, sin vos. Para tareas que ya no te necesitan presente.
-- **Multi-agente:** varios asistentes en paralelo, cada uno con su parte, y uno que junta. Para trabajo grande que no entra en una sola cabeza. Un caso concreto y potente: **varias personas sobre la misma decisión** — un pedido corre 4 lentes (el que defiende, el abogado del diablo que hace el pre-mortem, el que verifica los números, el que mira el equipo) y después sintetiza. Un solo lente sesga; cuatro te dan una decisión más honesta. (Si querés algo así ya hecho, mirá tu skill `council`.)
-- **Evals:** medir si una receta hace bien su trabajo, de forma repetible, en vez de "parece que anduvo". Para cuando algo importa y lo corrés seguido.
-- **Auto-mejora de skills:** el kit trae `evaluar-skill` para esto — mide un skill contra su propio `SKILL.md` (la rúbrica) en una corrida real y propone arreglos concretos, sin aplicarlos. El cierre del loop (patrón "autoresearch") es: `evaluar-skill` detecta el fallo → vos (o `crear-skill`) aplicás el arreglo → repetís. Mejorás algo medible a fuerza de iterar, sin que el modelo cambie. Respeta "propone, vos decidís": nunca pisa un skill solo.
+**Nivel 5 — Orquestar.** Un orquestador es una receta que NO hace el trabajo: coordina a otros skills (o a subagentes) y junta los resultados.
+- **Orquestador con estado:** llama a varios en orden y arrastra contexto entre pasos. Para procesos de varios pasos que se repiten.
+- **Multi-agente:** varios asistentes en paralelo, cada uno con su parte, y uno que junta. Para trabajo grande que no entra en una sola cabeza. Caso potente: **varias miradas sobre la misma decisión** — un pedido corre 4 lentes (el que defiende, el abogado del diablo que hace el pre-mortem, el que verifica los números, el que mira el equipo) y después sintetiza. Un lente sesga; cuatro dan una decisión más honesta. (Ya hecho: tu skill `council`.)
+- **Cómo se aprende:** igual que un skill — usás uno de ejemplo (el de PPT, que arma una presentación coordinando varios skills/subagentes) para ver el patrón, y después armás el tuyo. El "cómo se arma" está en `arquitectura-skills.md`.
 
-Regla de oro acá: no metas esto hasta que la escalera 0 a 5 te quede realmente corta. Es posgrado. La mayoría no lo necesita.
+**Nivel 6 — Mantener.** Un sistema que no se revisa se pudre callado. Dos herramientas del kit:
+- **`auditar-sistema`:** el chequeo de salud (tipo sábado) — archivos huérfanos, skills que dejaron de cumplir, rutinas que fallan mudas.
+- **`evaluar-skill` (evals):** medís un skill contra su propia rúbrica en una corrida real y aplicás una mejora, en vez de "parece que anduvo". El cierre del loop ("autoresearch"): `evaluar-skill` detecta el fallo → vos (o `crear-skill`) aplicás el arreglo → repetís. Respeta "propone, vos decidís": nunca pisa un skill solo.
+
+**Frontera real (opt-in, posgrado de verdad):** lo que sí esperás a que todo lo anterior te quede chico — agentes 100% autónomos que actúan sin tu OK, y la auto-mejora corriendo en loop cerrado sin vos en el medio. La mayoría no lo necesita.
 
 ---
 
@@ -272,11 +275,11 @@ Regla de oro acá: no metas esto hasta que la escalera 0 a 5 te quede realmente 
 
 Dos cosas que, cuando las entendés, te cambian lo que podés hacer. No son del día uno, pero tampoco son posgrado: valen la pena.
 
-**Conectar herramientas (MCP).** Por default tu asistente toca archivos. Con MCP (un estándar para enchufarle herramientas) le das acceso a tus apps: Gmail, tu calendario, una base de datos, lo que sea. Recién ahí puede leer tu inbox, agendar, consultar tus datos. Ejemplo concreto: conectás Gmail por MCP y entonces sí podés tener una rutina que te arma el digest de los mails de la mañana. El MCP es la diferencia entre un asistente que solo ordena tus carpetas y uno que opera tu mundo. Una forma de pensarlo: **el MCP es la plomería (le da acceso a la herramienta); el skill es el cerebro (sabe cómo usarla).** Cómo se conecta depende del cliente (Claude Code, Cowork): pedile a tu asistente que te guíe para enchufar el que necesites.
+**Conectar herramientas (MCP).** Por default tu asistente toca archivos. Con MCP (un estándar para enchufarle herramientas) le das acceso a tus apps: Gmail, tu calendario, una base de datos, lo que sea. Recién ahí puede leer tu inbox, agendar, consultar tus datos. Ejemplo concreto: conectás Gmail por MCP y entonces sí podés tener una rutina que te arma el digest de los mails de la mañana. El MCP es la diferencia entre un asistente que solo ordena tus carpetas y uno que opera tu mundo. Una forma de pensarlo: **el MCP es la plomería (le da acceso a la herramienta); el skill es el cerebro (sabe cómo usarla).** Cómo se conecta depende del cliente (Claude Code, Cowork): pedile a tu asistente que te guíe para enchufar el que necesites. Esto es parte del **Nivel 4** y **no requiere programar** — es configurar un conector, no escribir código.
 
 > **Ojo con el combo riesgoso.** Cuando le das a la vez (1) acceso a datos privados, (2) la posibilidad de leer contenido de afuera que no controlás (un mail, una web) y (3) capacidad de mandar cosas para afuera (responder mails, postear), abrís la puerta a que un contenido malicioso le "dicte" acciones. No es para asustarte: es para que, antes de automatizar algo que mezcle las tres, lo revises y, si hay dudas, lo dejes con tu OK en el medio.
 
-**Subagentes.** Un subagente es otro asistente que lanzás para una parte del laburo, en paralelo, con su propio contexto limpio. Sirve para cosas grandes: revisar 20 archivos a la vez, investigar varios temas en simultáneo, o separar un trabajo en pedazos que corren juntos y después se juntan. La regla: usalo cuando una tarea es grande o tiene partes independientes. Para lo chico y secuencial, no hace falta, suma ruido.
+**Subagentes.** Un subagente es otro asistente que lanzás para una parte del laburo, en paralelo, con su propio contexto limpio. Sirve para cosas grandes: revisar 20 archivos a la vez, investigar varios temas en simultáneo, o separar un trabajo en pedazos que corren juntos y después se juntan. La regla: usalo cuando una tarea es grande o tiene partes independientes. Para lo chico y secuencial, no hace falta, suma ruido. Los subagentes en paralelo son el corazón del multi-agente del **Nivel 5** (sección 16); usarlos dentro de tu propio código es la rama "si programás".
 
 Las dos se combinan con lo de antes: una rutina (sección 10) que conecta una herramienta por MCP y reparte el trabajo en subagentes es, básicamente, un asistente que trabaja solo mientras dormís.
 
@@ -287,8 +290,10 @@ Las dos se combinan con lo de antes: una rutina (sección 10) que conecta una he
 - **Nivel 1:** tu primer proyecto con su `CLAUDE.md`.
 - **Nivel 2:** la tabla de atajos en tu `CLAUDE.md` raíz.
 - **Nivel 3:** tu primer skill propio (leyendo el `actualizar` de ejemplo, sección 8).
-- **Nivel 4:** tu primera rutina (poné `actualizar` a correr solo, con log, sección 10).
-- **Nivel 5:** (si programás) el split código / contexto.
-- **Más allá:** track avanzado (sección 16), opt-in.
+- **Nivel 4:** el sistema trabaja para vos — tu primera rutina (poné `actualizar` a correr solo, con log, sección 10) + conectar una herramienta por MCP para que `triage` arme el brief del día (sección 17; no requiere programar).
+- **Nivel 5:** orquestás — usás un orquestador de ejemplo (el de PPT) y después armás el tuyo, multiagente (sección 16).
+- **Nivel 6:** mantenés el sistema — tu primera revisión con `auditar-sistema` + afinás un skill con `evaluar-skill` (sección 16).
+- **Rama (si programás), fuera del conteo:** el split código / contexto + subagentes en tu código.
+- **Más allá:** frontera real (agentes autónomos, auto-mejora en loop), opt-in.
 
 ¿No sabés en qué escalón estás? Pedile **`/second-brain-coach`**.
