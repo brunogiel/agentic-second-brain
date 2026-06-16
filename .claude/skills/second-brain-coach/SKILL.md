@@ -53,7 +53,7 @@ El sistema vive entero en la carpeta sincronizada, así que es el mismo cerebro 
 - **Cowork (sin terminal, el default):** no corras comandos de shell; la parte mecánica hacela con tus herramientas. El motor (vos + `actualizar`/`migrar`) viaja dentro de la carpeta, en su `.claude/skills/`; así, al abrir la carpeta, ya estás disponible sin instalar nada. (Es el único caso donde el motor vive adentro de la carpeta; en Claude Code queda afuera, global e invisible. Igual no lo listes en `skills/`: ahí van solo los skills de uso.)
 - **Claude Code (terminal, más avanzado):** corré el `install.sh`, que además deja el motor global en `~/.claude/skills/` (funciona en cualquier carpeta) y arma scripts de verdad. Acá cobra sentido el Nivel 5 (split código/contexto).
 - **Migrar de Cowork a Code = abrir la misma carpeta en Code.** No hay migración: el cerebro ya está en la carpeta.
-- **Y más allá de Claude:** el *cerebro* (las carpetas de texto, la identidad, los proyectos) es portable y sirve con Codex, Cursor o lo que venga. El *motor* (los skills `.claude/skills/`, los `/comandos`) está pensado para Claude Code / Cowork: en otro harness viaja el texto, no los disparadores. Por eso dejamos un `AGENTS.md` que apunta al `CLAUDE.md` (Codex busca ese nombre). El harness es las manos; el cerebro es del usuario.
+- **Y más allá de Claude:** el *cerebro* (carpetas, identidad, proyectos) **y los skills de uso** son portables: los skills viven en `skills/` y se disparan por la tabla "Mis skills" del `CLAUDE.md`, que leen Codex/Cursor igual (vía el `AGENTS.md` que apunta al `CLAUDE.md`). Lo único atado a Claude es el *motor de armado* (el comando `/second-brain-coach` y `actualizar`/`migrar`). El harness es las manos; el cerebro es del usuario.
 
 ## Los 3 modos (la primera vez le preguntás cuál quiere)
 El modo regula cuánto hacés vos y cuánto enseñás. Es pegajoso: guardalo en `ESTADO.md` (`Modo: ...`) y respetalo. Es cambiable cuando quiera.
@@ -91,7 +91,7 @@ Cada escalón es un concepto + algo que se construye.
 - **Nivel 0: Te conoce + capturás.** Las 3 capas (modelo / harness / tus carpetas) y el hábito día-uno: lo turbio se captura en `0. Inbox/` en vez de perderse. Construye: `sobre-mi` + `como-trabajo` llenos (el inbox ya viene con el kit; solo se enseña a usarlo).
 - **Nivel 1: Primer proyecto.** Un proyecto = objetivo + fecha, con su propio cerebro (CLAUDE.md + log). Construye: una carpeta en `1. Proyectos/`.
 - **Nivel 2: Atajos.** Una tabla frase → carpeta rutea al toque. Construye: filas reales en la tabla de atajos.
-- **Nivel 3: Primer skill.** Qué es un skill, la regla de 3, y qué es un script. El kit ya trae uno funcionando, `actualizar`: ábranlo juntos para ver la anatomía, y después arma EL SUYO (algo que repite 3 veces). Construye: su primer skill propio en `.claude/skills/`.
+- **Nivel 3: Primer skill.** Qué es un skill, la regla de 3, y qué es un script. El kit ya trae uno funcionando, `actualizar`: ábranlo juntos para ver la anatomía, y después arma EL SUYO (algo que repite 3 veces). Construye: su primer skill propio en `skills/` + su fila en la tabla "Mis skills".
 - **Nivel 4: Primera rutina.** Skill vs rutina, una rutina corre sola. Construye: agendar `actualizar` (que ya viene) + que deje un log de corrida (una línea: qué corrió, salió bien sí/no, cuándo).
 - **Nivel 5: (si programás) split código / contexto.** Construye: mover el código y dejar un puntero.
 
