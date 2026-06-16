@@ -26,6 +26,24 @@ Te crea, **en tu carpeta**, solo lo tuyo: las carpetas `0. Inbox/` + PARA y lo e
 
 Después abrí Claude Code o Cowork en la carpeta y escribí **`/second-brain-coach`**.
 
+## ¿Ya tenés un sistema?
+
+No tenés que migrar. Instalalo y usalo como quieras. Si ya tenés una carpeta que funciona, el coach **lee tu estructura y la mantiene**: no te renombra carpetas ni te fuerza PARA. Mapea lo que tenés en tu router (el `CLAUDE.md` que el asistente lee al arrancar) para que deje de adivinar dónde vive cada cosa, y después te propone un par de mejoras *en tu propia estructura*, de a una. Tomás las ideas que te gustan y dejás el resto. PARA es solo el empaque default para el que arranca de cero, no un requisito. Lo único no-negociable es que el router conozca tu estructura; todo lo demás es opt-in.
+
+No es destructivo y es reversible (ver *Qué toca* abajo), así que no hay una gran decisión que tomar: instalalo, probalo y quedate con lo que te sirve.
+
+## Qué toca (y cómo deshacerlo)
+
+Sin caja negra. El reparto exacto:
+
+- **Tu carpeta** recibe solo lo tuyo (tu `CLAUDE.md`, identidad, proyectos, inbox, los skills de uso que adoptás). El instalador **nunca pisa un archivo que ya tenés** (saltea lo que existe), así que no puede romper un sistema que ya armaste.
+- **El método** se instala global en `~/.claude/skills/` (el coach + `actualizar`/`migrar`), como una app. Nada de él vive en tu carpeta.
+- **Las actualizaciones** solo refrescan ese motor global. Nunca tocan tu carpeta, así que tus ediciones están a salvo.
+- **Desinstalar** saca solo el motor global; tu carpeta queda intacta:
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/brunogiel/secondbrain-claude/main/uninstall.sh | SB_YES=1 bash
+  ```
+
 ## La escalera (crecé de a un escalón)
 
 No armás todo el día uno. Subís. El coach te enseña la idea de cada escalón, no solo qué hacer.

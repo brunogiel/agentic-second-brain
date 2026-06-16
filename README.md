@@ -28,6 +28,24 @@ Not on the terminal (e.g. Cowork desktop)? Download the zip or `git clone` and o
 
 Then open Claude Code or Cowork in the folder and type **`/second-brain-coach`**.
 
+## Already have a system?
+
+You don't have to migrate. Install it and use it however you want. If you already have a folder that works, the coach **reads your structure and keeps it**: it won't rename your folders or force PARA on you. It maps what you have into your router (the `CLAUDE.md` the assistant reads at startup) so it stops guessing where things live, then proposes a couple of improvements *in your own structure*, one at a time. Take the ideas you like, leave the rest. PARA is just the default packaging for someone starting from zero, not a requirement. The one non-negotiable is the router knowing your structure; everything else is opt-in.
+
+It's non-destructive and reversible (see *What it touches* below), so there's no big decision to make: install it, try it, keep what helps.
+
+## What it touches (and how to undo it)
+
+No black box. The exact split:
+
+- **Your folder** gets only your own content (your `CLAUDE.md`, identity, projects, inbox, the use-skills you adopt). The installer **never overwrites a file you already have** (it skips anything that exists), so it can't clobber a system you already built.
+- **The method** installs globally in `~/.claude/skills/` (the coach + `actualizar`/`migrar`), like an app. None of it lives in your folder.
+- **Updates** only refresh that global engine. They never touch your folder, so your edits are safe.
+- **Uninstall** removes only the global engine; your folder stays untouched:
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/brunogiel/secondbrain-claude/main/uninstall.sh | SB_YES=1 bash
+  ```
+
 ## The ladder (grow one rung at a time)
 
 You don't build the whole system on day one. You climb. The coach teaches you the idea behind each rung, not just what to do.

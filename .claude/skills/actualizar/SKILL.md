@@ -29,6 +29,9 @@ Fijate que el paso 1 y el 3 son mecánicos (script) y el 2 es criterio (vos deci
 - **Escribe:** solo con tu OK, baja archivos del kit y actualiza `~/.claude/skills/second-brain-coach/VERSION`. Nunca toca tus
   carpetas PARA ni tus skills propios.
 
+## Garantía: tu carpeta no se toca (solo el motor global)
+Actualizar **refresca el motor global** (`~/.claude/skills/`: el coach y sus piezas) y nada más. **Ningún archivo de tu carpeta se pisa nunca:** el `install.sh` que corre por debajo, cuando un archivo ya existe en tu brain, lo deja como está (no sobreescribe, lo saltea). Así, si editaste tu `CLAUDE.md`, tu identidad, tu `arquitectura-skills.md` o cualquier cosa tuya, tu versión queda. La otra cara, honesta: si una versión nueva mejora un doc que vos ya tenés tocado, **te quedás con el tuyo** (no te lo pisa); si querés traer la versión nueva de ese doc puntual, pedímelo y la copio aparte para que compares. Lo único que el número de versión sube es el del motor global.
+
 ## Cuándo NO usar
 - Para actualizar tus propios proyectos (esto es solo el kit).
 - Si no hay red: avisá que no pudiste chequear y frená, no inventes una versión.
