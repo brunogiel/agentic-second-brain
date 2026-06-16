@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.1
+- **Nuevo skill `ppt-builder`** (despersonalizado del `building-blocks` del SB de Bruno): arma una pieza de comunicación —deck/ppt por default, también post/video/carrusel/landing— en 5 etapas (Brief → Historia → Estructura → Copy → Asset), una a la vez con tu OK. Es el **orquestador de ejemplo del Nivel 5**: no hace todo solo, coordina e invoca `redactar` + `anti-slop` (copy) y el skill de pptx (asset). Cierra el TODO que dejaba el N5 sin ejemplo concreto. Catálogo de skills de uso → 7. Sumado al `install.sh`, al coach (N5) y a los READMEs.
+
 ## 2.9.0
 - **Escalera ampliada a 0→6** (integra el trabajo de una sesión paralela, mergeado limpio sobre la topología global):
   - **N4 "El sistema trabaja para vos":** rutina + **conectar una herramienta por MCP** (mail/calendario) para que `triage` arme el brief con datos reales. No requiere programar.

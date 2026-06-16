@@ -73,6 +73,7 @@ Siendo honestos con la línea: tu **cerebro** (tu texto) *y* tus **skills de uso
   - **`evaluar-skill`**: mide un skill contra su propio SKILL.md y propone arreglos (para cuando tenés varios y querés mantenerlos afilados).
   - **`auditar-sistema`**: una revisión de salud de tu sistema (va bien como rutina).
   - **`triage`**: tu brief de la mañana y los accionables, cruzando tus fuentes: mail, calendario (reporte de citas) y tu chat/tareas de trabajo (Slack, Jira, Linear, Trello, Notion comments, lo que uses). Cada fuente necesita su MCP; con el mail solo ya arranca.
+  - **`ppt-builder`**: arma un deck (o post, video, carrusel, landing) en 5 etapas; un **ejemplo de orquestador** (coordina `redactar` + `anti-slop` + tu skill de pptx). Aparece en el Nivel 5.
 
 ## Filosofía
 

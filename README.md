@@ -75,6 +75,7 @@ To be honest about the line: your **brain** (your text) *and* your **use-skills*
   - **`evaluar-skill`** — checks a skill against its own SKILL.md and proposes fixes (for when you have several to keep sharp).
   - **`auditar-sistema`** — a health check of your system (great as a routine).
   - **`triage`** — your morning brief and action items, pulled across your sources: mail, calendar (a meetings report) and your work chat/tasks (Slack, Jira, Linear, Trello, Notion comments, whatever you use). Each source needs its MCP; mail alone is enough to start.
+  - **`ppt-builder`** — builds a deck (or post, video, carousel, landing) in 5 stages; an **orchestrator example** (it coordinates `redactar` + `anti-slop` + your pptx skill). Shows up at Level 5.
 
 ## Philosophy
 

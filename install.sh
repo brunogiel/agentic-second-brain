@@ -30,7 +30,7 @@ YO_FILES=("sobre-mi.md" "como-trabajo.md" "mi-estilo.md" "MEMORIA.md")
 SKILLS_DIR="${HOME}/.claude/skills"
 COACH_DIR="${SKILLS_DIR}/second-brain-coach"          # el coach + sus piezas bundled
 SKILLS_MOTOR=("second-brain-coach" "actualizar" "migrar-de-claude-projects")
-SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage")  # catálogo
+SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder")  # catálogo
 
 echo ""
 echo "🧠  SecondBrain — armando tu sistema..."
