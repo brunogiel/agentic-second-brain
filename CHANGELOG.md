@@ -2,11 +2,11 @@
 
 ## 2.13.0
 - **Instalación como plugin para Cowork (sin terminal), sin perder el curl.** El repo pasa a ser también un **plugin/marketplace**: en Cowork se instala desde la UI de plugins (agregar `brunogiel/secondbrain-claude` + Install), sin `curl`, sin zip, sin git. El **`curl` sigue igual para Claude Code** (probado end-to-end con el layout nuevo). Resuelve la fricción real: el `install.sh` necesitaba una terminal que el de Cowork no tiene. Bonus: el plugin se actualiza solo.
-- **Layout flat y a la vista (el repo ES el plugin, `source: "."`).** Nada queda enterrado bajo un `plugins/secondbrain/...`: abrís el repo y ves todo. Reorganización en tres bloques claros, separando lo que antes estaba mezclado adentro del coach:
+- **Layout flat y a la vista (el repo ES el plugin, `source: "./"`).** Nada queda enterrado bajo un `plugins/secondbrain/...`: abrís el repo y ves todo. Reorganización en tres bloques claros, separando lo que antes estaba mezclado adentro del coach:
   - `skills/` → **el motor** (los 3 skills que se activan: `second-brain-coach` + sus piezas, `actualizar`, `migrar-de-claude-projects`).
   - `kit/brain/` → **los templates** del brain, espejo de PARA (`identidad/`, `recursos/`, `inbox/` + los archivos raíz).
   - `kit/skills/` → **el catálogo de skills de uso** (redactar, anti-slop, ...). Skills, no templates. Quedan dormidos: el plugin solo activa lo que está en `skills/` de la raíz, no recursea, así que el catálogo no se autoactiva.
-  - Nuevos: `.claude-plugin/marketplace.json` (source ".") + `.claude-plugin/plugin.json` + un comando `/second-brain-coach`.
+  - Nuevos: `.claude-plugin/marketplace.json` (source "./") + `.claude-plugin/plugin.json` + un comando `/second-brain-coach`.
 - **`anti-slop` deja de parecer duplicado.** Son dos cosas distintas y ahora en lugares distintos y rotulados: el **skill** `anti-slop` (en `kit/skills/anti-slop/`) y su **doctrina** `anti-slop-writing.md` (en `kit/brain/recursos/`, se instala como Recurso). Mismo patrón que `crear-skill` (skill) + `arquitectura-skills.md` (doctrina que lee).
 - **El coach arma el brain solo en Cowork.** Como ahí no corre `install.sh`, el bootstrap (carpetas + archivos base) lo hace el coach copiando desde su `kit/brain/`, respetando lo que ya exista y **siempre con OK explícito** (invita a crear/elegir la carpeta, no la crea de prepo). En Code lo sigue haciendo el `install.sh`, que además bundlea el kit con el coach (`~/.claude/skills/second-brain-coach/kit/`) para que el coach lo use después.
 - **Robustez (tras un panel de revisión):**
