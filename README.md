@@ -75,7 +75,7 @@ To be honest about the line: your **brain** (your text) *and* your **use-skills*
 
 - **`CLAUDE.md`** — your root file, a thin router read at the start of every session.
 - **`ESTADO.md`** — your dashboard: where you are, what's active (the thin one the assistant reads every session).
-- **`ESCALERA.md`** — your gamified growth tracker: levels 0→6, a checklist per level, what you've done and what's next. The coach keeps it updated; ask it "how am I doing?" anytime.
+- **`ESCALERA.md`** — your gamified growth tracker: levels 0→6, a checklist per level, what you've done and what's next. It ends with **"📦 Todo lo que trae el kit"** — the full catalog (base files + engine + use-skills) with a checkbox each, so you can see in one place what you have and what's missing. The coach keeps it updated; ask it "how am I doing?" or "what skills do I have?" anytime.
 - **`AGENTS.md`** — a 6-line pointer so non-Claude agents (Codex, etc.) find your `CLAUDE.md`.
 - **`0. Inbox/`** — capture without deciding: toss the murky stuff here, "cook" it later (`INBOX.md` holds the protocol).
 - **`sobre-mi.md` / `como-trabajo.md` / `mi-estilo.md`** — who you are, how you like to work, and a sample of your writing voice (fill-in templates, under `2. Áreas/yo/`).

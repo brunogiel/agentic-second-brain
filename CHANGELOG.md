@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.12.0
+- **Catálogo "📦 Todo lo que trae el kit" dentro de la `ESCALERA.md`.** Un solo lugar donde el usuario ve **todo lo que ofrece SecondBrain** y chequea qué tiene: los **archivos base** (CLAUDE.md, ESTADO, identidad, INBOX, doctrinas…), el **motor** (coach + `actualizar` + `migrar`) y los **8 skills de uso**, cada uno con su checkbox, una línea de qué hace, su frase gatillo y el nivel donde aparece. Resuelve un agujero real: como los skills de uso se suman de a poco, el usuario no tenía dónde ver el menú completo ni saber qué le faltaba. Va unificado en la escalera (no un archivo nuevo) para no sumar otro archivo a la carpeta.
+- **El coach mantiene el catálogo.** Disparos nuevos: *"¿qué skills tengo?"*, *"¿qué skills hay?"*, *"¿qué trae el kit?"*, *"¿los tengo todos?"* → sincroniza las marcas con la realidad (mira `skills/` + la tabla "Mis skills"), lo muestra y ofrece sumar el que sirva. Cada vez que activa un skill de uso lo tacha también acá; el Paso 8 (dejar el estado al día) lo incluye.
+- Tocados: `templates/ESCALERA.md` (sección de catálogo + puntero en la intro), `second-brain-coach/SKILL.md` (frontmatter + "Disparos del catálogo" + "Sumar un skill de uso" + Paso 8) y ambos READMEs (bullet de `ESCALERA.md`). `install.sh` no se toca: la `ESCALERA.md` ya se instala.
+
 ## 2.11.0
 - **Modo "ya tengo un sistema" en el coach (adoptar sin migrar).** Antes el "adoptar" igual te atornillaba el esqueleto SB (PARA + `ESTADO`/`ESCALERA`) encima de tu carpeta. Ahora el caso (a) del coach se parte en dos: **(a1)** sistema suelto o a medias → ofrece ordenarlo hacia PARA (como antes); **(a2)** sistema propio y ordenado → **no migra nada**, lee tu estructura, te la mantiene y te propone 2-3 mejoras *en tu propia estructura*, opt-in, sin renombrar nada.
 - **Nuevo principio en la doctrina del coach: "Dirección, no estructura obligatoria".** El valor del método son principios (router al arrancar / identidad / captura / contexto por proyecto / ruteo / proponer-no-hacer), no los nombres de carpeta de PARA. PARA es el empaque default para el que arranca de cero, no el requisito.

@@ -73,7 +73,7 @@ Siendo honestos con la línea: tu **cerebro** (tu texto) *y* tus **skills de uso
 
 - **`CLAUDE.md`**: tu archivo raíz, un router fino que se lee al arrancar cada sesión.
 - **`ESTADO.md`**: tu tablero fino (dónde estás, qué hay activo; lo lee el asistente cada sesión).
-- **`ESCALERA.md`**: tu tracker de progreso gamificado: niveles 0→6, un checklist por nivel, qué hiciste y qué falta. El coach lo mantiene; preguntale "¿cómo vengo?" cuando quieras.
+- **`ESCALERA.md`**: tu tracker de progreso gamificado: niveles 0→6, un checklist por nivel, qué hiciste y qué falta. Cierra con **"📦 Todo lo que trae el kit"**: el catálogo completo (archivos base + motor + skills de uso) con un checkbox por cada uno, para ver en un solo lugar qué tenés y qué te falta. El coach lo mantiene; preguntale "¿cómo vengo?" o "¿qué skills tengo?" cuando quieras.
 - **`AGENTS.md`**: un puntero de 6 líneas para que un agente no-Claude (Codex, etc.) encuentre tu `CLAUDE.md`.
 - **`0. Inbox/`**: capturá sin decidir: tirá lo turbio acá y cocinalo después (el protocolo está en `INBOX.md`).
 - **`sobre-mi.md` / `como-trabajo.md` / `mi-estilo.md`**: quién sos, cómo te gusta trabajar y una muestra de tu voz para escribir (templates para llenar, en `2. Áreas/yo/`).

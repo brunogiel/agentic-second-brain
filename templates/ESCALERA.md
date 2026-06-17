@@ -8,6 +8,7 @@
 
 > Tu progreso. El coach lo mantiene: lo actualiza cuando trabajan juntos y te lo muestra cuando
 > le decís **"¿cómo vengo?"** o **"¿qué hacemos hoy?"**. Vos lo mirás para ver qué lograste y qué falta.
+> Y al final está **[📦 Todo lo que trae el kit](#-todo-lo-que-trae-el-kit-lo-tenés)**: el catálogo completo (skills + archivos) para chequear, en un solo lugar, qué tenés y qué te falta.
 
 > 🎯 **Truco que sirve siempre:** cuando le pidas algo grande, cerrá con *"preguntame lo que necesites primero"*. En vez de adivinar el prompt, te hace 3-4 preguntas y clava la respuesta. Sirve para llenar tu identidad, definir un proyecto, armar un skill — todo.
 
@@ -61,3 +62,42 @@
 Agentes 100% autónomos que actúan sin tu OK, auto-mejora de skills en loop cerrado. Posgrado de verdad: la mayoría no lo necesita. Si llegaste hasta acá, ya volás solo.
 
 > Marca de niveles: tachás un nivel cuando todos sus ítems están ✓. El coach mueve "Nivel actual" y la barra.
+
+---
+
+## 📦 Todo lo que trae el kit (¿lo tenés?)
+
+> El mapa completo de lo que ofrece SecondBrain, en un solo lugar, para que sepas **qué hay** y **qué te falta**.
+> Los **archivos base** y el **motor** vienen al instalar (ya los tenés). Los **skills de uso** vienen dormidos en el catálogo del kit y el coach te los va sumando cuando tocan — por eso acá ves cuáles ya activaste (`[x]`) y cuáles te esperan (`[ ]`).
+> El coach mantiene estas marcas. ¿Te falta algo que debería estar? Escribí **`actualizar`** (el kit baja lo último). ¿Querés activar un skill antes de tiempo? Decile al coach *"sumame `<nombre>`"*.
+
+### 🗂 Archivos base (vienen al instalar, no se pisan)
+- [x] `CLAUDE.md` — el router: lo primero que tu asistente lee al arrancar.
+- [x] `ESTADO.md` — el tablero fino (dónde estás, qué hay activo).
+- [x] `ESCALERA.md` — este tracker.
+- [x] `AGENTS.md` — puntero para que Codex/Cursor encuentren tu `CLAUDE.md`.
+- [x] `0. Inbox/INBOX.md` — el protocolo de captura.
+- [x] `2. Áreas/yo/sobre-mi.md` — quién sos.
+- [x] `2. Áreas/yo/como-trabajo.md` — cómo trabajás.
+- [x] `2. Áreas/yo/mi-estilo.md` — tu voz (para escribir como vos).
+- [x] `2. Áreas/yo/MEMORIA.md` — datos que no se deducen de los archivos.
+- [x] `3. Recursos/arquitectura-skills.md` — la doctrina para armar buenos skills.
+- [x] `3. Recursos/anti-slop-writing.md` — las reglas para que tus textos no huelan a IA.
+- [ ] `2. Áreas/yo/soul.md` — tu hoja de personaje (se suma cuando aparece, hablando).
+- [ ] `2. Áreas/yo/dev-prefs.md` — preferencias de dev (se suma si programás).
+
+### 🔒 Motor (global e invisible, viene siempre)
+- [x] `second-brain-coach` — tu guía; lo invocás con `/second-brain-coach` o *"¿qué hago ahora?"*.
+- [x] `actualizar` — baja las mejoras del kit; *"¿hay updates?"*, *"¿estoy al día?"*.
+- [x] `migrar-de-claude-projects` — trae tus Projects de la app de Claude al sistema; *"migrá mis proyectos de claude"*.
+
+### 👁 Skills de uso (el coach te los suma cuando tocan — tachás al activarlos)
+> `[x]` = ya lo tenés en `skills/` con su fila en la tabla "Mis skills" del `CLAUDE.md`. `[ ]` = está disponible en el catálogo, todavía no lo activaste. Entre paréntesis, el nivel donde suele aparecer.
+- [ ] `redactar` *(cuando escribís)* — escribe en tu voz: mails, posts, respuestas; *"pasalo a mi tono"*.
+- [ ] `anti-slop` *(cuando escribís)* — le saca el olor a IA a un texto; *"limpiá este texto"*, *"sacale el slop"*.
+- [ ] `crear-skill` *(N3)* — te guía a armar tu primer skill bien hecho; *"creá un skill"*.
+- [ ] `triage` *(N4)* — el brief del día (mail + agenda + tareas por MCP); *"qué tengo hoy"*, *"briefeame"*.
+- [ ] `ppt-builder` *(N5)* — orquestador con estado: arma un deck por etapas coordinando varios skills; *"armame el ppt de X"*.
+- [ ] `panel` *(N5)* — orquestador multiagente: 2-5 reviewers con lentes distintas sobre lo mismo; *"paneá esto"*, *"ojos frescos"*.
+- [ ] `auditar-sistema` *(N6)* — chequeo de salud del sistema (tipo sábado); *"auditá el sistema"*.
+- [ ] `evaluar-skill` *(N6)* — mide un skill contra su propia rúbrica y lo afina; *"evaluá el skill X"*.

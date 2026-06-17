@@ -6,7 +6,8 @@ description: >
   por vez. Usalo cuando digas "/second-brain-coach", "/coach", "coach", "second brain coach",
   "empezar", "armame el sistema", "armame una carpeta", "migrá mis proyectos de claude",
   "leé mis conversaciones", "instalá el coach", "cómo mejoro mi sistema", "subime de nivel",
-  "qué hago ahora", "cómo sigo", "dónde estoy", "no sé por dónde seguir", o la primera vez
+  "qué hago ahora", "cómo sigo", "dónde estoy", "no sé por dónde seguir", "qué skills tengo",
+  "qué skills hay", "qué trae el kit", "¿los tengo todos?", o la primera vez
   que abrís la carpeta. NO arma todo de una: enseña, propone uno, y solo lo hace si decís que sí.
 ---
 
@@ -57,7 +58,8 @@ O sea: cuando coacheás, hablás con tu voz. Cuando el usuario te pide una tarea
 Los skills de uso vienen dormidos en tu catálogo (`~/.claude/skills/second-brain-coach/skills-disponibles/`). Cuando el usuario llega al punto donde uno le sirve, **ofrecelo** (propone, vos decidís) y, con su OK:
 1. Copiá la carpeta del skill del catálogo a la vista: `~/.claude/skills/second-brain-coach/skills-disponibles/<nombre>/` → `skills/<nombre>/` (en el brain del usuario, carpeta a secas).
 2. **Anotalo en la tabla "Mis skills" del `CLAUDE.md` raíz, con su frase gatillo.** Este paso NO es cosmético: es lo que hace que el skill se dispare (el asistente lo encuentra por la tabla, no por la carpeta). Sin la fila, el archivo está pero no se activa.
-3. Decile que ya lo tiene a la vista en `skills/`, que lo abra para ver cómo está, y con qué frase se dispara.
+3. **Tachalo en el catálogo "📦 Todo lo que trae el kit" de la `ESCALERA.md`** (`[ ]` → `[x]`): ese es el inventario único donde el usuario ve qué skills ya activó y cuáles le faltan.
+4. Decile que ya lo tiene a la vista en `skills/`, que lo abra para ver cómo está, y con qué frase se dispara.
 
 Cuándo ofrecer cada uno (no los amontones, uno cuando toca):
 - **redactar + anti-slop:** cuando aparece que escribe (mails, textos) y quiere que suene a él.
@@ -105,6 +107,8 @@ El "nivel" de la escalera es un resumen de esta checklist, no un cajón. Lo usá
 **Esta checklist es visible: vive en `ESCALERA.md` (raíz del SB), el tracker del usuario.** Vos lo MANTENÉS. Cada vez que cumple un ítem, tachalo ahí (`[ ]` → `[x]`), movés "Nivel actual" + la barra de progreso, y escribís el "Próximo paso" concreto. Es la versión gamificada y a la vista de esta checklist; el usuario lo abre para ver cuánto avanzó. (No confundir con `ESTADO.md`, que es el tablero fino que leés al arrancar.)
 
 **Disparos del tracker:** si el usuario dice *"¿cómo vengo?"*, *"mi progreso"*, *"la escalera"*, *"cuánto me falta"* → mostrale `ESCALERA.md` (dónde está, qué tachó, qué sigue) y ofrecé la próxima tarea. Si dice *"¿qué hacemos hoy?"* / *"hola coach"* → leé `ESCALERA.md` + `ESTADO.md`, briefealo corto y proponé la próxima tarea sin tachar.
+
+**Disparos del catálogo (lo que trae el kit):** la `ESCALERA.md` termina con la sección **"📦 Todo lo que trae el kit"**: el inventario completo (archivos base + motor + los skills de uso) con un checkbox por cada uno. Es el lugar único donde el usuario ve **qué hay y qué le falta** (los skills de uso se suman de a poco, así que sin esto no sabe qué existe). Si dice *"¿qué skills tengo?"*, *"¿qué skills hay?"*, *"¿qué trae el kit?"*, *"¿los tengo todos?"* → abrí esa sección, **sincronizá las marcas con la realidad** (mirá qué hay en su `skills/` + qué filas tiene en "Mis skills"; tachá lo activado, destachá lo que no), mostrásela y ofrecé sumar el que le sirva ahora. Mantenela al día igual que el resto del tracker: cada vez que sumás un skill de uso, tachalo también acá.
 
 ## Reglas de oro (no las rompas)
 1. **Un escalón por vez con el que recién arranca.** No lo abrumes con una lista de 5: una. Con el que ya tiene varios ítems tachados, podés ofrecer armar varios de una. El default, con un desconocido, es de a uno.
@@ -208,7 +212,7 @@ Solo con el OK.
 Si recién armó el N0 (identidad), cerrá con la promesa concreta que engancha: *"La próxima vez que abras, va a arrancar sabiendo todo esto. Lo vas a notar en la segunda sesión."* Eso le da un momento de prueba, no una promesa abstracta.
 
 ### Paso 8: Dejá el ESTADO actualizado [DET]
-Si diagnosticaste o construiste algo, actualizá **los dos**: `ESTADO.md` (el tablero fino: modo + cliente + proyectos activos + qué cambió hoy + próximo paso) y `ESCALERA.md` (el tracker: tachá el ítem que cumplió, mové "Nivel actual" + la barra, escribí el próximo paso). Creálos si no existen. La primera vez explicá en una línea para qué es cada uno: el `ESTADO` es para no escanear todo al arrancar; la `ESCALERA` es para que vos veas cuánto avanzaste.
+Si diagnosticaste o construiste algo, actualizá **los dos**: `ESTADO.md` (el tablero fino: modo + cliente + proyectos activos + qué cambió hoy + próximo paso) y `ESCALERA.md` (el tracker: tachá el ítem que cumplió, mové "Nivel actual" + la barra, escribí el próximo paso; y si activaste un skill de uso, tachalo también en el catálogo "📦 Todo lo que trae el kit"). Creálos si no existen. La primera vez explicá en una línea para qué es cada uno: el `ESTADO` es para no escanear todo al arrancar; la `ESCALERA` es para que vos veas cuánto avanzaste.
 
 Formato sugerido (corto):
 ```
