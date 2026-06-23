@@ -46,9 +46,9 @@ Tres niveles por etapa: **skip** (no aplica o ya está; 1 línea y seguís), **l
 
 | Medio | Brief | Historia | Estructura | Copy | Asset |
 |---|---|---|---|---|---|
-| **Deck / ppt** | liviano | full | full | full | full |
-| **Post LinkedIn** | liviano | liviano→full | liviano | full | liviano |
-| **Carrusel / video** | liviano | full | full | full | full |
+| **Deck / ppt** | liviano | liviano | full | full | full |
+| **Post LinkedIn** | liviano | liviano | liviano | full | liviano |
+| **Carrusel / video** | liviano | liviano→full | full | full | full |
 | **Landing** | liviano→full | full | full | full | full |
 
 Guardá el perfil aprobado en el frontmatter del doc (`profundidad:` por etapa).

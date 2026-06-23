@@ -23,11 +23,11 @@ Fijate si existe `mi-estilo.md` con contenido real (no el stub vacío).
 - **Si está cargado:** leelo y saltá al Paso 4.
 - **Si está vacío:** andá al Paso 2 (es la primera vez).
 
-### Paso 2 — Pedile textos de referencia [LAT]
-Decile, corto y claro:
-> "Para escribir como vos y no como un robot, pasame 2 o 3 textos que hayas escrito vos (un mail, un mensaje de WhatsApp, un post, lo que sea). Con eso aprendo tu tono y lo guardo para siempre."
+### Paso 2: Todavía no tengo tu voz, te la armo [LAT]
+Es la primera vez: no tenés tu perfil de voz cargado, así que todavía no puedo escribir como vos sin inventarlo. Explicáselo corto y ofrecé armarlo:
+> "Para escribir como vos y no como un robot, necesito conocer tu voz. Te la armo así: pasame 2 o 3 textos que hayas escrito vos (un mail, un WhatsApp, un post, lo que sea), saco tu tono y lo guardo en `mi-estilo.md` para siempre. La próxima vez ya escribo como vos sin pedirte nada."
 
-Esperá los textos. No inventes un estilo sin material real.
+Esperá los textos. No inventes un estilo sin material real. Si la persona no quiere darte ejemplos ahora, decíselo claro: podés escribirle algo, pero va a sonar a asistente y no a ella hasta que arme su voz. Que elija.
 
 ### Paso 3 — Aprendé y guardá su voz [LAT]
 De esos textos, sacá el perfil:

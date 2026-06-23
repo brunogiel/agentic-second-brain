@@ -16,6 +16,27 @@ The model writes text. The client (Cowork, Claude Code, Codex) gives it hands to
 
 You feel the difference in the second session: you do not have to explain the same context again.
 
+## The toolkit (ready on day zero)
+
+You do not have to build these. The plugin ships a set of slash commands that work the moment you install it, before you set up anything:
+
+| Command | What it does |
+|---|---|
+| `/asb` | Front desk: lists your tools and points you to the coach |
+| `/asb-slop` | Strips the AI smell from a text in one pass |
+| `/asb-write` | Writes or rewrites in your voice |
+| `/asb-prompt` | Turns a rough ask into a paste-ready prompt for any AI chat |
+| `/asb-panel` | 2 to 5 reviewers, different lenses, on something before you send it |
+| `/asb-council` | A council of 5 advisors for a decision with real stakes |
+| `/asb-deck` | Builds a presentation in stages, rough to final |
+| `/asb-audit` | Health check of your second brain |
+| `/asb-doc` | Closes a session: routes everything durable to its place |
+| `/asb-simple` | Lost the thread? Plain-language recap: where we are, your move, mine |
+
+This is the horizontal layer: generic power tools that work the same for everyone. The coach (`/asb-coach`) builds the vertical layer: your projects, identity, and your own skills. Using these tools is also the fastest way to learn what a skill is before you build your own.
+
+These work as slash commands in both Cowork and Claude Code, with no setup. In Cowork you can also trigger them just by describing what you want.
+
 ## Install
 
 ### Cowork (no terminal)
@@ -26,9 +47,8 @@ You feel the difference in the second session: you do not have to explain the sa
    (or type `/plugin install agentic-second-brain@agentic-second-brain`).
 3. Open or create the folder where your brain should live. A synced folder is best: Drive, iCloud, or Dropbox.
 4. Use one of:
-   - `/agentic-second-brain-setup` — initial configuration (idempotent, safe to run again)
-   - `/agentic-second-brain-coach` — the full coach: locates you and proposes the next step
-   - `/escalera` — check your progress on the ladder at any time
+   - `/asb` — the front desk: your toolkit and where you stand (start here)
+   - `/asb-coach` — the coach: sets up your system, locates you, proposes the next step
 
 The coach asks before creating files. It does not build folders behind your back. In Cowork, the plugin updates itself.
 
@@ -41,9 +61,8 @@ curl -fsSL https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main
 Then open the folder where you want to work and type:
 
 ```text
-/agentic-second-brain-setup   # initial setup (idempotent)
-/agentic-second-brain-coach   # full coach: locates you + proposes next step
-/escalera             # check your progress anytime
+/asb        # front desk: your toolkit + where you stand (start here)
+/asb-coach  # the coach: sets up your system, locates you, proposes next step
 ```
 
 The script installs the method and commands globally. It does not touch your brain folder.
@@ -64,7 +83,7 @@ ESCALERA.md
 AGENTS.md
 0. Inbox/
 1. Proyectos/
-2. Areas/yo/
+2. Áreas/yo/
 3. Recursos/
 4. Archivo/
 skills/
@@ -124,7 +143,7 @@ Your brain is plain text. You can open the same folder in Cowork, Claude Code, C
 
 Use-skills live in `skills/` and are activated through the **Mis skills** table in `CLAUDE.md`. Codex and Cursor reach that table through `AGENTS.md`.
 
-The only Claude-specific piece is the setup engine: `/agentic-second-brain-coach` and, in Claude Code, `actualizar`. If you use another agent, `AGENTS.md` includes a fallback workflow.
+The only Claude-specific piece is the setup engine: `/asb-coach` and, in Claude Code, `actualizar`. If you use another agent, `AGENTS.md` includes a fallback workflow.
 
 ## What's inside
 
@@ -133,10 +152,10 @@ The only Claude-specific piece is the setup engine: `/agentic-second-brain-coach
 - `ESCALERA.md`: progress tracker and kit catalog.
 - `AGENTS.md`: pointer for non-Claude agents.
 - `0. Inbox/`: capture without deciding.
-- `2. Areas/yo/sobre-mi.md`: who you are.
-- `2. Areas/yo/como-trabajo.md`: how you want the assistant to work.
-- `2. Areas/yo/mi-estilo.md`: your writing voice.
-- `2. Areas/yo/MEMORIA.md`: facts that apply everywhere.
+- `2. Áreas/yo/sobre-mi.md`: who you are.
+- `2. Áreas/yo/como-trabajo.md`: how you want the assistant to work.
+- `2. Áreas/yo/mi-estilo.md`: your writing voice.
+- `2. Áreas/yo/MEMORIA.md`: facts that apply everywhere.
 - `3. Recursos/arquitectura-skills.md`: how to build skills.
 - `3. Recursos/anti-slop-writing.md`: rules for cleaning AI-sounding text.
 - `skills/`: skills you have activated.
@@ -151,6 +170,12 @@ Available catalog skills:
 - `triage`: builds a daily brief from connected mail, calendar, and tasks.
 - `ppt-builder`: coordinates a communication piece in stages.
 - `panel`: brings several lenses to a text, proposal, or document.
+- `council`: a council of advisors for a decision with real stakes.
+- `prompt-optimizer`: turns a rough ask into a paste-ready prompt.
+- `documenta`: routes what matters from a session to its canonical place.
+- `simple`: a short, plain-language status of the current conversation.
+
+Most catalog skills map to an `/asb-*` command (shown in `ESCALERA.md`). A few (`crear-skill`, `triage`, `evaluar-skill`) have no standalone command: the coach activates them when you reach their level.
 
 ## Philosophy
 

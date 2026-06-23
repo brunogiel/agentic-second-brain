@@ -14,7 +14,9 @@
 set -euo pipefail
 
 SKILLS_DIR="${HOME}/.claude/skills"
+COMMANDS_DIR="${HOME}/.claude/commands"
 METHOD_SKILLS=("agentic-second-brain-coach" "actualizar")   # migrar ya no es skill (es doc del coach); actualizar es Code-only
+METHOD_COMMANDS=("asb" "asb-coach" "asb-slop" "asb-write" "asb-panel" "asb-council" "asb-prompt" "asb-deck" "asb-audit" "asb-doc" "asb-simple")   # el toolkit /asb-* (Code: ~/.claude/commands/)
 
 echo ""
 echo "🧠  Agentic Second Brain: desinstalar el motor global"
@@ -67,6 +69,13 @@ for s in "${METHOD_SKILLS[@]}"; do
   if [ -d "${SKILLS_DIR}/${s}" ]; then
     rm -rf "${SKILLS_DIR}/${s}"
     echo "  ✓ saqué ${s}"
+  fi
+done
+# --- sacar los comandos slash del toolkit (Code: ~/.claude/commands/) ---
+for c in "${METHOD_COMMANDS[@]}"; do
+  if [ -f "${COMMANDS_DIR}/${c}.md" ]; then
+    rm -f "${COMMANDS_DIR}/${c}.md"
+    echo "  ✓ saqué /${c}"
   fi
 done
 

@@ -6,7 +6,7 @@
 
 # reference.md: El manual
 
-Esto no se lee de un tirón. Es una caja de herramientas: venís acá cuando querés subir un escalón. Tu `CLAUDE.md` raíz alcanza para arrancar. Esto es para cuando quieras crecer. ¿No sabés por dónde seguir? Pedile **`/agentic-second-brain-coach`**.
+Esto no se lee de un tirón. Es una caja de herramientas: venís acá cuando querés subir un escalón. Tu `CLAUDE.md` raíz alcanza para arrancar. Esto es para cuando quieras crecer. ¿No sabés por dónde seguir? Pedile **`/asb-coach`**.
 
 ---
 
@@ -198,7 +198,7 @@ Cuando tengas varias recetas, una puede coordinar a las otras:
 - **Worker:** hace una tarea concreta.
 - **Orquestador:** no hace el trabajo, decide qué worker corre y junta los resultados.
 
-Tu `/agentic-second-brain-coach` es un orquestador chiquito: no hace tu sistema, te lleva de la mano para que lo armes vos.
+Tu `/asb-coach` es un orquestador chiquito: no hace tu sistema, te lleva de la mano para que lo armes vos.
 
 ---
 
@@ -236,7 +236,7 @@ La regla, en **2 baldes** (así tu carpeta se ve limpia y sabés qué es qué):
 
 1. **👁 TU BRAIN (esta carpeta) — solo lo tuyo.** Tu contexto: las carpetas PARA + `0. Inbox/`, tu identidad (`2. Áreas/yo/`), tu progreso (`ESTADO.md` + `ESCALERA.md`), el `CLAUDE.md` raíz (router) + `AGENTS.md`. Y **`skills/`: los skills que usás** (redactar, anti-slop, triage, auditar, crear-skill, evaluar-skill, ppt-builder, panel + los que armes vos). Los ves, los abrís, aprendés cómo están. No vienen todos de una: el coach te los va sumando a medida que avanzás. **Nada del método ensucia tu carpeta.**
 
-2. **🔒 EL MÉTODO — se instala como una app, fuera de tu carpeta.** En **Claude Code** vive global en `~/.claude/skills/`; en **Cowork** se instala como **plugin** (sin terminal). En los dos casos el coach lleva sus piezas (esta doctrina `reference.md`, la `plantilla-proyecto.md`, los `ejemplos.md`) como hermanas de su `SKILL.md`, y el **kit** (`kit/brain/` = archivos base, `kit/skills/` = catálogo de skills de uso) viaja con el método. La migración de Projects es un doc del coach (`migracion.md`), no un skill aparte; en Code además está el updater `actualizar` (Code-only; en Cowork el plugin se actualiza solo). Se usa por nombre (`/agentic-second-brain-coach`); no vive en tu carpeta.
+2. **🔒 EL MÉTODO — se instala como una app, fuera de tu carpeta.** En **Claude Code** vive global en `~/.claude/skills/`; en **Cowork** se instala como **plugin** (sin terminal). En los dos casos el coach lleva sus piezas (esta doctrina `reference.md`, la `plantilla-proyecto.md`, los `ejemplos.md`) como hermanas de su `SKILL.md`, y el **kit** (`kit/brain/` = archivos base, `kit/skills/` = catálogo de skills de uso) viaja con el método. La migración de Projects es un doc del coach (`migracion.md`), no un skill aparte; en Code además está el updater `actualizar` (Code-only; en Cowork el plugin se actualiza solo). Se usa por nombre (`/asb-coach`); no vive en tu carpeta.
 
 El modelo es el de cualquier app: **instalás el método una vez por máquina (la "app"), y tu contenido (el brain) sincroniza por Drive.** Vos solo ves lo que usás; el método trabaja de fondo. (En Cowork la "app" es el plugin que instalás desde la UI, sin terminal; igual de afuera de tu carpeta.)
 
@@ -294,4 +294,4 @@ Las dos se combinan con lo de antes: una rutina (sección 10) que conecta una he
 - **Rama (si programás), fuera del conteo:** el split código / contexto + subagentes en tu código.
 - **Más allá:** frontera real (agentes autónomos, auto-mejora en loop), opt-in.
 
-¿No sabés en qué escalón estás? Pedile **`/agentic-second-brain-coach`**.
+¿No sabés en qué escalón estás? Pedile **`/asb-coach`**.
