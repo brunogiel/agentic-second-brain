@@ -1,15 +1,16 @@
 {
-  "name": "agentic-second-brain",
-  "description": "Claude arranca cada sesion adivinando quien sos. Esto lo corta: tu Agentic Second Brain, una carpeta de texto plano que tu asistente opera. Trae un toolkit de comandos /asb listo el dia cero (anti-slop, panel, council, deck, prompt) y un coach que arma el resto de a un escalon. Para Claude Code o Cowork. En Cowork se instala sin terminal.",
-  "version": "2.25.0",
+  "name": "sabe",
+  "description": "Claude arranca cada sesion adivinando quien sos. SABE lo corta (Second-brain Agentic Build Engine): una carpeta de texto plano que tu asistente opera. Trae un toolkit de comandos /sabe listo el dia cero (anti-slop, panel, council, deck, prompt) y un coach que arma el resto de a un escalon. Para Claude Code o Cowork. En Cowork se instala sin terminal.",
+  "version": "2.27.0",
   "author": {
     "name": "Bruno Gielczynsky",
     "url": "https://www.linkedin.com/in/brunogiel/"
   },
-  "homepage": "https://github.com/brunogiel/agentic-second-brain",
-  "repository": "https://github.com/brunogiel/agentic-second-brain",
+  "homepage": "https://github.com/brunogiel/sabe",
+  "repository": "https://github.com/brunogiel/sabe",
   "license": "MIT",
   "keywords": [
+    "sabe",
     "agentic-second-brain",
     "agentic-os",
     "second-brain",

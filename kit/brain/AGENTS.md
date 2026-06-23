@@ -9,7 +9,7 @@
 La fuente de verdad de este sistema es **`CLAUDE.md`** (en esta misma carpeta). Leelo entero: es el router.
 
 - El cerebro (carpetas de texto, identidad, proyectos) **y los skills de uso** son portables. Los skills viven en `skills/` (carpeta a la vista) y se disparan por la **tabla "Mis skills" del `CLAUDE.md`**: leé esa tabla y, cuando el usuario diga una de esas frases, seguí el `skills/<nombre>/SKILL.md` correspondiente. Así andan igual acá que en Claude.
-- Lo único atado a Claude es el método de armado (el comando `/asb-coach` y un par de skills de mantenimiento, que viven global con el coach). Si ese motor no existe en este harness, no frenes: seguí el fallback de abajo.
+- Lo único atado a Claude es el método de armado (el comando `/sabe-coach` y un par de skills de mantenimiento, que viven global con el coach). Si ese motor no existe en este harness, no frenes: seguí el fallback de abajo.
 
 ## Fallback para agentes no-Claude
 

@@ -2,7 +2,7 @@
 description: Chequeo de salud de tu segundo cerebro: revisa que el mapa, los proyectos y las skills sigan alineados. Propone, no toca nada.
 ---
 
-Corré un chequeo de salud del Agentic Second Brain de la carpeta actual (o lo que pidan en $ARGUMENTS). Seguí esto:
+Corré un chequeo de salud del SABE de la carpeta actual (o lo que pidan en $ARGUMENTS). Seguí esto:
 
 # auditar-sistema: la revisión de salud
 
@@ -14,7 +14,7 @@ Una pasada que mira si tu sistema sigue ordenado y te deja una lista corta de ar
 - **Escribe:** NADA en la corrida. Solo después de tu OK, en otra pasada, toca lo que aprobaste ítem por ítem.
 
 ## Flujo
-0. **[DET]** ¿Hay sistema todavía? Antes de auditar nada, mirá si hay un brain: un `CLAUDE.md` de proyecto, carpetas PARA (`1. Proyectos`, `2. Áreas`...), skills tuyos. Si lo único que hay es el kit read-only del método (sin proyecto, sin carpetas tuyas), todavía no hay nada que auditar. No audites ni escribas, y NUNCA toques el `kit/brain/` del método. Decílo claro: "todavía no tenés un sistema para auditar; lo armamos con `/asb-coach` y volvemos a correr esto". Frená acá.
+0. **[DET]** ¿Hay sistema todavía? Antes de auditar nada, mirá si hay un brain: un `CLAUDE.md` de proyecto, carpetas PARA (`1. Proyectos`, `2. Áreas`...), skills tuyos. Si lo único que hay es el kit read-only del método (sin proyecto, sin carpetas tuyas), todavía no hay nada que auditar. No audites ni escribas, y NUNCA toques el `kit/brain/` del método. Decílo claro: "todavía no tenés un sistema para auditar; lo armamos con `/sabe-coach` y volvemos a correr esto". Frená acá.
 1. **[DET]** Chequeos baratos:
    - ¿`sobre-mi` / `como-trabajo` siguen con `<...>` o están al día?
    - Proyectos con el log de decisiones viejo (hace mucho que no se tocan).

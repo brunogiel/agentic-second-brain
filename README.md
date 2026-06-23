@@ -1,6 +1,8 @@
-# Agentic Second Brain
+# SABE
 
-Claude arranca cada sesión sin saber quién sos, cómo trabajás ni dónde está lo importante. Agentic Second Brain lo corta: una carpeta de texto plano que lee al inicio, así deja de improvisar.
+*Second-brain Agentic Build Engine.* SABE dónde están tus cosas y sabe qué hacer con tus pedidos.
+
+Claude arranca cada sesión sin saber quién sos, cómo trabajás ni dónde está lo importante. SABE lo corta: una carpeta de texto plano que lee al inicio, así deja de improvisar.
 
 A diferencia de las notas que guardás para vos, esta carpeta es compartida: vos y tu asistente la leen y editan, pero el que trabaja desde ella es el agente, cargando lo que cada tarea necesita para actuar.
 
@@ -32,19 +34,19 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 
 | Comando | Qué hace |
 |---|---|
-| `/asb` | El conserje: te muestra las herramientas y dónde vas parado |
-| `/asb-coach` | Arma tu sistema personal, de a un escalón (el motor del método) |
-| `/asb-slop` | Saca el olor a IA de un texto en una pasada |
-| `/asb-write` | Redacta o reescribe en tu voz |
-| `/asb-prompt` | Convierte un pedido crudo en un prompt listo para pegar en cualquier chat de IA |
-| `/asb-panel` | 2 a 5 revisores con miradas distintas sobre algo antes de mandarlo |
-| `/asb-council` | Un concilio de 5 asesores para una decisión con peso |
-| `/asb-deck` | Arma una presentación por etapas, de bruto a final |
-| `/asb-audit` | Chequeo de salud de tu segundo cerebro |
-| `/asb-doc` | Cierra la sesión: rutea todo lo durable a su lugar |
-| `/asb-simple` | ¿Perdiste el hilo? Estado en simple: dónde estamos, qué hacés vos, qué sigo yo |
+| `/sabe` | El conserje: te muestra las herramientas y dónde vas parado |
+| `/sabe-coach` | Arma tu sistema personal, de a un escalón (el motor del método) |
+| `/sabe-slop` | Saca el olor a IA de un texto en una pasada |
+| `/sabe-write` | Redacta o reescribe en tu voz |
+| `/sabe-prompt` | Convierte un pedido crudo en un prompt listo para pegar en cualquier chat de IA |
+| `/sabe-panel` | 2 a 5 revisores con miradas distintas sobre algo antes de mandarlo |
+| `/sabe-council` | Un concilio de 5 asesores para una decisión con peso |
+| `/sabe-deck` | Arma una presentación por etapas, de bruto a final |
+| `/sabe-audit` | Chequeo de salud de tu segundo cerebro |
+| `/sabe-doc` | Cierra la sesión: rutea todo lo durable a su lugar |
+| `/sabe-simple` | ¿Perdiste el hilo? Estado en simple: dónde estamos, qué hacés vos, qué sigo yo |
 
-Las del toolkit son de fábrica y sirven igual para todos; `/asb-coach` arma la parte que es tuya (tus proyectos, tu identidad, tus propias skills). Un *skill* es una receta guardada que dispara una frase: usar estas es la forma más rápida de ver qué es uno antes de armar el tuyo.
+Las del toolkit son de fábrica y sirven igual para todos; `/sabe-coach` arma la parte que es tuya (tus proyectos, tu identidad, tus propias skills). Un *skill* es una receta guardada que dispara una frase: usar estas es la forma más rápida de ver qué es uno antes de armar el tuyo.
 
 Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En Cowork además las podés disparar describiendo lo que querés.
 
@@ -52,17 +54,17 @@ Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En C
 
 ### Cowork (sin terminal)
 
-1. Escribí `/setup-cowork install agentic-second-brain@agentic-second-brain` (el nombre se repite porque es `plugin@marketplace`).
+1. Escribí `/setup-cowork install sabe@sabe` (el nombre se repite porque es `plugin@marketplace`).
 2. Abrí o creá la carpeta donde quieras que viva tu brain. Mejor una sincronizada: Drive, iCloud o Dropbox.
-3. Escribí `/asb` para arrancar. Pregunta antes de crear nada, nunca arma carpetas por atrás, y en Cowork el plugin se actualiza solo.
+3. Escribí `/sabe` para arrancar. Pregunta antes de crear nada, nunca arma carpetas por atrás, y en Cowork el plugin se actualiza solo.
 
 ### Claude Code
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/brunogiel/sabe/main/install.sh | bash
 ```
 
-Instala el método y los comandos de forma global y no toca tu carpeta del brain. Después abrí la carpeta donde querés trabajar y escribí `/asb` para arrancar.
+Instala el método y los comandos de forma global y no toca tu carpeta del brain. Después abrí la carpeta donde querés trabajar y escribí `/sabe` para arrancar.
 
 ## Por qué funciona
 
@@ -102,10 +104,10 @@ La regla es simple: tiene que existir un router claro (`CLAUDE.md` o `AGENTS.md`
 Para desinstalar en Claude Code:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main/uninstall.sh | SB_YES=1 bash
+curl -fsSL https://raw.githubusercontent.com/brunogiel/sabe/main/uninstall.sh | SB_YES=1 bash
 ```
 
-En Cowork, desinstalá el plugin desde la UI o escribí `/plugin uninstall agentic-second-brain`.
+En Cowork, desinstalá el plugin desde la UI o escribí `/plugin uninstall sabe`.
 
 ## La escalera
 
@@ -126,11 +128,11 @@ El coach lee `ESTADO.md` y `ESCALERA.md`, te dice dónde estás y propone un sol
 
 ## Portabilidad
 
-Tu brain son archivos de texto. Podés abrir la misma carpeta en Cowork, Claude Code, Codex o Cursor. Los skills de uso viven en `skills/` y se disparan desde la tabla **Mis skills** de `CLAUDE.md`, que Codex y Cursor alcanzan por `AGENTS.md`. Lo único específico de Claude es el motor de armado (`/asb-coach`, y en Claude Code el updater `actualizar`); para otros agentes, `AGENTS.md` trae un fallback.
+Tu brain son archivos de texto. Podés abrir la misma carpeta en Cowork, Claude Code, Codex o Cursor. Los skills de uso viven en `skills/` y se disparan desde la tabla **Mis skills** de `CLAUDE.md`, que Codex y Cursor alcanzan por `AGENTS.md`. Lo único específico de Claude es el motor de armado (`/sabe-coach`, y en Claude Code el updater `actualizar`); para otros agentes, `AGENTS.md` trae un fallback.
 
 ## Skills
 
-La mayoría del kit es el toolkit de arriba. Sumá `/asb-triage` (tu brief del día) cuando conectes una fuente por MCP: mail, calendario o tareas. Dos skills más no tienen comando, y el coach las suma a medida que subís: `crear-skill` (armá el tuyo) y `evaluar-skill` (medí un skill contra su rúbrica).
+La mayoría del kit es el toolkit de arriba. Sumá `/sabe-triage` (tu brief del día) cuando conectes una fuente por MCP: mail, calendario o tareas. Dos skills más no tienen comando, y el coach las suma a medida que subís: `crear-skill` (armá el tuyo) y `evaluar-skill` (medí un skill contra su rúbrica).
 
 ## Filosofía
 

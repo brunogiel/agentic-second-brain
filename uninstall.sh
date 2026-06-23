@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# Agentic Second Brain uninstaller
-# https://github.com/brunogiel/agentic-second-brain
+# SABE uninstaller
+# https://github.com/brunogiel/sabe
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main/uninstall.sh | SB_YES=1 bash
+#   curl -fsSL https://raw.githubusercontent.com/brunogiel/sabe/main/uninstall.sh | SB_YES=1 bash
 #   (o, si clonaste el repo:  bash uninstall.sh)
 #
 # Saca SOLO el motor global del método (~/.claude/skills/: el coach + actualizar + migrar).
@@ -15,11 +15,11 @@ set -euo pipefail
 
 SKILLS_DIR="${HOME}/.claude/skills"
 COMMANDS_DIR="${HOME}/.claude/commands"
-METHOD_SKILLS=("agentic-second-brain-coach" "actualizar")   # migrar ya no es skill (es doc del coach); actualizar es Code-only
-METHOD_COMMANDS=("asb" "asb-coach" "asb-slop" "asb-write" "asb-panel" "asb-council" "asb-prompt" "asb-deck" "asb-audit" "asb-doc" "asb-simple" "asb-triage")   # el toolkit /asb-* (Code: ~/.claude/commands/)
+METHOD_SKILLS=("sabe-coach" "actualizar")   # migrar ya no es skill (es doc del coach); actualizar es Code-only
+METHOD_COMMANDS=("sabe" "sabe-coach" "sabe-slop" "sabe-write" "sabe-panel" "sabe-council" "sabe-prompt" "sabe-deck" "sabe-audit" "sabe-doc" "sabe-simple" "sabe-triage")   # el toolkit /sabe-* (Code: ~/.claude/commands/)
 
 echo ""
-echo "🧠  Agentic Second Brain: desinstalar el motor global"
+echo "🧠  SABE: desinstalar el motor global"
 echo ""
 
 # --- qué hay para sacar ---
@@ -55,7 +55,7 @@ elif [ -t 0 ]; then
   read -r reply
 else
   echo "En modo pipe necesito confirmación explícita. Volvé a correr con SB_YES=1:"
-  echo "  curl -fsSL https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main/uninstall.sh | SB_YES=1 bash"
+  echo "  curl -fsSL https://raw.githubusercontent.com/brunogiel/sabe/main/uninstall.sh | SB_YES=1 bash"
   exit 0
 fi
 

@@ -1,7 +1,7 @@
 <!--
   ejemplos.md — layouts de referencia por perfil. NO es para copiar tal cual: es para que el
   coach (y el usuario) vean "cómo se vería" un SB ya armado según el tipo de persona.
-  Al instalar va con el coach (~/.claude/skills/agentic-second-brain-coach/ejemplos.md). El coach lo usa cuando arranca con alguien nuevo.
+  Al instalar va con el coach (~/.claude/skills/sabe-coach/ejemplos.md). El coach lo usa cuando arranca con alguien nuevo.
   Skills citados: los reales del kit (redactar, anti-slop, triage, auditar-sistema,
   crear-skill, evaluar-skill, ppt-builder, panel). Los específicos del rubro los arma el usuario con crear-skill.
 -->

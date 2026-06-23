@@ -1,15 +1,15 @@
 ---
 name: actualizar
 description: >
-  Chequea si el kit Agentic Second Brain tiene una versión nueva y, si vos querés, la instala.
+  Chequea si el kit SABE tiene una versión nueva y, si vos querés, la instala.
   Usalo cuando digas "¿hay updates?", "actualizá el kit", "fijate si salió algo nuevo",
-  "actualizá Agentic Second Brain", "¿estoy al día?".
+  "actualizá SABE", "¿estoy al día?".
 ---
 
 # actualizar: bajar las mejoras del kit
 
 ## Qué es
-Mira si el kit (Agentic Second Brain) tiene una versión más nueva que la tuya y, con tu OK, la baja.
+Mira si el kit (SABE) tiene una versión más nueva que la tuya y, con tu OK, la baja.
 Es infraestructura del kit: ya viene hecho (a diferencia de los skills que armás vos, este lo trae el motor).
 
 > **Es la vía de Claude Code (instalación por `install.sh`).** En **Cowork el método se instala como plugin y se actualiza solo** desde la UI de plugins, así que ahí no hace falta este skill. Lo de abajo aplica al motor global de Code, en `~/.claude/skills/`.
@@ -17,18 +17,18 @@ Es infraestructura del kit: ya viene hecho (a diferencia de los skills que armá
 ## Flujo
 1. **[DET]** Comparar versiones. En Claude Code corré el script `check-update.sh` de esta carpeta;
    en Cowork (sin terminal) hacé el mismo chequeo con tus herramientas: bajá el `VERSION` del repo
-   (`https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main/VERSION`) y compará con `~/.claude/skills/agentic-second-brain-coach/VERSION`.
+   (`https://raw.githubusercontent.com/brunogiel/sabe/main/VERSION`) y compará con `~/.claude/skills/sabe-coach/VERSION`.
 2. **[LAT]** Si la publicada es más nueva: mostrá qué cambió (del `CHANGELOG` del repo) en 2-3 líneas
    y preguntá *"¿te la instalo?"*. No bajes nada sin un "dale".
 3. **[DET]** Con el OK: corré el `install.sh` del repo (vuelve a bajar el motor y los archivos del
-   kit; respeta lo tuyo, no pisa tus entregables). El `install.sh` ya refresca `~/.claude/skills/agentic-second-brain-coach/VERSION`
+   kit; respeta lo tuyo, no pisa tus entregables). El `install.sh` ya refresca `~/.claude/skills/sabe-coach/VERSION`
    al número nuevo, no hace falta tocarlo a mano.
 
 Fijate que el paso 1 y el 3 son mecánicos (script) y el 2 es criterio (vos decidís). Eso es DET vs LAT en vivo.
 
 ## Qué lee y escribe
-- **Lee:** `~/.claude/skills/agentic-second-brain-coach/VERSION` (local) y el `VERSION` / `CHANGELOG.md` del repo.
-- **Escribe:** solo con tu OK, baja archivos del kit y actualiza `~/.claude/skills/agentic-second-brain-coach/VERSION`. Nunca toca tus
+- **Lee:** `~/.claude/skills/sabe-coach/VERSION` (local) y el `VERSION` / `CHANGELOG.md` del repo.
+- **Escribe:** solo con tu OK, baja archivos del kit y actualiza `~/.claude/skills/sabe-coach/VERSION`. Nunca toca tus
   carpetas PARA ni tus skills propios.
 
 ## Garantía: tu carpeta no se toca (solo el motor global)
@@ -40,5 +40,5 @@ Actualizar **refresca el motor global** (`~/.claude/skills/`: el coach y sus pie
 
 ## Señales de que salió bien
 - Sabés si estás al día o no, sin entrar a internet a mano.
-- Si actualizó, `~/.claude/skills/agentic-second-brain-coach/VERSION` quedó en el número nuevo.
+- Si actualizó, `~/.claude/skills/sabe-coach/VERSION` quedó en el número nuevo.
 - Nada se bajó sin tu OK; tus cosas quedaron intactas.

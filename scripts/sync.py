@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sincroniza los comandos /asb-* del toolkit con su kit-skill.
+"""Sincroniza los comandos /sabe-* del toolkit con su kit-skill.
 
 Fuente única de verdad = la kit-skill (`kit/skills/<skill>/SKILL.md`).
 El comando (`commands/<cmd>.md`) se arma como:
@@ -20,18 +20,18 @@ corrrunla despues de editar una kit-skill, y/o como check en pre-commit / CI.
 import os
 import sys
 
-# comando -> kit-skill (los 10 del toolkit; asb y asb-coach NO mapean a una kit-skill)
+# comando -> kit-skill (los 10 del toolkit; sabe y sabe-coach NO mapean a una kit-skill)
 PAIRS = {
-    "asb-slop": "anti-slop",
-    "asb-write": "redactar",
-    "asb-prompt": "prompt-optimizer",
-    "asb-panel": "panel",
-    "asb-council": "council",
-    "asb-deck": "ppt-builder",
-    "asb-audit": "auditar-sistema",
-    "asb-doc": "documenta",
-    "asb-simple": "simple",
-    "asb-triage": "triage",
+    "sabe-slop": "anti-slop",
+    "sabe-write": "redactar",
+    "sabe-prompt": "prompt-optimizer",
+    "sabe-panel": "panel",
+    "sabe-council": "council",
+    "sabe-deck": "ppt-builder",
+    "sabe-audit": "auditar-sistema",
+    "sabe-doc": "documenta",
+    "sabe-simple": "simple",
+    "sabe-triage": "triage",
 }
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

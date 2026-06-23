@@ -28,7 +28,7 @@ No hay brain escribible, así que no puedo guardar tu voz todavía. Pedí materi
 > "Para escribir como vos y no como un robot, pasame 2 o 3 textos que hayas escrito vos (un mail, un WhatsApp, un post, lo que sea) y saco tu tono para este texto."
 
 Aprendé la voz de esos textos (ver los ejes del Paso 3) y usala solo para lo que estás escribiendo ahora. **No guardes `mi-estilo.md`:** no hay brain donde persistir. Al cerrar, ofrecé persistirlo:
-> "Si querés que me acuerde tu voz para la próxima, armamos tu brain con `/asb-coach` y la guardo ahí."
+> "Si querés que me acuerde tu voz para la próxima, armamos tu brain con `/sabe-coach` y la guardo ahí."
 
 Si la persona no quiere darte ejemplos ahora, decíselo claro: podés escribirle algo, pero va a sonar a asistente y no a ella hasta que tenga su voz. Que elija. Después de aprender la voz, seguí al Paso 4.
 
@@ -70,7 +70,7 @@ Solo si hay brain escribible: si al escribir notaste un patrón que se repite en
 ## Output esperado
 - El texto en la voz del usuario.
 - La primera vez con brain escribible, además: su perfil de estilo guardado en `2. Áreas/yo/mi-estilo.md`.
-- En día cero (sin brain): el texto en su voz aprendida para esta vez, sin archivo guardado, con la oferta de armar el brain con `/asb-coach` para persistirla.
+- En día cero (sin brain): el texto en su voz aprendida para esta vez, sin archivo guardado, con la oferta de armar el brain con `/sabe-coach` para persistirla.
 
 ## Cuándo NO usar
 - Para texto técnico o código (ahí la voz no importa).
