@@ -28,11 +28,12 @@ That gap is the whole point.
 
 ## The toolkit, ready on day one
 
-You do not have to build these. The plugin ships slash commands that work the moment you install it, before you set anything up:
+The plugin ships slash commands that work the moment you install it, with no setup:
 
 | Command | What it does |
 |---|---|
-| `/asb` | Front desk: lists your tools and points you to the coach |
+| `/asb` | Front desk: shows your tools and where you stand |
+| `/asb-coach` | Builds your personal system, one step at a time (the engine) |
 | `/asb-slop` | Strips the AI smell from a text in one pass |
 | `/asb-write` | Writes or rewrites in your voice |
 | `/asb-prompt` | Turns a rough ask into a paste-ready prompt for any AI chat |
@@ -43,7 +44,7 @@ You do not have to build these. The plugin ships slash commands that work the mo
 | `/asb-doc` | Closes a session: routes everything durable to its place |
 | `/asb-simple` | Lost the thread? Plain-language recap: where we are, your move, mine |
 
-These are stock tools that work the same for everyone. The coach (`/asb-coach`) builds the part that is yours: your projects, identity, and your own skills. (A *skill* is a saved recipe a phrase triggers. Using these is the fastest way to see what one is before you write your own.)
+The toolkit commands are stock and work the same for everyone; `/asb-coach` builds the part that is yours (your projects, identity, and your own skills). A *skill* is a saved recipe a phrase triggers: using these is the fastest way to see what one is before you write your own.
 
 They run as slash commands in both Cowork and Claude Code, with no setup. In Cowork you can also trigger them by describing what you want.
 

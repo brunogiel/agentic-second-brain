@@ -88,7 +88,7 @@ Agentes 100% autónomos que actúan sin tu OK, auto-mejora de skills en loop cer
 
 ### 👁 Skills de uso (las usás ya con `/asb-*`, o las activás como skill propio)
 > **Importante:** las que tienen comando `/asb-*` ya funcionan desde el día cero, no hace falta activar nada. **"Activar"** un skill (tacharlo acá) es para tenerlo como skill PROPIO en tu `skills/`, editable y disparado por una frase tuya. O sea: `/asb-slop` lo usás ya; *activar* `anti-slop` es para hacerlo tuyo y tunearlo.
-> `[x]` = ya lo tenés en `skills/` con su fila en "Mis skills". `[ ]` = todavía no lo activaste (igual lo podés usar por su comando si tiene). Entre paréntesis, el nivel donde el coach suele ofrecerlo.
+> `[x]` = ya lo tenés en `skills/` con su fila en "Mis skills". `[ ]` = todavía no lo activaste (igual lo podés usar por su comando si tiene). Entre paréntesis, el nivel donde más útil se vuelve.
 - [ ] `redactar` → `/asb-write` *(cuando escribís)*: escribe en tu voz (mails, posts, respuestas).
 - [ ] `anti-slop` → `/asb-slop` *(cuando escribís)*: le saca el olor a IA a un texto.
 - [ ] `prompt-optimizer` → `/asb-prompt` *(cuando escribís)*: convierte un pedido crudo en un prompt listo para pegar.

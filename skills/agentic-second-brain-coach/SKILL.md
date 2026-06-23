@@ -68,20 +68,20 @@ O sea: cuando coacheás, hablás con tu voz. Cuando el usuario te pide una tarea
 **Cómo se disparan los skills de uso (importante):** NO por `.claude/skills/`, sino por **la tabla "Mis skills" del `CLAUDE.md`**. El asistente lee el `CLAUDE.md` al arrancar; cuando el usuario dice una frase que matchea una fila (frase → skill), va y sigue `skills/<nombre>/SKILL.md`. Por eso `skills/` es una carpeta **a secas y visible** (sin `.claude/`, sin symlink), y por eso anda igual en **Claude Code, Cowork y Codex** (los tres leen el `CLAUDE.md`; en Codex vía `AGENTS.md`). El frontmatter del skill afina el disparo; la fila en la tabla es lo que lo hace existir para el asistente.
 
 ## Sumar un skill de uso (a medida que el usuario avanza)
-Los skills de uso vienen dormidos en tu catálogo (`kit/skills/`, parte del kit que viaja con el método). Cuando el usuario llega al punto donde uno le sirve, **ofrecelo** (propone, vos decidís) y, con su OK:
+
+**Dos categorías, flujos distintos:**
+
+**Los 10 del toolkit (los que tienen `/asb-*`)** ya funcionan desde el día cero por su comando: no los instales en el brain del usuario por default. No copies al brain, no ofrezcas "activarlos". Si el usuario quiere customizar uno (cambiar el prompt, cambiar el gatillo de frase), PUEDE copiarlo — pero es opt-in a pedido explícito del usuario, no el flujo normal. Decile que ya los tiene disponibles y puede usarlos ahora.
+
+**`crear-skill` y `evaluar-skill`** no tienen comando: estos sí se instalan como skills propios en el brain. Con su OK:
 1. Copiá la carpeta del skill del catálogo a la vista: `kit/skills/<nombre>/` → `skills/<nombre>/` (en el brain del usuario, carpeta a secas).
 2. **Anotalo en la tabla "Mis skills" del `CLAUDE.md` raíz, con su frase gatillo.** Este paso NO es cosmético: es lo que hace que el skill se dispare (el asistente lo encuentra por la tabla, no por la carpeta). Sin la fila, el archivo está pero no se activa.
 3. **Tachalo en el catálogo "📦 Todo lo que trae el kit" de la `ESCALERA.md`** (`[ ]` → `[x]`): ese es el inventario único donde el usuario ve qué skills ya activó y cuáles le faltan.
 4. Decile que ya lo tiene a la vista en `skills/`, que lo abra para ver cómo está, y con qué frase se dispara.
 
 Cuándo ofrecer cada uno (no los amontones, uno cuando toca):
-- **redactar + anti-slop:** cuando aparece que escribe (mails, textos) y quiere que suene a él.
-- **crear-skill:** en el N3, cuando va a armar su primer skill propio.
-- **triage:** en el N4, el brief del día (necesita Gmail/calendario por MCP).
-- **`ppt-builder`:** en el N5, el orquestador de ejemplo **con estado** — arma un deck por etapas coordinando `redactar` + `anti-slop` (copy) y el skill de pptx (asset). Que lo use para ver el patrón antes de armar el suyo.
-- **`panel`:** en el N5, el orquestador de ejemplo **multi-agente** — trae 2-5 reviewers con lentes distintas sobre el mismo artefacto (un doc, mail, propuesta, copy) y le devuelve la pelota al usuario (muestra ángulos, no decide). Ofrecelo también suelto cuando tiene algo hecho que quiere mirar mejor antes de soltarlo ("paneá esto", "ojos frescos sobre esto").
-- **auditar-sistema:** en el N6 (mantenimiento), el chequeo de salud (tipo sábado).
-- **evaluar-skill:** en el N6 (mantenimiento), para medir un skill contra su rúbrica y afinarlo. (También suelto, antes, si un skill viene flojo.)
+- **`crear-skill`:** en el N3, cuando va a armar su primer skill propio. Ofrecelo para que vea la anatomía de un skill antes de armar el suyo.
+- **`evaluar-skill`:** en el N6, para medir un skill propio contra su rúbrica y afinarlo. (También suelto, antes, si un skill viene flojo.)
 
 El catálogo es la fuente; lo que usa vive en `skills/`. Si edita su copia, es suya; el catálogo queda como original.
 

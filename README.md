@@ -28,11 +28,12 @@ Ese salto es todo el punto.
 
 ## El toolkit, listo el día uno
 
-Estos no los armás vos. El plugin trae slash commands que funcionan apenas lo instalás, antes de configurar nada:
+El plugin trae slash commands que funcionan apenas lo instalás, sin configurar nada:
 
 | Comando | Qué hace |
 |---|---|
-| `/asb` | El conserje: te lista las herramientas y te manda al coach |
+| `/asb` | El conserje: te muestra las herramientas y dónde vas parado |
+| `/asb-coach` | Arma tu sistema personal, de a un escalón (el motor del método) |
 | `/asb-slop` | Saca el olor a IA de un texto en una pasada |
 | `/asb-write` | Redacta o reescribe en tu voz |
 | `/asb-prompt` | Convierte un pedido crudo en un prompt listo para pegar en cualquier chat de IA |
@@ -43,7 +44,7 @@ Estos no los armás vos. El plugin trae slash commands que funcionan apenas lo i
 | `/asb-doc` | Cierra la sesión: rutea todo lo durable a su lugar |
 | `/asb-simple` | ¿Perdiste el hilo? Estado en simple: dónde estamos, qué hacés vos, qué sigo yo |
 
-Son herramientas de fábrica, sirven igual para todos. El coach (`/asb-coach`) arma la parte que es tuya: tus proyectos, tu identidad y tus propias skills. (Un *skill* es una receta guardada que dispara una frase. Usar estas es la forma más rápida de ver qué es uno antes de armar el tuyo.)
+Las del toolkit son de fábrica y sirven igual para todos; `/asb-coach` arma la parte que es tuya (tus proyectos, tu identidad, tus propias skills). Un *skill* es una receta guardada que dispara una frase: usar estas es la forma más rápida de ver qué es uno antes de armar el tuyo.
 
 Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En Cowork además las podés disparar describiendo lo que querés.
 
