@@ -129,7 +129,7 @@ Tu brain son archivos de texto. Podés abrir la misma carpeta en Cowork, Claude 
 
 ## Skills
 
-La mayoría del kit es el toolkit de arriba. Tres skills no tienen comando, y el coach las suma a medida que subís: `crear-skill` (armá el tuyo), `triage` (un brief del día con mail, agenda y tareas conectadas) y `evaluar-skill` (medí un skill contra su rúbrica).
+La mayoría del kit es el toolkit de arriba. Sumá `/asb-triage` (tu brief del día) cuando conectes una fuente por MCP: mail, calendario o tareas. Dos skills más no tienen comando, y el coach las suma a medida que subís: `crear-skill` (armá el tuyo) y `evaluar-skill` (medí un skill contra su rúbrica).
 
 ## Filosofía
 

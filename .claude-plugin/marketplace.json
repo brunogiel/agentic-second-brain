@@ -9,7 +9,7 @@
       "name": "agentic-second-brain",
       "source": "./",
       "description": "Un metodo instalable para que Claude (Code o Cowork) deje de adivinar quien sos: tu Agentic Second Brain en archivos de texto. Trae un toolkit de comandos /asb que funciona el dia cero y un coach que arma el resto de a un escalon. Sin terminal en Cowork.",
-      "version": "2.24.0",
+      "version": "2.25.0",
       "author": {
         "name": "Bruno Gielczynsky",
         "url": "https://www.linkedin.com/in/brunogiel/"

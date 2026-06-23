@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.25.0 (2026-06-23)
+- **`triage` promovido a comando `/asb-triage`.** Era la única huérfana que es una acción de un tiro y de uso diario (el brief del día); inconsistente que `/asb-doc` existiera y triage no. Ahora es comando (necesita al menos el mail conectado por MCP). Quedan 2 skills sin comando a propósito: `crear-skill` (pedagógica, N3) y `evaluar-skill` (meta-mantenimiento, N6).
+- **`triage` ahora usa/persiste su referencia en el brain.** Lee tu contexto (identidad + proyectos activos) para priorizar el brief, y guarda tu referencia de triage (`2. Áreas/yo/triage.md`: fuentes + prioridades) la primera vez para reusarla, con el mismo contrato día-cero (persiste solo si hay brain escribible, nunca toca el kit read-only).
+- **Nuevo `scripts/sync.py`: fuente única para el body de los comandos del toolkit.** El body vive en la kit-skill; el comando = su frontmatter + la línea de intro + el body de la kit-skill, generado por el script. `python3 scripts/sync.py` regenera, `--check` falla si algún par está desincronizado. Mata el riesgo de que las dos copias driftearan a mano. Verificados los 10 pares comando↔kit en sync.
+- Tocados: `commands/asb-triage.md` (nuevo), `kit/skills/triage/SKILL.md`, `scripts/sync.py` (nuevo), `install.sh`, `uninstall.sh`, `README.md`, `README.en.md`, `kit/brain/ESCALERA.md`, `VERSION`, `.claude-plugin/*`, `CHANGELOG.md`.
+
 ## 2.24.0 (2026-06-23)
 - **El README oficial pasa a ser el español.** El método está escrito en rioplatense, así que el README por defecto del repo (`README.md`) ahora es el español; el inglés se movió a `README.en.md` como traducción secundaria. Resuelve la rareza de un README en inglés describiendo un método en español. (La migración english-first del método sigue pendiente, aparte.)
 - Tocados: `README.md` (ahora español), `README.en.md` (nuevo), `README.es.md` (eliminado), `VERSION`, `.claude-plugin/*`, `CHANGELOG.md`.

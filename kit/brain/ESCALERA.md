@@ -99,5 +99,5 @@ Agentes 100% autónomos que actúan sin tu OK, auto-mejora de skills en loop cer
 - [ ] `documenta` → `/asb-doc`: guarda lo durable de una conversación en su lugar.
 - [ ] `simple` → `/asb-simple`: te baja el estado de la charla en simple cuando perdés el hilo.
 - [ ] `crear-skill` *(N3)*: te guía a armar tu primer skill propio (no tiene comando, lo abrís para aprender).
-- [ ] `triage` *(N4)*: el brief del día (mail + agenda + tareas por MCP).
+- [ ] `triage` → `/asb-triage` *(N4)*: el brief del día (mail + agenda + tareas por MCP).
 - [ ] `evaluar-skill` *(N6)*: mide un skill contra su propia rúbrica y lo afina.

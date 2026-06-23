@@ -1,13 +1,8 @@
 ---
-name: triage
-description: >
-  Te arma el brief del día y los accionables, cruzando tus fuentes: mail,
-  calendario (reporte de citas) y tu chat/tareas de trabajo (Slack, Jira,
-  Linear, Trello, Notion comments, lo que uses). Usalo cuando digas
-  "armame el brief del día", "triage", "qué tengo hoy", "briefeame",
-  "leeme los mails", "qué llegó al inbox", "revisá mi correo". Cada fuente
-  necesita su MCP conectado; con el mail solo ya arranca.
+description: Te arma el brief del día y los accionables cruzando tus fuentes (mail, calendario, chat/tareas). Necesita al menos el mail conectado por MCP.
 ---
+
+Armá el brief del día y los accionables cruzando las fuentes conectadas (mail, calendario, chat/tareas). Seguí esto:
 
 # triage: el brief del día
 

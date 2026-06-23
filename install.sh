@@ -89,7 +89,7 @@ fetch "VERSION"      "coach/VERSION"
 fetch "CHANGELOG.md" "coach/CHANGELOG.md"
 
 # comandos slash (Code): se instalan en ~/.claude/commands/ para que aparezcan como /asb, /asb-coach y el toolkit /asb-*
-COMMANDS=("asb" "asb-coach" "asb-slop" "asb-write" "asb-panel" "asb-council" "asb-prompt" "asb-deck" "asb-audit" "asb-doc" "asb-simple")
+COMMANDS=("asb" "asb-coach" "asb-slop" "asb-write" "asb-panel" "asb-council" "asb-prompt" "asb-deck" "asb-audit" "asb-doc" "asb-simple" "asb-triage")
 for c in "${COMMANDS[@]}"; do fetch "commands/${c}.md" "commands/${c}.md"; done
 
 # NOTA: este script NO arma tu carpeta del brain. Eso lo hace el coach, charlando y

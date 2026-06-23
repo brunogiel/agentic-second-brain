@@ -129,7 +129,7 @@ Your brain is plain text. You can open the same folder in Cowork, Claude Code, C
 
 ## Skills
 
-Most of the kit is the toolkit above. Three skills have no command, and the coach adds them as you climb: `crear-skill` (build your own), `triage` (a daily brief from connected mail, calendar, and tasks), and `evaluar-skill` (grade a skill against its rubric).
+Most of the kit is the toolkit above. Add `/asb-triage` (your daily brief) once you connect a source over MCP: mail, calendar, or tasks. Two more skills have no command, and the coach adds them as you climb: `crear-skill` (build your own) and `evaluar-skill` (grade a skill against its rubric).
 
 ## Philosophy
 
