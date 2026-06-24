@@ -1,8 +1,8 @@
 # SABE
 
-*Second-brain Agentic Build Engine.* SABE dónde están tus cosas y sabe qué hacer con tus pedidos.
+*Second-brain Agentic Build Engine.[^1]* SABE dónde están tus cosas y sabe qué hacer con tus pedidos.
 
-Claude arranca cada sesión sin saber quién sos, cómo trabajás ni dónde está lo importante. SABE lo corta: una carpeta de texto plano que lee al inicio, así deja de improvisar.
+Claude arranca cada sesión sin saber quién sos, cómo trabajás ni dónde está lo importante. SABE lo corta: una carpeta con archivos de texto plano que lee al inicio, así deja de improvisar.
 
 A diferencia de las notas que guardás para vos, esta carpeta es compartida: vos y tu asistente la leen y editan, pero el que trabaja desde ella es el agente, cargando lo que cada tarea necesita para actuar.
 
@@ -162,3 +162,5 @@ Hecho por [Bruno Gielczynsky](https://www.linkedin.com/in/brunogiel/). Parte de 
 ## Licencia
 
 MIT. Usalo, forkealo, hacelo tuyo.
+
+[^1]: Sí, el acrónimo es forzado. 🫠

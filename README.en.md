@@ -2,7 +2,7 @@
 
 *Second-brain Agentic Build Engine.* SABE means "it knows" in Spanish: it knows where your stuff lives, and it knows what to do with your requests.
 
-Claude starts every session not knowing who you are, how you work, or where things live. SABE fixes that: a plain-text folder it reads at startup, so it stops guessing.
+Claude starts every session not knowing who you are, how you work, or where things live. SABE fixes that: a folder with plain-text files it reads at startup, so it stops guessing.
 
 Unlike notes you keep for yourself, this folder is shared: you and your assistant both read and edit it, but the agent is the one working from it, loading what each task needs to act.
 
