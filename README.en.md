@@ -46,10 +46,12 @@ The plugin ships slash commands that work the moment you install it, with no set
 | `/brain-audit` | Health check of your second brain |
 | `/brain-doc` | Closes a session: routes everything durable to its place |
 | `/brain-simple` | Lost the thread? Plain-language recap: where we are, your move, mine |
+| `/brain-newskill` | Build a new skill following the anatomy that works |
+| `/brain-evalskill` | Grade a skill against its rubric and propose fixes (doesn't apply them) |
 
 The toolkit commands are stock and work the same for everyone. `/brain-coach` is the engine: its job is, above all, to help you **generate and maintain your second-brain architecture** (your projects, identity, and your own skills), one step at a time. A *skill* is a saved recipe a phrase triggers; using the toolkit ones is the fastest way to see what one is before you write your own.
 
-As you climb, the coach adds skills beyond the base toolkit: `/brain-triage` (your daily brief, once you connect a source over MCP — mail, calendar, or tasks), `crear-skill` (build your own), and `evaluar-skill` (grade a skill against its rubric).
+Beyond the toolkit, `/brain-triage` (your daily brief) is the first configurable skill: the coach teaches you to set it up once you connect a source over MCP — mail, calendar, or tasks.
 
 They run as slash commands in both Cowork and Claude Code, with no setup. In Cowork you can also trigger them by describing what you want.
 
@@ -71,7 +73,7 @@ It installs the method and commands globally and does not touch your brain folde
 
 ## How it works
 
-The model under the hood (Opus, Fable, Haiku, or one of the ChatGPT models) writes text. The client (Cowork, Claude Code, Codex) gives it hands to read and edit files. Your folder gives it the context. The payoff: your context window stays cheap and uncluttered, because instead of loading everything, the agent fetches the one or two files a task needs.
+The model under the hood (Opus, Fable, Haiku, GPT-5) writes text. The client (Cowork, Claude Code, Codex) gives it hands to read and edit files. Your folder gives it the context. The payoff: your context window stays cheap and uncluttered, because instead of loading everything, the agent fetches the one or two files a task needs.
 
 That works because of the layout. **This repo uses the PARA method** (projects, areas, resources, archive) plus an inbox, because it orders everything by how actionable it is and gives the agent a clear map of where things live. On top sits a small **master index** (`CLAUDE.md`) that points to where everything is. Files stay small and single-purpose, so the index points and the agent fetches only what the task needs, and you can open or edit any piece by hand without anything breaking.
 
@@ -141,9 +143,9 @@ Your brain is plain text. You can open the same folder in Cowork, Claude Code, C
 - Skills stay dormant until a phrase activates them.
 - Your folder stays clean: only your stuff.
 
-## About me
+## Author
 
-Made by [Bruno Gielczynsky](https://www.linkedin.com/in/brunogiel/): a builder who creates businesses and personal systems with AI, and packages them as installable methods so others can use them without coding. Agentic Second Brain is part of a family alongside [Empat.ia](https://github.com/brunogiel/Empat.ia) (user discovery with AI). Tried it? Reach out on [LinkedIn](https://www.linkedin.com/in/brunogiel/) and tell me what you built.
+[Bruno Gielczynsky](https://www.linkedin.com/in/brunogiel/)
 
 ## License
 

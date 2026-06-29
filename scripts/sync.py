@@ -20,7 +20,7 @@ corrrunla despues de editar una kit-skill, y/o como check en pre-commit / CI.
 import os
 import sys
 
-# comando -> kit-skill (los 11 del toolkit; brain y brain-coach NO mapean a una kit-skill).
+# comando -> kit-skill (los 13 del toolkit; brain y brain-coach NO mapean a una kit-skill).
 # Los comandos viven con nombre pelado en el repo (commands/slop.md) para verse brain:slop en el plugin.
 PAIRS = {
     "slop": "anti-slop",
@@ -34,6 +34,8 @@ PAIRS = {
     "simple": "simple",
     "triage": "triage",
     "verify": "verificar",
+    "newskill": "crear-skill",
+    "evalskill": "evaluar-skill",
 }
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

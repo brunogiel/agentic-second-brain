@@ -18,7 +18,7 @@ COMMANDS_DIR="${HOME}/.claude/commands"
 # Incluye los nombres viejos de TODAS las generaciones (sabe-* y asb-*) además de los
 # nuevos (brain-*) para que una sola corrida limpie cualquier instalación previa.
 METHOD_SKILLS=("brain-coach" "sabe-coach" "agentic-second-brain-coach" "actualizar")   # migrar ya no es skill (es doc del coach); actualizar es Code-only
-METHOD_COMMANDS=("brain" "brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-triage" "brain-verify" "sabe" "sabe-coach" "sabe-slop" "sabe-write" "sabe-panel" "sabe-council" "sabe-prompt" "sabe-deck" "sabe-audit" "sabe-doc" "sabe-simple" "sabe-triage" "sabe-verify" "asb" "asb-coach" "asb-slop" "asb-write" "asb-panel" "asb-council" "asb-prompt" "asb-deck" "asb-audit" "asb-doc" "asb-simple" "asb-triage")   # toolkit nuevo /brain-* + viejos /sabe-* + más viejos /asb-* (Code: ~/.claude/commands/)
+METHOD_COMMANDS=("brain" "brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-triage" "brain-verify" "brain-newskill" "brain-evalskill" "sabe" "sabe-coach" "sabe-slop" "sabe-write" "sabe-panel" "sabe-council" "sabe-prompt" "sabe-deck" "sabe-audit" "sabe-doc" "sabe-simple" "sabe-triage" "sabe-verify" "asb" "asb-coach" "asb-slop" "asb-write" "asb-panel" "asb-council" "asb-prompt" "asb-deck" "asb-audit" "asb-doc" "asb-simple" "asb-triage")   # toolkit nuevo /brain-* + viejos /sabe-* + más viejos /asb-* (Code: ~/.claude/commands/)
 
 echo ""
 echo "🧠  Agentic Second Brain: desinstalar el motor global"

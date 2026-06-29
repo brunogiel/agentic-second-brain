@@ -88,7 +88,7 @@ fetch "CHANGELOG.md" "coach/CHANGELOG.md"
 # comandos slash (Code): se instalan en ~/.claude/commands/ con prefijo brain- para no chocar
 # con comandos genéricos. En el plugin (Cowork) se ven como brain:coach (sin prefijo redundante).
 CONSERJE="brain"                                                                                              # commands/brain.md → /brain
-TOOLKIT=("coach" "slop" "write" "panel" "council" "prompt" "deck" "audit" "doc" "simple" "triage" "verify")   # commands/<x>.md → /brain-<x>
+TOOLKIT=("coach" "slop" "write" "panel" "council" "prompt" "deck" "audit" "doc" "simple" "triage" "verify" "newskill" "evalskill")   # commands/<x>.md → /brain-<x>
 fetch "commands/${CONSERJE}.md" "commands/${CONSERJE}.md"
 for c in "${TOOLKIT[@]}"; do fetch "commands/${c}.md" "commands/${c}.md"; done
 

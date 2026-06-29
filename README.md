@@ -46,10 +46,12 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-audit` | Chequeo de salud de tu segundo cerebro |
 | `/brain-doc` | Cierra la sesión: rutea todo lo durable a su lugar |
 | `/brain-simple` | ¿Perdiste el hilo? Estado en simple: dónde estamos, qué hacés vos, qué sigo yo |
+| `/brain-newskill` | Armá un skill nuevo siguiendo la anatomía que funciona |
+| `/brain-evalskill` | Medí un skill contra su rúbrica y proponé mejoras (no las aplica) |
 
 Las del toolkit son de fábrica y sirven igual para todos. `/brain-coach` es el motor: su trabajo es, sobre todo, ayudarte a **generar y mantener la arquitectura de tu segundo cerebro** (tus proyectos, tu identidad, tus propias skills), de a un escalón. Un *skill* es una receta guardada que dispara una frase; usar las del toolkit es la forma más rápida de ver qué es uno antes de armar el tuyo.
 
-A medida que subís de nivel, el coach suma skills que no están en el toolkit base: `/brain-triage` (tu brief del día, cuando conectás una fuente por MCP — mail, calendario o tareas), `crear-skill` (armá el tuyo) y `evaluar-skill` (medí un skill contra su rúbrica).
+Aparte del toolkit, `/brain-triage` (tu brief del día) es la primera skill configurable: el coach te enseña a montarla cuando conectás una fuente por MCP — mail, calendario o tareas.
 
 Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En Cowork además las podés disparar describiendo lo que querés.
 
@@ -71,7 +73,7 @@ Instala el método y los comandos de forma global y no toca tu carpeta del brain
 
 ## Por qué funciona
 
-El modelo de fondo (Opus, Fable, Haiku, o alguno de ChatGPT) genera texto. El cliente (Cowork, Claude Code, Codex) le da manos para leer y escribir archivos. Tu carpeta le da el contexto. El beneficio: tu ventana de contexto queda barata y despejada, porque en vez de cargar todo, el agente trae el archivo o dos que la tarea necesita.
+El modelo de fondo (Opus, Fable, Haiku, GPT-5) genera texto. El cliente (Cowork, Claude Code, Codex) le da manos para leer y escribir archivos. Tu carpeta le da el contexto. El beneficio: tu ventana de contexto queda barata y despejada, porque en vez de cargar todo, el agente trae el archivo o dos que la tarea necesita.
 
 Eso funciona por el layout. **Este repo usa el método PARA** (proyectos, áreas, recursos, archivo) más un inbox, porque ordena todo por qué tan accionable es y le da al agente un mapa claro de dónde vive cada cosa. Arriba va un **índice maestro** chico (`CLAUDE.md`) que apunta a dónde está todo. Los archivos son chicos y de un solo tema, así el índice apunta y el agente trae solo lo que la tarea necesita, y vos podés abrir o editar cualquier pieza a mano sin romper nada.
 
@@ -141,9 +143,9 @@ Tu brain son archivos de texto. Podés abrir la misma carpeta en Cowork, Claude 
 - Los skills duermen hasta que una frase los activa.
 - Tu carpeta queda limpia: solo lo tuyo.
 
-## Sobre mí
+## Autor
 
-Hecho por [Bruno Gielczynsky](https://www.linkedin.com/in/brunogiel/): builder que arma negocios y sistemas personales con AI, y los empaqueta como métodos instalables para que otros los usen sin programar. Agentic Second Brain es parte de una familia junto con [Empat.ia](https://github.com/brunogiel/Empat.ia) (descubrimiento de usuarios con AI). ¿Lo probaste? Escribime por [LinkedIn](https://www.linkedin.com/in/brunogiel/) y contame qué armaste.
+[Bruno Gielczynsky](https://www.linkedin.com/in/brunogiel/)
 
 ## Licencia
 

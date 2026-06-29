@@ -1,7 +1,7 @@
 {
   "name": "brain",
   "description": "Claude arranca cada sesion adivinando quien sos. Agentic Second Brain lo corta: una carpeta de archivos de texto plano que tu asistente opera. Trae un toolkit de comandos /brain listo el dia cero (anti-slop, panel, council, deck, prompt, verify) y un coach que arma el resto de a un escalon. Para Claude Code o Cowork. En Cowork se instala sin terminal.",
-  "version": "2.29.0",
+  "version": "2.30.0",
   "author": {
     "name": "Bruno Gielczynsky",
     "url": "https://www.linkedin.com/in/brunogiel/"
