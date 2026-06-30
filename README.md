@@ -59,7 +59,7 @@ Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En C
 
 ### Cowork (sin terminal)
 
-1. Escribí `/setup-cowork install brain@agentic-second-brain` (el nombre se repite porque es `plugin@marketplace`).
+1. En la app, andá a **Customize → Plugins → Add marketplace** y pegá `brunogiel/agentic-second-brain`. Después instalá el plugin **`brain`**.
 2. Abrí o creá la carpeta donde quieras que viva tu brain. Mejor una sincronizada: Drive, iCloud o Dropbox.
 3. Escribí `/brain` para arrancar. Pregunta antes de crear nada, nunca arma carpetas por atrás, y en Cowork el plugin se actualiza solo.
 
@@ -67,6 +67,13 @@ Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En C
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main/install.sh | bash
+```
+
+O, si preferís el sistema de plugins en vez del curl:
+
+```text
+/plugin marketplace add brunogiel/agentic-second-brain
+/plugin install brain@agentic-second-brain
 ```
 
 Instala el método y los comandos de forma global y no toca tu carpeta del brain. Después abrí la carpeta donde querés trabajar y escribí `/brain` para arrancar.

@@ -6,8 +6,8 @@
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/brunogiel/agentic-second-brain/main/install.sh | bash
 #
-# ¿En Cowork (sin terminal)? NO uses esto: instalá el plugin desde la UI de plugins.
-#   /setup-cowork install brain@agentic-second-brain
+# ¿En Cowork (sin terminal)? NO uses esto: instalá el plugin desde la app:
+#   Customize → Plugins → Add marketplace → pegá  brunogiel/agentic-second-brain  → instalá el plugin "brain"
 #
 # Dos baldes, claros:
 #   1. EL MÉTODO (global, ~/.claude/skills/): se instala como una app. El motor (el coach, +
