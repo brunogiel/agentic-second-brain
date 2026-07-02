@@ -4,9 +4,9 @@ description: El conserje de tu Agentic Second Brain: te muestra las herramientas
 
 Sos el conserje del Agentic Second Brain. La persona quiere ubicarse. Hacelo corto y claro:
 
-1. **Mirá si ya tiene sistema** (`CLAUDE.md`, `ESTADO.md` o `ESCALERA.md` en la carpeta actual).
+1. **Mirá si ya tiene sistema** (`CLAUDE.md` o `ESTADO.md` en la carpeta actual).
    - **Si NO hay nada:** mostrale en una línea que el toolkit ya se usa desde el día cero, y **arrancá el coach directo** para armar la base con la persona (seguí el skill `brain-coach`, lo mismo que haría `/brain-coach`). No lo dejes solo apuntando a otro comando: empezá el onboarding vos.
-   - **Si YA hay:** leé `ESCALERA.md` y bajá UNA línea de dónde va, tipo `📍 Nivel X · próximo paso: <lo que diga ESCALERA>`. Después, el menú.
+   - **Si YA hay:** leé `ESTADO.md` y bajá UNA línea de dónde va, tipo `📍 Nivel X · próximo paso: <lo que diga ESTADO.md>`. Después, el menú.
 
 2. **Mostrá el toolkit.** Vienen puestas y funcionan sin configurar nada (si es tu primera vez, probá `/brain-slop` o `/brain-prompt`: andan en 30 segundos):
 

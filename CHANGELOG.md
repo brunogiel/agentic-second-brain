@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.33.0 (2026-07-02)
+- **`ESTADO.md` y `ESCALERA.md` se fusionan en un solo archivo (`ESTADO.md`).** Eran dos root-files que se solapaban (los dos guardaban "Nivel", por ejemplo) y sumaban ruido visual apenas instalás el kit. Ahora `ESTADO.md` tiene dos secciones: arriba el tablero operativo (modo, cliente, sync, proyectos activos, última vez — lo que el coach lee primero para no escanear todo), abajo "🪜 Mi escalera" con el checklist gamificado por nivel + el catálogo "📦 Todo lo que trae el kit" (contenido sin cambios, solo de casa). Menos archivos en la raíz del usuario, misma función. Los brains ya instalados con los dos archivos separados siguen andando igual: el coach no migra nada de oficio, pero si el usuario pide fusionarlos, seguí el mismo criterio (una sola sección "🪜 Mi escalera" adentro de `ESTADO.md`).
+- Tocados: `kit/brain/ESTADO.md` (fusionado), `kit/brain/ESCALERA.md` (eliminado), `kit/brain/AGENTS.md`, `kit/brain/CLAUDE.md` (sin cambio de contenido, ya apuntaba solo a `ESTADO.md`), `skills/brain-coach/SKILL.md`, `skills/brain-coach/reference.md`, `commands/brain-coach.md`, `commands/brain.md`, `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.32.1 (2026-07-01)
 - **Repasada final pre-release (docs).** Tres fixes chicos que salieron de la revisión de higiene:
   - `README.md` + `README.en.md`: la sección de desinstalar decía que en Cowork se podía usar `/plugin uninstall brain`, contradiciendo la propia sección de instalación (`/plugin` es de Claude Code terminal, no existe en Cowork). Ahora dice solo el camino real: UI → **Customize → Plugins**.

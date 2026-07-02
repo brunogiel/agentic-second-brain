@@ -44,7 +44,7 @@ fi
 
 echo ""
 echo "❗ Lo que NO se toca (tu contenido, queda intacto):"
-echo "  • tu carpeta del brain entera: CLAUDE.md, ESTADO.md, ESCALERA.md, AGENTS.md"
+echo "  • tu carpeta del brain entera: CLAUDE.md, ESTADO.md, AGENTS.md"
 echo "  • tu identidad (2. Áreas/yo/), tus proyectos, tu 0. Inbox/, tus Recursos"
 echo "  • tus skills de uso (la carpeta visible skills/ de tu brain)"
 echo ""

@@ -88,8 +88,7 @@ Dos partes quedan separadas. **Este método** vive fuera de tu carpeta para no i
 
 ```text
 CLAUDE.md        # el índice maestro que tu asistente lee primero
-ESTADO.md        # tablero corto, para retomar rápido
-ESCALERA.md      # tu progreso + el catálogo del kit
+ESTADO.md        # tablero corto + tu progreso + el catálogo del kit
 AGENTS.md        # puntero para agentes no-Claude
 0. Inbox/        # captura sin decidir
 1. Proyectos/    # proyectos, una carpeta cada uno
@@ -136,7 +135,7 @@ No armás todo el primer día. Subís de a un paso.
 | **6** | Auditoría y mejora | Revisás que el sistema no se degrade |
 | **Si programás** | Código separado del contexto | El repo tiene código; el brain guarda decisiones |
 
-El coach lee `ESTADO.md` y `ESCALERA.md`, te dice dónde estás y propone un solo próximo paso.
+El coach lee `ESTADO.md`, te dice dónde estás y propone un solo próximo paso.
 
 ## Portabilidad
 

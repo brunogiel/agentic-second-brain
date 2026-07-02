@@ -88,8 +88,7 @@ Two parts stay separate. **This method** lives outside your folder so it doesn't
 
 ```text
 CLAUDE.md        # the master index your assistant reads first
-ESTADO.md        # short status, to resume fast
-ESCALERA.md      # your progress + the kit catalog
+ESTADO.md        # short status + your progress + the kit catalog
 AGENTS.md        # pointer for non-Claude agents
 0. Inbox/        # capture without deciding
 1. Proyectos/    # projects, one folder each
@@ -136,7 +135,7 @@ You do not build everything on day one. You climb one step at a time.
 | **6** | Audit and tuning | You keep the system from degrading |
 | **If you code** | Code separated from context | The repo keeps code; the brain keeps decisions |
 
-The coach reads `ESTADO.md` and `ESCALERA.md`, tells you where you are, and proposes one next step.
+The coach reads `ESTADO.md`, tells you where you are, and proposes one next step.
 
 ## Portability
 

@@ -13,8 +13,8 @@
 #   1. EL MÉTODO (global, ~/.claude/skills/): se instala como una app. El motor (el coach, +
 #      el updater actualizar que es Code-only) más el kit que el coach usa (kit/brain + kit/skills)
 #      bundled adentro del coach. Invisible; se usa vía /brain-coach.
-#   2. TU BRAIN (esta carpeta): SOLO lo tuyo — CLAUDE.md (índice maestro) + ESTADO.md + ESCALERA.md +
-#      AGENTS.md, las carpetas PARA + 0. Inbox, tu identidad en "2. Áreas/yo/", y skills/ (los
+#   2. TU BRAIN (esta carpeta): SOLO lo tuyo — CLAUDE.md (índice maestro) + ESTADO.md (tablero +
+#      progreso) + AGENTS.md, las carpetas PARA + 0. Inbox, tu identidad en "2. Áreas/yo/", y skills/ (los
 #      skills que usás, que el coach te va sumando). Nada del método ensucia tu carpeta.
 # Descarga atómica: si algo falla, no te deja a medias. Después: abrí Claude acá y escribí /brain-coach
 set -euo pipefail
@@ -35,7 +35,7 @@ MOTOR_SRC="brain-coach"                        # el skill motor en el repo (skil
 SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar")  # kit/skills
 
 # --- el brain que se scaffoldea (desde kit/brain/) ---
-ROOT_FILES=("CLAUDE.md" "ESTADO.md" "ESCALERA.md" "AGENTS.md")
+ROOT_FILES=("CLAUDE.md" "ESTADO.md" "AGENTS.md")
 YO_FILES=("sobre-mi.md" "como-trabajo.md" "mi-estilo.md" "MEMORIA.md")
 YO_EXTRA=("soul.md" "dev-prefs.md")   # NO se scaffoldean; el coach los suma después (van bundled en el kit)
 RECURSOS=("arquitectura-skills.md" "anti-slop-writing.md")
