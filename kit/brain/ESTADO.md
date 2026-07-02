@@ -25,6 +25,8 @@ Proyectos activos:
 
 > 🎯 **Truco que sirve siempre:** cuando le pidas algo grande, cerrá con *"preguntame lo que necesites primero"*. En vez de adivinar el prompt, te hace 3-4 preguntas y clava la respuesta. Sirve para llenar tu identidad, definir un proyecto, armar un skill: todo.
 
+> 🧭 **El objetivo de fondo:** que uses las skills del catálogo como punto de partida y, con el tiempo, las reemplaces por las tuyas. El día que no te quede ninguna sin reemplazar, ya no lo necesitás más (ver "🎓 Graduación" al final).
+
 **Progreso: ░░░░░░░ (0 / 7)**
 **Próximo paso:** <lo llena el coach: la tarea concreta que sigue>
 
@@ -48,6 +50,7 @@ Proyectos activos:
 *Una frase dispara una receta entera.*
 - [ ] Abriste `crear-skill` para ver cómo es un skill por dentro
 - [ ] Armaste tu primer skill propio (en `skills/` + su fila en la tabla "Mis skills")
+- [ ] (opcional) Le diste su propio `/comando` a un skill tuyo que usás seguido. Mirá cómo lo hace `/brain-triage` con el skill `triage` del catálogo: un skill normal más un archivo chico en `commands/` que lo dispara sin decir la frase entera
 
 ### ☐ Nivel 4: El sistema trabaja para vos
 *Corre solo y mira tus herramientas, no solo tus archivos.*
@@ -73,6 +76,9 @@ Proyectos activos:
 
 ### 🚀 Más allá (frontera real, opt-in)
 Agentes 100% autónomos que actúan sin tu OK, auto-mejora de skills en loop cerrado. Posgrado de verdad: la mayoría no lo necesita. Si llegaste hasta acá, ya volás solo.
+
+### 🎓 Graduación (horizonte de fondo, no cuenta para el nivel)
+Reemplazaste cada skill del catálogo por una propia, tuneada a tu manera. Ese día podés borrar `skills/crear-skill`, `skills/evaluar-skill` y compañía sin perder nada: ya sabés armarlos vos. Extremo, honesto: el día que reemplazaste todo, hasta podés borrar este kit entero. Cumplió su función.
 
 > Marca de niveles: tachás un nivel cuando todos sus ítems están ✓. El coach mueve "Nivel actual" y la barra.
 

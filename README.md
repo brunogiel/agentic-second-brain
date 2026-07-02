@@ -12,6 +12,11 @@ Instalás un coach y arma el resto con vos, de a un escalón. Sirve en **Cowork*
 
 ---
 
+## Qué trae, en dos capas
+
+1. **El coach.** Te ayuda a armar y mantener tu propio segundo cerebro: identidad, proyectos, atajos, skills propias. Es lo importante. Lleva laburo tuyo, el coach acompaña, no lo hace solo.
+2. **El toolkit `/brain-*`.** Comandos de fábrica (sacar olor a IA, redactar en tu voz, armar un prompt, y más). Es el extra: útil desde el minuto uno, pero no es el punto. Son archivos de texto sueltos: si solo querés esto, te los podés copiar sin instalar el coach (ver [más abajo](#el-toolkit-listo-el-día-uno)).
+
 ## La diferencia se nota en la segunda sesión
 
 La sentís la segunda vez que abrís Claude: ya no volvés a explicar el mismo contexto.
@@ -29,6 +34,8 @@ Sesión 2, con el brain:
 Ese salto es todo el punto.
 
 ## El toolkit, listo el día uno
+
+Esto es el extra del método (ver arriba). Anda solo desde el minuto uno, pero el coach es lo que importa.
 
 El plugin trae slash commands que funcionan apenas lo instalás, sin configurar nada:
 
@@ -51,9 +58,11 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 
 Las del toolkit son de fábrica y sirven igual para todos. `/brain-coach` es el motor: su trabajo es, sobre todo, ayudarte a **generar y mantener la arquitectura de tu segundo cerebro** (tus proyectos, tu identidad, tus propias skills), de a un escalón. Un *skill* es una receta guardada que dispara una frase; usar las del toolkit es la forma más rápida de ver qué es uno antes de armar el tuyo.
 
-Aparte del toolkit, `/brain-triage` (tu brief del día) es la primera skill configurable: el coach te enseña a montarla cuando conectás una fuente por MCP — mail, calendario o tareas.
+Aparte del toolkit, `/brain-triage` (tu brief del día) es la primera skill configurable: el coach te enseña a montarla cuando conectás una fuente por MCP, mail, calendario o tareas.
 
 Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En Cowork además las podés disparar describiendo lo que querés.
+
+Es MIT y son archivos de texto plano: si solo querés esto, copiá el skill que te sirva (`kit/skills/<nombre>/`) y su comando (`commands/brain-<nombre>.md`) a tu propio `~/.claude/skills/` y `~/.claude/commands/`, sin instalar el coach ni tocar el resto del repo.
 
 ## Instalación
 
@@ -136,6 +145,8 @@ No armás todo el primer día. Subís de a un paso.
 | **Si programás** | Código separado del contexto | El repo tiene código; el brain guarda decisiones |
 
 El coach lee `ESTADO.md`, te dice dónde estás y propone un solo próximo paso.
+
+Meta de fondo: que reemplaces cada skill del catálogo por una tuya. El día que no te quede ninguna sin reemplazar, no necesitás más este repo.
 
 ## Portabilidad
 

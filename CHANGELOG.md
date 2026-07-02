@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.34.0 (2026-07-02)
+- **El coach y el toolkit dejan de presentarse como pares.** El README (ES+EN) suma "Qué trae, en dos capas" arriba de todo: el coach es lo importante (arma y mantiene tu sistema, lleva laburo tuyo), el toolkit `/brain-*` es el extra (útil desde el día uno, pero no el punto, y son archivos de texto sueltos que te podés copiar sin instalar el coach). Mismo reencuadre en `skills/brain-coach/SKILL.md` (la sección del toolkit ahora abre aclarando que es la capa secundaria) y en las descripciones de `plugin.json`/`marketplace.json`.
+- **Nuevo ítem opcional en Nivel 3 de la escalera:** darle su propio `/comando` a un skill propio que uses seguido, con `/brain-triage` como ejemplo del patrón (un skill + un archivo chico en `commands/` que lo dispara).
+- **Nueva sección "🎓 Graduación" en `ESTADO.md`:** el horizonte de fondo es reemplazar cada skill del catálogo por una propia, al punto de no necesitar más este kit. El README (ES+EN) cierra la tabla de la escalera con la misma idea en una línea.
+- Pasada de anti-slop sobre ambos READMEs (sacado un em-dash residual en el bloque de `/brain-triage`, versión española).
+- Tocados: `kit/brain/ESTADO.md`, `skills/brain-coach/SKILL.md`, `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.33.0 (2026-07-02)
 - **`ESTADO.md` y `ESCALERA.md` se fusionan en un solo archivo (`ESTADO.md`).** Eran dos root-files que se solapaban (los dos guardaban "Nivel", por ejemplo) y sumaban ruido visual apenas instalás el kit. Ahora `ESTADO.md` tiene dos secciones: arriba el tablero operativo (modo, cliente, sync, proyectos activos, última vez — lo que el coach lee primero para no escanear todo), abajo "🪜 Mi escalera" con el checklist gamificado por nivel + el catálogo "📦 Todo lo que trae el kit" (contenido sin cambios, solo de casa). Menos archivos en la raíz del usuario, misma función. Los brains ya instalados con los dos archivos separados siguen andando igual: el coach no migra nada de oficio, pero si el usuario pide fusionarlos, seguí el mismo criterio (una sola sección "🪜 Mi escalera" adentro de `ESTADO.md`).
 - Tocados: `kit/brain/ESTADO.md` (fusionado), `kit/brain/ESCALERA.md` (eliminado), `kit/brain/AGENTS.md`, `kit/brain/CLAUDE.md` (sin cambio de contenido, ya apuntaba solo a `ESTADO.md`), `skills/brain-coach/SKILL.md`, `skills/brain-coach/reference.md`, `commands/brain-coach.md`, `commands/brain.md`, `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.

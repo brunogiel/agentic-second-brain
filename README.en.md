@@ -12,6 +12,11 @@ You install one coach, and it builds the rest with you, one step at a time. Work
 
 ---
 
+## What it ships, in two layers
+
+1. **The coach.** Helps you build and maintain your own second brain: identity, projects, shortcuts, your own skills. This is the point. It takes real work from you; the coach walks with you, it does not do it alone.
+2. **The `/brain-*` toolkit.** Stock commands (strip AI smell from a text, write in your voice, build a prompt, and more). This is the extra: useful from minute one, but not the point. Plain-text files: if this is all you want, you can copy them without installing the coach (see [below](#the-toolkit-ready-on-day-one)).
+
 ## The difference shows up in session two
 
 You feel it the second time you open Claude: you do not explain the same context again.
@@ -29,6 +34,8 @@ Session 2, with the brain:
 That gap is the whole point.
 
 ## The toolkit, ready on day one
+
+This is the extra layer of the method (see above). It runs on its own from minute one, but the coach is the point.
 
 The plugin ships slash commands that work the moment you install it, with no setup:
 
@@ -54,6 +61,8 @@ The toolkit commands are stock and work the same for everyone. `/brain-coach` is
 Beyond the toolkit, `/brain-triage` (your daily brief) is the first configurable skill: the coach teaches you to set it up once you connect a source over MCP — mail, calendar, or tasks.
 
 They run as slash commands in both Cowork and Claude Code, with no setup. In Cowork you can also trigger them by describing what you want.
+
+It's MIT and plain text: if this is all you want, copy the skill you need (`kit/skills/<name>/`) and its command (`commands/brain-<name>.md`) into your own `~/.claude/skills/` and `~/.claude/commands/`, no coach install and nothing else touched.
 
 ## Install
 
@@ -136,6 +145,8 @@ You do not build everything on day one. You climb one step at a time.
 | **If you code** | Code separated from context | The repo keeps code; the brain keeps decisions |
 
 The coach reads `ESTADO.md`, tells you where you are, and proposes one next step.
+
+The point behind it: replace every catalog skill with one of your own. The day none are left to replace, you no longer need this repo.
 
 ## Portability
 
