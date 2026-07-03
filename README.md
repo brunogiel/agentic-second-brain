@@ -15,7 +15,7 @@ Instalás un coach y arma el resto con vos, de a un escalón. Sirve en **Cowork*
 ## Qué trae, en dos capas
 
 1. **El coach.** Un modo del asistente que te hace preguntas y arma, charlando con vos, tu propio segundo cerebro: identidad, proyectos, atajos, skills propias. Es lo importante. Lleva laburo tuyo, el coach acompaña, no lo hace solo.
-2. **El toolkit `/brain-*`.** Comandos: frases que escribís empezando con `/` en el chat con Claude y disparan una receta ya lista (sacar olor a IA, redactar en tu voz, armar un prompt, y más), sin instalar nada extra. Es el extra: útil desde el minuto uno, pero no es el punto. Son archivos de texto sueltos: si solo querés esto, te los podés copiar sin instalar el coach (ver la sección "El toolkit, listo el día uno" más abajo).
+2. **El toolkit `/brain-*`.** Comandos: frases que escribís empezando con `/` en el chat con Claude y disparan una receta ya lista (sacar olor a IA, redactar en tu voz, armar un prompt, y más), sin instalar nada extra. Es el extra: útil desde el minuto uno, pero no es el punto. Son archivos de texto sueltos: podés hacer cherry-pick de un solo skill que te guste y copiarlo, sin instalar el coach ni probar el resto del repo (ver la sección "El toolkit, listo el día uno" más abajo).
 
 Meta de fondo: cuantas más skills tuyas reemplacen las del catálogo, menos necesitás este repo.
 

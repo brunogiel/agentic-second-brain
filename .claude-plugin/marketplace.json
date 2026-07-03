@@ -9,7 +9,7 @@
       "name": "brain",
       "source": "./",
       "description": "Agentic Second Brain: un metodo instalable para que Claude (Code o Cowork) deje de adivinar quien sos. Un coach te ayuda a armar, de a un escalon, la carpeta que lo convierte en tu asistente. Lleva laburo tuyo, pero no estas solo. De extra trae un toolkit de comandos /brain que funciona el dia cero. Sin terminal en Cowork.",
-      "version": "2.34.1",
+      "version": "2.34.2",
       "author": {
         "name": "Bruno Gielczynsky",
         "url": "https://www.linkedin.com/in/brunogiel/"

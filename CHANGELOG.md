@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.34.2 (2026-07-03)
+- **README (ES+EN):** el bullet del toolkit deja explícito el cherry-pick: podés copiar un solo skill que te guste sin instalar el coach ni probar el resto del repo. Antes decía "si solo querés esto", ahora nombra la acción concreta.
+- Tocados: `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.34.1 (2026-07-03)
 - **Fixes de un `/panel` de 4 lentes sobre el diff 2.33.0/2.34.0** (higiene, coherencia de producto, privacidad, claridad para alguien sin contexto). Coincidencia clave del panel: "Qué trae, en dos capas" no terminaba de aterrizar. Aplicado:
   - `README.md`/`README.en.md`: la sección de las dos capas ahora define "coach" y "comando" en criollo antes de nombrarlos, en vez de asumir que el lector ya sabe qué son.
