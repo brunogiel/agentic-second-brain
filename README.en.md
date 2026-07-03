@@ -14,8 +14,10 @@ You install one coach, and it builds the rest with you, one step at a time. Work
 
 ## What it ships, in two layers
 
-1. **The coach.** Helps you build and maintain your own second brain: identity, projects, shortcuts, your own skills. This is the point. It takes real work from you; the coach walks with you, it does not do it alone.
-2. **The `/brain-*` toolkit.** Stock commands (strip AI smell from a text, write in your voice, build a prompt, and more). This is the extra: useful from minute one, but not the point. Plain-text files: if this is all you want, you can copy them without installing the coach (see [below](#the-toolkit-ready-on-day-one)).
+1. **The coach.** A mode of the assistant that asks you questions and builds, chatting with you, your own second brain: identity, projects, shortcuts, your own skills. This is the point. It takes real work from you; the coach walks with you, it does not do it alone.
+2. **The `/brain-*` toolkit.** Commands: phrases you type starting with `/` in the Claude chat that trigger a ready-made recipe (strip AI smell from a text, write in your voice, build a prompt, and more), no extra setup. This is the extra: useful from minute one, but not the point. Plain-text files: if this is all you want, you can copy them without installing the coach (see the "The toolkit, ready on day one" section below).
+
+The point behind it: the more catalog skills you replace with your own, the less you need this repo.
 
 ## The difference shows up in session two
 

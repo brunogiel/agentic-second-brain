@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.34.1 (2026-07-03)
+- **Fixes de un `/panel` de 4 lentes sobre el diff 2.33.0/2.34.0** (higiene, coherencia de producto, privacidad, claridad para alguien sin contexto). Coincidencia clave del panel: "Qué trae, en dos capas" no terminaba de aterrizar. Aplicado:
+  - `README.md`/`README.en.md`: la sección de las dos capas ahora define "coach" y "comando" en criollo antes de nombrarlos, en vez de asumir que el lector ya sabe qué son.
+  - La frase de Graduación (el objetivo de fondo es necesitar cada vez menos este repo) ahora aparece también arriba, junto a "Qué trae, en dos capas", no solo al final de la tabla de la escalera.
+  - Sacados los dos links de anchor `[más abajo](#...)` / `[below](#...)`, que dependían de que GitHub no tocara los acentos al armar el slug (único punto no determinístico del diff anterior); reemplazados por texto plano.
+  - El panel completo (incluido un reintento del Outsider, cuyo primer intento alucinó citas de otro documento) quedó logueado en `skills/panel/runs/2026-07-03.json` del Second Brain de Bruno.
+- Tocados: `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.34.0 (2026-07-02)
 - **El coach y el toolkit dejan de presentarse como pares.** El README (ES+EN) suma "Qué trae, en dos capas" arriba de todo: el coach es lo importante (arma y mantiene tu sistema, lleva laburo tuyo), el toolkit `/brain-*` es el extra (útil desde el día uno, pero no el punto, y son archivos de texto sueltos que te podés copiar sin instalar el coach). Mismo reencuadre en `skills/brain-coach/SKILL.md` (la sección del toolkit ahora abre aclarando que es la capa secundaria) y en las descripciones de `plugin.json`/`marketplace.json`.
 - **Nuevo ítem opcional en Nivel 3 de la escalera:** darle su propio `/comando` a un skill propio que uses seguido, con `/brain-triage` como ejemplo del patrón (un skill + un archivo chico en `commands/` que lo dispara).
