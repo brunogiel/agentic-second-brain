@@ -58,15 +58,17 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-newskill` | Armá un skill nuevo siguiendo la anatomía que funciona |
 | `/brain-evalskill` | Medí un skill contra su rúbrica y proponé mejoras (no las aplica) |
 
+¿Solo querés un skill suelto, no todo el toolkit? Cherry-pick: es MIT y texto plano, copiá `kit/skills/<nombre>/` y su comando `commands/brain-<nombre>.md` a tu `~/.claude/skills/` y `~/.claude/commands/`, sin instalar el coach ni tocar el resto del repo.
+
 Las del toolkit son de fábrica y sirven igual para todos. `/brain-coach` es el motor: su trabajo es, sobre todo, ayudarte a **generar y mantener la arquitectura de tu segundo cerebro** (tus proyectos, tu identidad, tus propias skills), de a un escalón. Un *skill* es una receta guardada que dispara una frase; usar las del toolkit es la forma más rápida de ver qué es uno antes de armar el tuyo.
 
 Aparte del toolkit, `/brain-triage` (tu brief del día) es la primera skill configurable: el coach te enseña a montarla cuando conectás una fuente por MCP, mail, calendario o tareas.
 
 Corren como slash commands en Cowork y en Claude Code, sin configurar nada. En Cowork además las podés disparar describiendo lo que querés.
 
-Es MIT y son archivos de texto plano: si solo querés esto, copiá el skill que te sirva (`kit/skills/<nombre>/`) y su comando (`commands/brain-<nombre>.md`) a tu propio `~/.claude/skills/` y `~/.claude/commands/`, sin instalar el coach ni tocar el resto del repo.
-
 ## Instalación
+
+No toca nada tuyo: no reordena ni cambia ningún archivo existente. Podés instalarlo solo para probar el toolkit, sin comprometerte a nada; si te gusta, le pedís al coach que te arme el resto. Si no, lo desinstalás y quedó todo como estaba.
 
 ### Cowork (sin terminal)
 

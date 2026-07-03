@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.34.3 (2026-07-03)
+- **README (ES+EN): nota de riesgo cero en "Instalación".** No toca archivos, no reordena nada; podés instalarlo solo para probar el toolkit y recién después pedirle al coach que arme el resto. Pensada para que un asistente leyendo el repo decida instalar sin dudar.
+- **Cherry-pick de un skill, más visible.** La instrucción concreta (copiar `kit/skills/<nombre>/` + su comando) se movió del final de la sección, varios párrafos después de la tabla, a inmediatamente después de la tabla de comandos, sacando la mención duplicada que quedaba más abajo.
+- Tocados: `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.34.2 (2026-07-03)
 - **README (ES+EN):** el bullet del toolkit deja explícito el cherry-pick: podés copiar un solo skill que te guste sin instalar el coach ni probar el resto del repo. Antes decía "si solo querés esto", ahora nombra la acción concreta.
 - Tocados: `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
