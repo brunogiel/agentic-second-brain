@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.35.0 (2026-07-14)
+- **Nuevo skill del toolkit: `/brain-ship` (skill `publicar`).** Decís `/brain-ship` y sube lo último que te hizo Claude (una página, una app) y te devuelve el link. La primera vez, si no tenés dónde hostear, te manda a crear la cuenta (Vercel/Netlify para páginas, Supabase si necesita base de datos), captura la conexión y la deja lista; de la segunda vez en adelante sube solo, sin preguntar.
+- **Directo por diseño.** No hace orientación ni "¿y ahora qué?": si ya hay host conectado, sube y da el link, cero preguntas. Solo hace el routing mínimo (estático vs. app con servidor/DB) para elegir el host.
+- **Seguridad: el secreto nunca en la carpeta sincronizada.** El brain se sincroniza (Drive/iCloud), así que el token o la clave va a la MCP oficial del host o a config local; en el brain queda solo el puntero (host, proyecto, URL, cómo reconectar). La cuenta la crea la persona, el skill no crea cuentas ni tipea credenciales por ella.
+- Tocados: `kit/skills/publicar/SKILL.md` (nuevo), `commands/brain-ship.md` (nuevo), `install.sh` (arrays `SKILLS_USO` + `TOOLKIT`), `kit/brain/ESTADO.md`, `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.34.3 (2026-07-03)
 - **README (ES+EN): nota de riesgo cero en "Instalación".** No toca archivos, no reordena nada; podés instalarlo solo para probar el toolkit y recién después pedirle al coach que arme el resto. Pensada para que un asistente leyendo el repo decida instalar sin dudar.
 - **Cherry-pick de un skill, más visible.** La instrucción concreta (copiar `kit/skills/<nombre>/` + su comando) se movió del final de la sección, varios párrafos después de la tabla, a inmediatamente después de la tabla de comandos, sacando la mención duplicada que quedaba más abajo.

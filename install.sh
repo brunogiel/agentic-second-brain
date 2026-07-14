@@ -32,7 +32,7 @@ RAW="https://raw.githubusercontent.com/${REPO}/${BRANCH}"
 SKILLS_DIR="${HOME}/.claude/skills"
 COACH_DIR="${SKILLS_DIR}/brain-coach"          # el coach + sus piezas + el kit, bundled (global)
 MOTOR_SRC="brain-coach"                        # el skill motor en el repo (skills/brain-coach)
-SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar")  # kit/skills
+SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar" "publicar")  # kit/skills
 
 # --- el brain que se scaffoldea (desde kit/brain/) ---
 ROOT_FILES=("CLAUDE.md" "ESTADO.md" "AGENTS.md")
@@ -89,7 +89,7 @@ fetch "CHANGELOG.md" "coach/CHANGELOG.md"
 # que en Cowork se vean /brain-coach. Clave: Cowork muestra el comando por su NOMBRE DE ARCHIVO, no por
 # el namespace del plugin — un archivo pelado se vería /coach (genérico). Por eso van prefijados en el repo.
 CONSERJE="brain"                                                                                              # commands/brain.md → /brain
-TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-triage" "brain-verify" "brain-newskill" "brain-evalskill")   # commands/brain-<x>.md → /brain-<x>
+TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill")   # commands/brain-<x>.md → /brain-<x>
 fetch "commands/${CONSERJE}.md" "commands/${CONSERJE}.md"
 for c in "${TOOLKIT[@]}"; do fetch "commands/${c}.md" "commands/${c}.md"; done
 

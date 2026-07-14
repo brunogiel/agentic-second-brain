@@ -116,6 +116,7 @@ Reemplazaste cada skill del catálogo por una propia, tuneada a tu manera. Ese d
 - [ ] `auditar-sistema` → `/brain-audit` *(N6)*: chequeo de salud del sistema (tipo sábado).
 - [ ] `documenta` → `/brain-doc`: guarda lo durable de una conversación en su lugar.
 - [ ] `verificar` → `/brain-verify`: el gate antes de mandar: chequea que el output cumpla lo pedido y fact-checkea sus datos.
+- [ ] `publicar` → `/brain-ship`: sube lo que te hizo Claude y te da el link; la primera vez conecta tu host (Vercel/Netlify/Supabase) y lo deja listo, después sube solo.
 - [ ] `simple` → `/brain-simple`: te baja el estado de la charla en simple cuando perdés el hilo.
 - [ ] `crear-skill` → `/brain-newskill` *(N3)*: te guía a armar tu primer skill propio; además la abrís para ver cómo es un skill por dentro.
 - [ ] `triage` → `/brain-triage` *(N4)*: el brief del día (mail + agenda + tareas por MCP).
