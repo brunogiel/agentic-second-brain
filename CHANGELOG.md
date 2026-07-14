@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.35.1 (2026-07-14)
+- **`/brain-ship` afinado tras un test end-to-end con subagente.** El test confirmó que el comportamiento seguro andaba (no inventa URL, frena en el gate de crear cuenta, respeta el host preferido por sobre el que esté a mano), pero el skill era flaco en detalle operativo. Aplicados 6 fixes + un verificador de cierre:
+  - **Detección de host conectado, explícita:** sección nueva con los chequeos exactos por host (registro del brain, `~/.config/netlify/config.json` / `$NETLIFY_AUTH_TOKEN`, `vercel whoami`, MCP oficial), en vez de "mirá el registro".
+  - **Secreto y puntero, accionables:** path local fijo (`~/.config/brain-ship/<host>.token` o el store del CLI) y schema del puntero (`host | tipo | proyecto | url | dónde vive el secreto | cómo reconectar`).
+  - **Comando de deploy por host:** tabla con `netlify deploy --dir=<carpeta> --prod`, `vercel deploy --prod --yes`, y la trampa clave de apuntar a la **carpeta**, no al `index.html` suelto.
+  - **Routing estático-vs-app en el borde:** aclara que una SPA con build (Next export, Vite) sigue siendo estática (mismo host + build command); "app" es la que necesita servidor o DB en runtime.
+  - **Preferencia de host gana:** regla dura nueva, el host declarado gana sobre el que esté conectado a mano.
+  - **Verificador de cierre:** paso nuevo que confirma que la URL responde 200 y renderiza lo tuyo (no la landing del host ni un 404) antes de decir "subido", y devuelve el **link como última línea**. Regla dura: si no verifica, no es un deploy, es un intento.
+  - **Tercer template de output:** "primera vez, frenado en el gate", para cuando el flujo corta esperando que crees la cuenta, sin fingir un deploy que todavía no pasó.
+- Tocados: `kit/skills/publicar/SKILL.md`, `commands/brain-ship.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.35.0 (2026-07-14)
 - **Nuevo skill del toolkit: `/brain-ship` (skill `publicar`).** Decís `/brain-ship` y sube lo último que te hizo Claude (una página, una app) y te devuelve el link. La primera vez, si no tenés dónde hostear, te manda a crear la cuenta (Vercel/Netlify para páginas, Supabase si necesita base de datos), captura la conexión y la deja lista; de la segunda vez en adelante sube solo, sin preguntar.
 - **Directo por diseño.** No hace orientación ni "¿y ahora qué?": si ya hay host conectado, sube y da el link, cero preguntas. Solo hace el routing mínimo (estático vs. app con servidor/DB) para elegir el host.
