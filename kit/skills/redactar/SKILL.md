@@ -50,7 +50,7 @@ De esos textos, sacá el perfil:
 - **Qué evita:** signos, formalismos, emojis, etc.
 
 **Guardá solo si hay brain escribible.** Si lo hay (venís del Paso 2B), escribí el perfil en `2. Áreas/yo/mi-estilo.md`, mostráselo en 4-5 bullets y pedile que confirme o corrija:
-> "Esto aprendí de tu forma de escribir: <bullets>. ¿Le pego? ¿Cambio algo?"
+> "Esto aprendí de tu forma de escribir: `<bullets>`. ¿Le pego? ¿Cambio algo?"
 
 Ajustá con lo que diga. Si estás en modo un solo tiro (Paso 2A), no escribas ningún archivo: usá la voz aprendida solo para este texto.
 

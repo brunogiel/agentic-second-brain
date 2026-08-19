@@ -28,7 +28,7 @@ Proyectos activos:
 > 🧭 **El objetivo de fondo:** que uses las skills del catálogo como punto de partida y, con el tiempo, las reemplaces por las tuyas. El día que no te quede ninguna sin reemplazar, ya no lo necesitás más (ver "🎓 Graduación" al final).
 
 **Progreso: ░░░░░░░ (0 / 7)**
-**Próximo paso:** <lo llena el coach: la tarea concreta que sigue>
+**Próximo paso:** `<lo llena el coach: la tarea concreta que sigue>`
 
 ---
 

@@ -5,7 +5,7 @@
   Lo que ve el usuario empieza en la línea de abajo.
 -->
 
-# CLAUDE.md — <Tu nombre>
+# CLAUDE.md — `<Tu nombre>`
 
 > Esto es lo primero que tu asistente (Claude Code o Cowork) lee al arrancar una sesión.
 > Es un mapa, no un manual: te ubica y apunta a dónde está cada cosa.

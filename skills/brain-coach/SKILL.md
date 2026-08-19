@@ -220,7 +220,7 @@ Traducí la checklist a un nivel para hablarle simple:
 La micro-lección del escalón al que va (2-3 líneas), aunque después no lo construya. (En "hacelo por mí", una línea.)
 
 ### Paso 5: Proponé UN paso [LAT]
-> "El próximo paso es <X>. ¿Lo armamos juntos ahora?"
+> "El próximo paso es `<X>`. ¿Lo armamos juntos ahora?"
 Ejemplos: N0 "llenemos `sobre-mi` y `como-trabajo`, te hago 4 preguntas". N1 "creemos tu primer proyecto". N2 "armemos la tabla de atajos". N3 "abrimos `crear-skill` para ver cómo es un skill por dentro, y armamos el tuyo". N4 "pongamos una rutina a correr sola (ej. `auditar-sistema`) + conectá una herramienta". N5 "usemos el orquestador de PPT y después armamos el tuyo". N6 "corramos `auditar-sistema` y afinemos un skill". (Si programás: "separemos código y contexto".)
 
 ### Paso 6: Si dice que sí, hacelo (según el modo) [DET/LAT]
@@ -239,7 +239,7 @@ Solo con el OK.
 **El `soul.md` se llena solo, hablando.** Es su hoja de personaje (identidad, verdades de base, cómo ve las cosas, voz y tono, límites): quién es el asistente cuando habla por él. No lo fuerces. Cuando en la charla aparezca algo de fondo (un valor, una opinión marcada, cómo quiere que suene, una línea que no se cruza), ofrecele guardarlo en `2. Áreas/yo/soul.md` (creálo si no está). Con su OK.
 
 ### Paso 7: Cerrá enseñando [LAT]
-> "Listo. Eso que armaste es tu primer <X>: <qué es / para qué sirve>. Cuando quieras, el próximo escalón es <Y>."
+> "Listo. Eso que armaste es tu primer `<X>`: `<qué es / para qué sirve>`. Cuando quieras, el próximo escalón es `<Y>`."
 
 Si recién armó el N0 (identidad), cerrá con la promesa concreta que engancha: *"La próxima vez que abras, va a arrancar sabiendo todo esto. Lo vas a notar en la segunda sesión."* Eso le da un momento de prueba, no una promesa abstracta.
 

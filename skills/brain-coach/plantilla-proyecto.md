@@ -4,7 +4,7 @@
   Mantenelo corto. Lo gordo (materiales, investigación) va en archivos aparte de la misma carpeta.
 -->
 
-# <Proyecto> — CLAUDE.md
+# `<Proyecto>` — CLAUDE.md
 
 ## Qué es
 <En 2 líneas: el objetivo y para cuándo. Un proyecto se termina; si no se termina, es un Área.>
@@ -22,7 +22,7 @@ Ej: "Más escéptico que de costumbre, verificá los números antes de afirmar."
 <Dónde está hoy, en una línea o dos.>
 
 ## Decisiones (log)
-- <AAAA-MM-DD>: <qué se decidió y por qué>. *(Una línea por decisión. Te lo agradecés en 3 meses.)*
+- `<AAAA-MM-DD>`: `<qué se decidió y por qué>`. *(Una línea por decisión. Te lo agradecés en 3 meses.)*
 
 ## Próximo paso
 <Una línea: qué sigue y con qué contexto. Actualizalo al cerrar el proyecto por hoy; miralo al retomar.>
