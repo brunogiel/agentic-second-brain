@@ -118,6 +118,7 @@ Reemplazaste cada skill del catálogo por una propia, tuneada a tu manera. Ese d
 - [ ] `verificar` → `/brain-verify`: el gate antes de mandar: chequea que el output cumpla lo pedido y fact-checkea sus datos.
 - [ ] `publicar` → `/brain-ship`: sube lo que te hizo Claude y te da el link; la primera vez conecta tu host (Vercel/Netlify/Supabase) y lo deja listo, después sube solo.
 - [ ] `simple` → `/brain-simple`: te baja el estado de la charla en simple cuando perdés el hilo.
+- [ ] `repaso-visual` → `/brain-recap`: el repaso visual de una sesión o un tema en un solo HTML, para mirarlo o mostrarlo.
 - [ ] `crear-skill` → `/brain-newskill` *(N3)*: te guía a armar tu primer skill propio; además la abrís para ver cómo es un skill por dentro.
 - [ ] `triage` → `/brain-triage` *(N4)*: el brief del día (mail + agenda + tareas por MCP).
 - [ ] `evaluar-skill` → `/brain-evalskill` *(N6)*: mide un skill contra su propia rúbrica y lo afina.

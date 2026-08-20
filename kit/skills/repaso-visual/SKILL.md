@@ -1,0 +1,125 @@
+---
+name: repaso-visual
+description: >
+  Arma un repaso visual de lo que pasó: un único archivo HTML autocontenido que
+  cuenta, de un vistazo, qué se hizo, qué se decidió, qué números salieron y qué
+  queda abierto. Sirve para una sesión de trabajo entera o para un tema que
+  nombres. Usalo cuando digas "/brain-recap", "armame el repaso de esta sesión",
+  "un resumen visual de X", "resumime en una infografía lo que pasó con Y", o
+  cuando quieras mostrarle a alguien un recorrido sin mandarle la conversación
+  entera. El resultado es SIEMPRE un solo .html: se escanea en 30 segundos y se
+  lee a fondo en 3 minutos.
+---
+
+# repaso-visual — lo que pasó, en un solo HTML
+
+## Qué es
+Una pasada que mira todo lo que pasó (esta sesión, o un tema que nombres) y lo devuelve como **una pieza visual para mirar**: un archivo HTML que se abre con doble click, sin internet, y te cuenta el recorrido, las decisiones con su porqué, los números y lo que quedó colgando.
+
+Sirve para dos cosas: **repasar** vos mismo algo largo sin releer la conversación, y **mostrárselo a alguien** que no estuvo, sin mandarle un chat de 300 mensajes.
+
+El principio: **es un repaso, no un acta.** Un acta registra todo con el mismo peso. Un repaso jerarquiza: lo que cambió el rumbo va grande, lo accesorio va chico o directamente no va.
+
+## La frontera con `/brain-doc` (leer antes que nada)
+Los dos barren la misma conversación. Hacen cosas distintas y **no se reemplazan**:
+
+| | `/brain-doc` (documenta) | `/brain-recap` (este) |
+|---|---|---|
+| Qué hace | Rutea y **escribe** en tu sistema | **Muestra**, no escribe en tu sistema |
+| Sale hacia | El log del proyecto, tu estado, tu memoria, el inbox | Un `.html` para mirar o compartir |
+| Para qué | Que la sesión no se pierda | Repasarla de un vistazo o mostrarla |
+
+**Regla dura.** Si la sesión tuvo decisiones, números o pendientes durables, el repaso **no cierra el tema**: es lindo, pero tu sistema quedó igual que antes. Al entregar el archivo, cerrá con una línea ofreciendo `/brain-doc`, sin correrlo por tu cuenta. Nunca des una sesión por cerrada porque saliste con un repaso: el riesgo real es quedarte con la sensación de haber guardado, con el estado sin tocar.
+
+## Los dos modos
+- **Sesión:** el material es la conversación actual. Repasás lo que se hizo, se decidió y quedó pendiente en ESTA sesión, en orden.
+- **Tema:** te nombran un tema. El material es lo que haya en contexto más lo que te peguen o te señalen. No inventes historia que no tenés: si el material no alcanza, pedirlo cuenta como una de tus preguntas.
+
+## Flujo
+
+### Paso 1: Fijá el alcance [DET]
+¿Sesión o tema? ¿Desde cuándo hasta cuándo? Si el pedido ya lo dice, no preguntes nada de esto.
+
+### Paso 2: Preguntá, una sola tanda, máximo 5 [DET]
+Todas juntas, no de a una, y con la opción por defecto marcada para que se conteste rápido. Una es **fija, se hace siempre**:
+
+- **¿Busco referencias externas en la web para enriquecer el repaso, o uso solo lo que hay en la sesión y el contexto actual?**
+
+Las demás salen de este banco, y solo si no se deducen del pedido:
+- ¿Para quién es? (para vos como repaso, o para alguien que no estuvo)
+- ¿Qué querés en primer plano? (decisiones, números, cronología, hallazgos)
+- ¿Hay material que deba incluir y no tengo? (pegámelo)
+- ¿Algo que quede afuera sí o sí?
+
+### Paso 3: Destilá el material [LAT]
+Releé el material **entero**, no solo lo último. Ordenalo en estos ejes, y quedate solo con los que existan de verdad:
+
+- **Qué pasó:** la secuencia, si el material es narrativo.
+- **Qué se decidió:** cada decisión con su porqué en una línea.
+- **Números:** las cifras que salieron, con su etiqueta.
+- **Hallazgos:** lo que se aprendió o se descubrió a mitad de camino.
+- **Qué queda abierto:** pendientes y próximos pasos.
+
+Máximo 7 bloques en la pieza final. Si hay más material, fusioná o cortá: un repaso de 15 bloques ya no se escanea, se lee, y entonces perdió el punto.
+
+### Paso 4: Armá el HTML [LAT]
+Seguí las reglas de contenido y de HTML de acá abajo.
+
+### Paso 5: Guardalo donde va [DET]
+Nombre `repaso-<tema>.html`, y el lugar según de quién sea el tema:
+
+| El tema es de… | Va a… |
+|---|---|
+| Un proyecto | `1. Proyectos/<ese proyecto>/repasos/` (creá la carpeta si no está) |
+| Un área | `2. Áreas/<esa área>/repasos/` |
+| Nadie claro | Proponé un lugar y preguntá, igual que hace `documenta`. No lo fuerces a una carpeta cualquiera |
+
+Nunca lo dejes en la carpeta de descargas ni en un temporal: un archivo que no sabés dónde quedó es un archivo perdido. La excepción es que te digan explícitamente que es descartable.
+
+### Paso 6: Entregá [DET]
+Devolvé el path, abrilo o mostralo, y decí en UNA línea qué cubre. Cerrá ofreciendo `/brain-doc` según la regla dura de arriba.
+
+## Reglas de contenido
+- **Un destacado por bloque, máximo.** Cada bloque tiene a lo sumo UN protagonista: una cifra grande, una frase destacada o un hito. Si todo grita, no se escucha nada.
+- **Repaso, no venta.** Frases fuertes y conceptos destacados, sí: son lo que hace que un repaso se recuerde. Pero el objetivo es repasar, no vender. Sin superlativos gratuitos, sin autobombo, sin tono de landing. Una frase se destaca porque condensa algo cierto, no porque suene épica.
+- **Números reales o ningún número.** Si el material no trae cifras, no fabriques métricas ni porcentajes de adorno. Un repaso con números inventados es peor que uno sin números.
+- **Cada dato con su peso visual.** Decisiones como tarjetas con su porqué en una línea. Números como cifras grandes con etiqueta. Secuencias como línea de tiempo. Pendientes como lista clara al final.
+- **Procedencia marcada.** Si buscaste en la web, lo externo se distingue de lo propio de la sesión con una marca sutil y consistente, y la pieza cierra con una mini sección de referencias con sus links.
+- **Toda sección vacía se elimina.** La pieza refleja lo que hay, nunca una grilla a medio llenar.
+- **Nada sensible adentro.** Ni claves, ni datos personales de terceros, ni nada que hayas marcado como privado en tu sistema. Si el repaso es para compartir, pasale el mismo filtro que le pasarías a algo que sale de tu carpeta.
+
+## La estructura de la pieza (adaptá, no rellenes)
+1. **Cabecera:** título del repaso, alcance (qué período o qué tema) y una línea con el saldo, la que responde "¿y, cómo salió?".
+2. **El recorrido:** la línea de tiempo de lo que pasó, si el material es narrativo.
+3. **Decisiones:** qué se decidió y por qué, si las hubo.
+4. **Números:** las cifras que importan, grandes, si las hay.
+5. **Hallazgos:** lo que se aprendió, si lo hay.
+6. **Queda abierto:** pendientes y próximos pasos, si los hay.
+7. **Referencias:** solo si hubo búsqueda web.
+
+## Reglas del HTML
+- **Un solo archivo, autocontenido.** CSS y JS inline, cero CDNs, cero fuentes externas (stack del sistema con fallback), cero imágenes remotas. Gráficos y líneas de tiempo en SVG o CSS puro. Se abre con doble click, sin internet, dentro de diez años.
+- **La estética la dicta el tema.** Un repaso de finanzas puede ser sobrio y numérico; uno de un viaje, cálido; uno de infraestructura, técnico y monoespaciado. Elegí paleta, tipografía y layout vos, sin preguntar, y una sola estética por pieza.
+- **Escaneable primero.** De un vistazo se entienden título, saldo y bloques; el detalle vive en el segundo nivel de lectura. Que funcione en el teléfono.
+- **Imprimible.** Un bloque `@media print` que la deje digna en A4: fondo claro si la pieza es oscura, sin cortes feos entre bloques. Eso es lo que la vuelve compartible como PDF sin trabajo extra.
+- **Footer:** título, alcance y fecha `YYYY-MM-DD`. Sin firmas ni créditos: el HTML no menciona ni a la IA ni a este skill.
+
+## Output esperado
+Un solo archivo `.html` guardado en su lugar, más tu respuesta en tres líneas: el path, qué cubre la pieza, y el ofrecimiento de `/brain-doc` si quedó algo durable sin guardar.
+
+## Cuándo NO usar
+- **Para guardar lo que pasó:** eso es `/brain-doc`. Este muestra, no guarda.
+- **Para convencer a alguien:** una pieza que argumenta y persuade por etapas es `/brain-deck`. Este repasa lo que hubo, no arma un caso.
+- **Para ubicarte en una charla que se te enredó:** eso es `/brain-simple`, que te lo baja en texto corto sin armar ningún archivo.
+- **Cuando no hay material:** una sesión de tres mensajes no necesita un repaso visual, necesita una respuesta.
+
+## Señales de que lo hiciste bien (chequeo binario)
+- [ ] Hiciste la pregunta fija (web sí o web no) antes de escribir una línea de HTML.
+- [ ] Barriste el material entero, no solo lo último que pasó.
+- [ ] Cada número que aparece salió del material; no hay ni una cifra decorativa.
+- [ ] Ningún bloque tiene dos protagonistas peleando por la atención.
+- [ ] No quedó ninguna sección vacía ni con un "sin datos" adentro.
+- [ ] El archivo abre sin internet: cero CDNs, cero fuentes remotas, cero imágenes externas.
+- [ ] Se imprime digno en A4.
+- [ ] Quedó guardado en su carpeta, con su nombre, y dijiste dónde.
+- [ ] Si había algo durable sin guardar, ofreciste `/brain-doc` en vez de dar el tema por cerrado.

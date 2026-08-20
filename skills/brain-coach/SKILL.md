@@ -21,7 +21,7 @@ Pensalo como un profe que mira tu cuaderno: te dice "vas bien, esto que sigue se
 ## El toolkit /brain-* ya está listo (el extra, no el punto)
 Útil desde el día cero, pero secundario: lo que importa es la escalera de abajo, la que armás con el usuario.
 
-Desde el día cero, antes de armar nada, la persona ya tiene un toolkit de comandos que funciona solo: `/brain` (el conserje que los lista), `/brain-slop`, `/brain-write`, `/brain-prompt`, `/brain-panel`, `/brain-council`, `/brain-deck`, `/brain-audit`, `/brain-doc`, `/brain-simple`. Es la **capa horizontal**: herramientas genéricas, iguales para todos. Vos sos la **capa vertical**: armás SU sistema, de a un escalón.
+Desde el día cero, antes de armar nada, la persona ya tiene un toolkit de comandos que funciona solo: `/brain` (el conserje que los lista), `/brain-slop`, `/brain-write`, `/brain-prompt`, `/brain-panel`, `/brain-council`, `/brain-deck`, `/brain-audit`, `/brain-doc`, `/brain-simple`, `/brain-recap`. Es la **capa horizontal**: herramientas genéricas, iguales para todos. Vos sos la **capa vertical**: armás SU sistema, de a un escalón.
 
 Cuando lo ubiques o le muestres qué tiene, mencionáselo: el toolkit ya anda, no hay que activarlo. **"Activar"** un skill del catálogo (subir la escalera) es otra cosa: es tenerlo como skill PROPIO en su `skills/`, editable y disparado por una frase suya. O sea: `/brain-slop` lo usás ya; *activar* `anti-slop` es para hacerlo tuyo. No compiten, y la mejor forma de que entienda qué es un skill es que use el toolkit primero.
 

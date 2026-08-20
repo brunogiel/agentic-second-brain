@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.36.0 (2026-08-20)
+- **Nuevo skill del toolkit: `/brain-recap` (skill `repaso-visual`).** Decís `/brain-recap` y te arma el repaso de la sesión (o del tema que le pases) en **un solo archivo HTML autocontenido**: el recorrido, las decisiones con su porqué, los números que salieron y lo que queda abierto. Se escanea en 30 segundos, abre con doble click sin internet y se imprime digno en A4, así que sirve igual para repasar vos como para mostrárselo a alguien que no estuvo.
+- **La frontera con `/brain-doc`, escrita como regla dura.** Los dos barren la misma conversación, pero `/brain-doc` **escribe** en tu sistema y `/brain-recap` solo **muestra**. Si la sesión dejó decisiones o pendientes durables, el repaso cierra ofreciendo `/brain-doc` en vez de dar el tema por cerrado: el riesgo real es quedarte con la sensación de haber guardado, con tu estado sin tocar.
+- **Números reales o ningún número.** La regla de contenido más dura del skill: si el material no trae cifras, no se fabrican métricas ni porcentajes de adorno. Van también "un destacado por bloque, máximo" (si todo grita, no se escucha nada) y "toda sección vacía se elimina" (la pieza refleja lo que hay, nunca una grilla a medio llenar).
+- **Crédito:** la idea de resolver un repaso como un único HTML autocontenido sale de un skill de Turi. Esta versión está escrita de cero para el kit: las carpetas del método, la frontera con `/brain-doc`, las reglas de contenido y el chequeo de cierre son propios.
+- **Dos drifts de la 2.35.0, arreglados de paso.** `scripts/sync.py` no tenía el par `brain-ship` → `publicar` (los dos archivos estaban en sync igual, faltaba el registro, por eso el `--check` contaba 13 comandos y no 14), y `uninstall.sh` no listaba `brain-ship`, así que desinstalar dejaba el comando huérfano en `~/.claude/commands/`.
+- Tocados: `kit/skills/repaso-visual/SKILL.md` (nuevo), `commands/brain-recap.md` (nuevo), `scripts/sync.py`, `install.sh` (arrays `SKILLS_USO` + `TOOLKIT`), `uninstall.sh`, `kit/brain/ESTADO.md`, `commands/brain.md`, `skills/brain-coach/SKILL.md`, `README.md`, `README.en.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.35.1 (2026-07-14)
 - **`/brain-ship` afinado tras un test end-to-end con subagente.** El test confirmó que el comportamiento seguro andaba (no inventa URL, frena en el gate de crear cuenta, respeta el host preferido por sobre el que esté a mano), pero el skill era flaco en detalle operativo. Aplicados 6 fixes + un verificador de cierre:
   - **Detección de host conectado, explícita:** sección nueva con los chequeos exactos por host (registro del brain, `~/.config/netlify/config.json` / `$NETLIFY_AUTH_TOKEN`, `vercel whoami`, MCP oficial), en vez de "mirá el registro".

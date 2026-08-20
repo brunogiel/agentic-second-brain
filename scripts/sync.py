@@ -20,7 +20,7 @@ corrrunla despues de editar una kit-skill, y/o como check en pre-commit / CI.
 import os
 import sys
 
-# comando -> kit-skill (los 13 del toolkit; brain y brain-coach NO mapean a una kit-skill).
+# comando -> kit-skill (los 15 del toolkit; brain y brain-coach NO mapean a una kit-skill).
 # Los comandos viven con prefijo brain- en el repo (commands/brain-slop.md) porque Cowork muestra
 # el comando por su nombre de archivo (/brain-slop), no por el namespace del plugin.
 PAIRS = {
@@ -33,8 +33,10 @@ PAIRS = {
     "brain-audit": "auditar-sistema",
     "brain-doc": "documenta",
     "brain-simple": "simple",
+    "brain-recap": "repaso-visual",
     "brain-triage": "triage",
     "brain-verify": "verificar",
+    "brain-ship": "publicar",
     "brain-newskill": "crear-skill",
     "brain-evalskill": "evaluar-skill",
 }

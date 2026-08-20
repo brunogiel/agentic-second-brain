@@ -31,6 +31,7 @@ Sos el conserje del Agentic Second Brain. La persona quiere ubicarse. Hacelo cor
    - `/brain-audit` : chequeo de salud de tu segundo cerebro.
    - `/brain-doc` : guarda lo durable de la charla donde corresponde (log, estado, inbox, memoria).
    - `/brain-simple` : si te perdiste, te baja el estado de la charla en simple.
+   - `/brain-recap` : el repaso visual de la sesión en un HTML, para mirarlo o mostrárselo a alguien.
 
    **Configurable (pide una fuente conectada por MCP)**
    - `/brain-triage` : tu brief del día cruzando mail, calendario o tareas. El coach te ayuda a montarla.

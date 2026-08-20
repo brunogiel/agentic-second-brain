@@ -56,6 +56,7 @@ The plugin ships slash commands that work the moment you install it, with no set
 | `/brain-audit` | Health check of your second brain |
 | `/brain-doc` | Closes a session: routes everything durable to its place |
 | `/brain-simple` | Lost the thread? Plain-language recap: where we are, your move, mine |
+| `/brain-recap` | Visual recap of the session in a single HTML file: what happened, what got decided, what's still open |
 | `/brain-newskill` | Build a new skill following the anatomy that works |
 | `/brain-evalskill` | Grade a skill against its rubric and propose fixes (doesn't apply them) |
 
