@@ -30,6 +30,9 @@ Los dos barren la misma conversación. Hacen cosas distintas y **no se reemplaza
 
 ## Flujo
 
+### Paso 0: ¿Hay dónde guardarlo? [DET]
+Antes de armar nada, mirá si hay un sistema escribible: carpetas PARA (`1. Proyectos`, `2. Áreas`), un `CLAUDE.md` de proyecto, algún lugar donde el archivo tenga sentido mañana. Si lo único que hay es el kit del método recién instalado, sin carpetas tuyas, el repaso se puede armar igual pero va a quedar suelto: decilo y preguntá dónde lo dejás, no lo tires en cualquier lado. **Nunca escribas dentro del `kit/` del método:** eso es la app, no tu carpeta.
+
 ### Paso 1: Fijá el alcance [DET]
 ¿Sesión o tema? ¿Desde cuándo hasta cuándo? Si el pedido ya lo dice, no preguntes nada de esto.
 
@@ -55,11 +58,13 @@ Releé el material **entero**, no solo lo último. Ordenalo en estos ejes, y que
 
 Máximo 7 bloques en la pieza final. Si hay más material, fusioná o cortá: un repaso de 15 bloques ya no se escanea, se lee, y entonces perdió el punto.
 
+**Freno.** Si al terminar de destilar no queda ni un bloque con contenido real, frená acá: decilo en una línea y ofrecé la respuesta en dos renglones, en vez de armar un HTML con seis secciones vacías. Una charla de tres mensajes no necesita un repaso visual.
+
 ### Paso 4: Armá el HTML [LAT]
 Seguí las reglas de contenido y de HTML de acá abajo.
 
 ### Paso 5: Guardalo donde va [DET]
-Nombre `repaso-<tema>.html`, y el lugar según de quién sea el tema:
+Nombre `repaso-<tema>-<YYYY-MM-DD>.html`, y el lugar según de quién sea el tema:
 
 | El tema es de… | Va a… |
 |---|---|
@@ -67,10 +72,21 @@ Nombre `repaso-<tema>.html`, y el lugar según de quién sea el tema:
 | Un área | `2. Áreas/<esa área>/repasos/` |
 | Nadie claro | Proponé un lugar y preguntá, igual que hace `documenta`. No lo fuerces a una carpeta cualquiera |
 
+**Si ya existe un archivo con ese nombre, no lo pises.** Es el repaso de otra corrida sobre el mismo tema: sumale un sufijo (`-2`) o preguntá cuál queda. Correr el comando dos veces nunca tiene que borrar el trabajo de la primera.
+
 Nunca lo dejes en la carpeta de descargas ni en un temporal: un archivo que no sabés dónde quedó es un archivo perdido. La excepción es que te digan explícitamente que es descartable.
 
-### Paso 6: Entregá [DET]
-Devolvé el path, abrilo o mostralo, y decí en UNA línea qué cubre. Cerrá ofreciendo `/brain-doc` según la regla dura de arriba.
+### Paso 6: Probalo antes de entregarlo [DET]
+Abrí el archivo y miralo. Tres chequeos concretos, con la pieza delante:
+
+1. Buscá en el HTML `http`, `src=` y `@import`. Toda referencia a algo de afuera (un CDN, una fuente, una imagen remota) se saca o se incrusta. Los únicos links que sobreviven son los de la sección Referencias, que están para hacer click, no para que la página se dibuje.
+2. Ninguna sección vacía, ningún placeholder tuyo, ningún número que no salga del material.
+3. El bloque `@media print` existe.
+
+Si no lo abriste, no lo entregues: un repaso que no miraste es un intento, no un entregable.
+
+### Paso 7: Entregá [DET]
+Devolvé el path, mostralo, y decí en UNA línea qué cubre. Cerrá ofreciendo `/brain-doc` según la regla dura de arriba.
 
 ## Reglas de contenido
 - **Un destacado por bloque, máximo.** Cada bloque tiene a lo sumo UN protagonista: una cifra grande, una frase destacada o un hito. Si todo grita, no se escucha nada.
@@ -79,6 +95,7 @@ Devolvé el path, abrilo o mostralo, y decí en UNA línea qué cubre. Cerrá of
 - **Cada dato con su peso visual.** Decisiones como tarjetas con su porqué en una línea. Números como cifras grandes con etiqueta. Secuencias como línea de tiempo. Pendientes como lista clara al final.
 - **Procedencia marcada.** Si buscaste en la web, lo externo se distingue de lo propio de la sesión con una marca sutil y consistente, y la pieza cierra con una mini sección de referencias con sus links.
 - **Toda sección vacía se elimina.** La pieza refleja lo que hay, nunca una grilla a medio llenar.
+- **Cero em-dashes en el texto en español.** Ni en los títulos ni en el cuerpo: coma, dos puntos o punto.
 - **Nada sensible adentro.** Ni claves, ni datos personales de terceros, ni nada que hayas marcado como privado en tu sistema. Si el repaso es para compartir, pasale el mismo filtro que le pasarías a algo que sale de tu carpeta.
 
 ## La estructura de la pieza (adaptá, no rellenes)
@@ -94,7 +111,7 @@ Devolvé el path, abrilo o mostralo, y decí en UNA línea qué cubre. Cerrá of
 - **Un solo archivo, autocontenido.** CSS y JS inline, cero CDNs, cero fuentes externas (stack del sistema con fallback), cero imágenes remotas. Gráficos y líneas de tiempo en SVG o CSS puro. Se abre con doble click, sin internet, dentro de diez años.
 - **La estética la dicta el tema.** Un repaso de finanzas puede ser sobrio y numérico; uno de un viaje, cálido; uno de infraestructura, técnico y monoespaciado. Elegí paleta, tipografía y layout vos, sin preguntar, y una sola estética por pieza.
 - **Escaneable primero.** De un vistazo se entienden título, saldo y bloques; el detalle vive en el segundo nivel de lectura. Que funcione en el teléfono.
-- **Imprimible.** Un bloque `@media print` que la deje digna en A4: fondo claro si la pieza es oscura, sin cortes feos entre bloques. Eso es lo que la vuelve compartible como PDF sin trabajo extra.
+- **Imprimible.** Un bloque `@media print` que la deje digna en A4: `@page { size: A4; margin: 15mm }`, `break-inside: avoid` en cada bloque y cada tarjeta para que no se corten a la mitad, y fondo claro si la pieza es oscura. Eso es lo que la vuelve compartible como PDF sin trabajo extra.
 - **Footer:** título, alcance y fecha `YYYY-MM-DD`. Sin firmas ni créditos: el HTML no menciona ni a la IA ni a este skill.
 
 ## Output esperado
@@ -112,7 +129,9 @@ Un solo archivo `.html` guardado en su lugar, más tu respuesta en tres líneas:
 - [ ] Cada número que aparece salió del material; no hay ni una cifra decorativa.
 - [ ] Ningún bloque tiene dos protagonistas peleando por la atención.
 - [ ] No quedó ninguna sección vacía ni con un "sin datos" adentro.
+- [ ] Lo abriste y lo miraste antes de entregarlo.
 - [ ] El archivo abre sin internet: cero CDNs, cero fuentes remotas, cero imágenes externas.
-- [ ] Se imprime digno en A4.
-- [ ] Quedó guardado en su carpeta, con su nombre, y dijiste dónde.
+- [ ] Se imprime digno en A4, sin bloques cortados a la mitad.
+- [ ] Cero em-dashes en el texto en español.
+- [ ] Quedó guardado en su carpeta, con su nombre y su fecha, sin pisar un repaso anterior, y dijiste dónde.
 - [ ] Si había algo durable sin guardar, ofreciste `/brain-doc` en vez de dar el tema por cerrado.

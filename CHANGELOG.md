@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.36.1 (2026-08-20)
+- **`/brain-recap` afinado tras pasarle el gate de `/brain-verify`.** El release anterior quedaba corto en cuatro puntos, todos comparados contra cómo los resuelven sus skills hermanos:
+  - **Paso 0 nuevo, "¿hay dónde guardarlo?".** El skill escribe un archivo en tu carpeta, pero no chequeaba que hubiera carpeta: en una instalación recién hecha el repaso quedaba tirado en cualquier lado. Ahora mira si hay estructura escribible, avisa si el archivo va a quedar suelto, y tiene prohibido escribir dentro del `kit/` del método (la app no es tu carpeta). Es el mismo freno que ya hacía `documenta`.
+  - **Correr el comando dos veces ya no borra la corrida anterior.** El nombre pasa a `repaso-<tema>-<YYYY-MM-DD>.html` y, si el archivo ya existe, se sufija o se pregunta, nunca se pisa.
+  - **Paso de verificación antes de entregar.** Prometía "abre sin internet" e "imprimible" en el checklist, pero ningún paso mandaba abrir el archivo. Ahora hay que mirarlo y correr tres chequeos concretos (buscar `http`, `src=` y `@import` para cazar recursos externos, cero secciones vacías, existe el `@media print`). Misma regla dura que `publicar`: si no lo verificaste, es un intento, no un entregable.
+  - **La regla de impresión nombra el mecanismo, no el resultado.** `@page { size: A4; margin: 15mm }` y `break-inside: avoid` en bloques y tarjetas, en vez de pedir "sin cortes feos" y confiar.
+- **Dos reglas que faltaban:** cero em-dashes en el texto en español (la tenían otros 6 skills del kit y este no), y un freno explícito cuando no hay material, para que una charla de tres mensajes no termine en un HTML con seis secciones vacías.
+- Tocados: `kit/skills/repaso-visual/SKILL.md`, `commands/brain-recap.md` (regenerado), `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.36.0 (2026-08-20)
 - **Nuevo skill del toolkit: `/brain-recap` (skill `repaso-visual`).** Decís `/brain-recap` y te arma el repaso de la sesión (o del tema que le pases) en **un solo archivo HTML autocontenido**: el recorrido, las decisiones con su porqué, los números que salieron y lo que queda abierto. Se escanea en 30 segundos, abre con doble click sin internet y se imprime digno en A4, así que sirve igual para repasar vos como para mostrárselo a alguien que no estuvo.
 - **La frontera con `/brain-doc`, escrita como regla dura.** Los dos barren la misma conversación, pero `/brain-doc` **escribe** en tu sistema y `/brain-recap` solo **muestra**. Si la sesión dejó decisiones o pendientes durables, el repaso cierra ofreciendo `/brain-doc` en vez de dar el tema por cerrado: el riesgo real es quedarte con la sensación de haber guardado, con tu estado sin tocar.
