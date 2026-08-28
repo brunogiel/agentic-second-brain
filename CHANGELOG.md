@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.38.0 (2026-08-28)
+
+- **`como-trabajo.md` suma la regla de delegación por costo.** Cuando una tarea se parte en
+  pedazos, el modelo caro arma el plan y sintetiza, y los baratos ejecutan, con el tier elegido
+  por la tarea. Va escrito por tier y no por nombre de modelo, así vale igual en Claude Code,
+  Cowork y Codex. Incluye la parte que casi nadie pide: **el plan con el modelo de cada paso, a
+  la vista antes de ejecutar**, para poder corregirlo cuando todavía sale barato corregirlo.
+  El kit ya despachaba subagentes en `council`, `panel`, `verificar` y `auditar-sistema`, pero
+  en ningún lado decía con qué modelo. Estaba el músculo sin la regla de costo.
+
 ## 2.37.0 (2026-08-28)
 
 - **Tres skills nuevos en el kit base.**
