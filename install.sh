@@ -32,7 +32,12 @@ RAW="https://raw.githubusercontent.com/${REPO}/${BRANCH}"
 SKILLS_DIR="${HOME}/.claude/skills"
 COACH_DIR="${SKILLS_DIR}/brain-coach"          # el coach + sus piezas + el kit, bundled (global)
 MOTOR_SRC="brain-coach"                        # el skill motor en el repo (skills/brain-coach)
-SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar" "publicar" "repaso-visual")  # kit/skills
+# --- modulo dev (opcional, solo con --dev) ---
+MODULO_DEV=0
+for arg in "$@"; do [ "$arg" = "--dev" ] && MODULO_DEV=1; done
+DEV_COMMANDS=("dev-branch" "dev-listo" "dev-integrar" "dev-mergear" "dev-subir" "dev-limpiar" "dev-guardar" "dev-sync")
+
+SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar" "publicar" "repaso-visual" "spec" "transcribir" "ordenar")  # kit/skills
 
 # --- el brain que se scaffoldea (desde kit/brain/) ---
 ROOT_FILES=("CLAUDE.md" "ESTADO.md" "AGENTS.md")
@@ -89,9 +94,17 @@ fetch "CHANGELOG.md" "coach/CHANGELOG.md"
 # que en Cowork se vean /brain-coach. Clave: Cowork muestra el comando por su NOMBRE DE ARCHIVO, no por
 # el namespace del plugin — un archivo pelado se vería /coach (genérico). Por eso van prefijados en el repo.
 CONSERJE="brain"                                                                                              # commands/brain.md → /brain
-TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-recap" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill")   # commands/brain-<x>.md → /brain-<x>
+TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-recap" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill" "brain-spec" "brain-transcribe" "brain-tidy")   # commands/brain-<x>.md → /brain-<x>
 fetch "commands/${CONSERJE}.md" "commands/${CONSERJE}.md"
 for c in "${TOOLKIT[@]}"; do fetch "commands/${c}.md" "commands/${c}.md"; done
+
+# modulo dev: doctrina, comandos, orquestador y reglas de codigo
+if [ "$MODULO_DEV" = "1" ]; then
+  fetch "dev/README.md" "dev/README.md"
+  fetch "dev/WORKFLOW.md" "dev/WORKFLOW.md"
+  fetch "dev/skills/construir/SKILL.md" "dev/skills/construir/SKILL.md"
+  for c in "${DEV_COMMANDS[@]}"; do fetch "dev/commands/${c}.md" "dev/commands/${c}.md"; done
+fi
 
 # NOTA: este script NO arma tu carpeta del brain. Eso lo hace el coach, charlando y
 # preguntándote (igual que en Cowork): así nada se crea sin tu OK. Acá solo instalamos
@@ -125,7 +138,13 @@ mv "${COACH_DIR}/kit.new" "${COACH_DIR}/kit"
 COMMANDS_DIR="${HOME}/.claude/commands"
 mkdir -p "$COMMANDS_DIR"
 cp "${TMP}/commands/${CONSERJE}.md" "${COMMANDS_DIR}/${CONSERJE}.md"                          # /brain (el conserje)
-for c in "${TOOLKIT[@]}"; do cp "${TMP}/commands/${c}.md" "${COMMANDS_DIR}/${c}.md"; done     # /brain-<x>
+for c in "${TOOLKIT[@]}"; do cp "${TMP}/commands/${c}.md" "${COMMANDS_DIR}/${c}.md"; done
+if [ "$MODULO_DEV" = "1" ]; then
+  for c in "${DEV_COMMANDS[@]}"; do cp "${TMP}/dev/commands/${c}.md" "${COMMANDS_DIR}/${c}.md"; done
+  mkdir -p "${COACH_DIR}/dev"
+  cp -R "${TMP}/dev/." "${COACH_DIR}/dev/"
+  echo "  \u2713 modulo dev instalado (8 comandos /dev-* + construir + reglas de codigo)"
+fi     # /brain-<x>
 echo "  ✓ método instalado global (motor + kit de ${#SKILLS_USO[@]} skills) en ~/.claude/skills/"
 echo "  ✓ comandos instalados en ~/.claude/commands/ (toolkit /brain-* completo)"
 

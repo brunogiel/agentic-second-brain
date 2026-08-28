@@ -32,6 +32,9 @@ Sos el conserje del Agentic Second Brain. La persona quiere ubicarse. Hacelo cor
    - `/brain-doc` : guarda lo durable de la charla donde corresponde (log, estado, inbox, memoria).
    - `/brain-simple` : si te perdiste, te baja el estado de la charla en simple.
    - `/brain-recap` : el repaso visual de la sesión en un HTML, para mirarlo o mostrárselo a alguien.
+   - `/brain-spec` : el contrato antes de construir: requisitos numerados y cómo se verifica cada uno.
+   - `/brain-transcribe` : pasa un audio local a texto con Whisper, sin mandar nada a la nube.
+   - `/brain-tidy` : ordena la carpeta de descargas, sin sacar ni borrar nada.
 
    **Configurable (pide una fuente conectada por MCP)**
    - `/brain-triage` : tu brief del día cruzando mail, calendario o tareas. El coach te ayuda a montarla.

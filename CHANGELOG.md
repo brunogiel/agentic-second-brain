@@ -1,5 +1,42 @@
 # Changelog
 
+## 2.37.0 (2026-08-28)
+
+- **Tres skills nuevos en el kit base.**
+  - **`/brain-spec`** — convierte un pedido en criollo en el contrato de lo que se va a hacer:
+    requisitos numerados y una verificación chequeable por cada uno. Sirve igual para código y
+    para un entregable (un mail, una propuesta, un análisis). Trae un gate de 6 checks que no
+    deja cerrar un spec sin valor esperado concreto ni edge case nombrado. El dato que lo
+    justifica: medido sobre 56 planes reales, 51 tenían sección de verificación pero solo **15
+    fijaban un valor esperado** y **13 nombraban un edge case**. Con requisitos numerados, quien
+    revisa después puede decir "falla R3" sin interpretar nada.
+  - **`/brain-transcribe`** — transcribe audio local con Whisper corriendo en tu máquina. Cero
+    costo y el audio no sale de tu computadora, que importa más de lo que parece cuando el
+    archivo es una reunión o una nota de voz de otra persona. Incluye la limpieza del final, que
+    es donde Whisper alucina, y la trampa del binario que en macOS no queda en el PATH.
+  - **`/brain-tidy`** — la pasada de limpieza sobre Downloads. Clasifica en carpetas de staging
+    **adentro** de Downloads: nunca saca nada afuera y nunca borra. Detecta duplicados por
+    contenido, instaladores de apps ya instaladas y ZIPs ya descomprimidos. Las categorías salen
+    de tu propia estructura, no de una tabla fija.
+
+- **Módulo `dev/`, opcional y fuera del install base.** Se instala con `./install.sh --dev`. Quien
+  quiere un segundo cerebro no tiene por qué recibir ocho comandos de git que no pidió.
+  - **La doctrina** en `dev/WORKFLOW.md`: git, el integration branch con sus 5 reglas, branch
+    contra worktree, debugging y definition of done. Sale de un día real que salió mal: tres
+    modelos a la vez sobre 47 ramas y 15 worktrees, el integration rehecho dos veces y 28
+    comandos de forense para saber qué había entrado. Las cinco reglas son el resumen de qué
+    faltó ese día.
+  - **Ocho comandos**, uno por paso del ciclo: `/dev-branch`, `/dev-listo`, `/dev-integrar`,
+    `/dev-mergear`, `/dev-subir`, `/dev-limpiar`, `/dev-guardar` y `/dev-sync`.
+  - **`construir`**, el orquestador que encadena el ciclo entero en una invocación: spec, build,
+    verificación, code review en subagentes paralelos, y entrega por la ruta que elijas. Resuelve
+    el handshake en **una sola pregunta** y nunca vuelve a interrumpir salvo blocker duro.
+  - **13 archivos de reglas de código** en `dev/rules/`, en tres sets: cross-stack, Next.js con
+    Supabase, y repos de markdown y skills. Se copian al repo y se commitean, no se symlinkean:
+    cada repo termina customizando las suyas y un symlink metería drift que nadie pidió.
+
+- Tocados: `kit/skills/{spec,transcribir,ordenar}/SKILL.md` (nuevos), `commands/brain-{spec,transcribe,tidy}.md` (nuevos), `dev/` (nuevo, 26 archivos), `scripts/sync.py`, `install.sh`, `uninstall.sh`, `README.md`, `VERSION`, `.claude-plugin/{plugin,marketplace}.json`, `CHANGELOG.md`.
+
 ## 2.36.1 (2026-08-20)
 - **`/brain-recap` afinado tras pasarle el gate de `/brain-verify`.** El release anterior quedaba corto en cuatro puntos, todos comparados contra cómo los resuelven sus skills hermanos:
   - **Paso 0 nuevo, "¿hay dónde guardarlo?".** El skill escribe un archivo en tu carpeta, pero no chequeaba que hubiera carpeta: en una instalación recién hecha el repaso quedaba tirado en cualquier lado. Ahora mira si hay estructura escribible, avisa si el archivo va a quedar suelto, y tiene prohibido escribir dentro del `kit/` del método (la app no es tu carpeta). Es el mismo freno que ya hacía `documenta`.

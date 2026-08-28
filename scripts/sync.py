@@ -39,6 +39,9 @@ PAIRS = {
     "brain-ship": "publicar",
     "brain-newskill": "crear-skill",
     "brain-evalskill": "evaluar-skill",
+    "brain-spec": "spec",
+    "brain-transcribe": "transcribir",
+    "brain-tidy": "ordenar",
 }
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
