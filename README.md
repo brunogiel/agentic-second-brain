@@ -62,6 +62,7 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-tidy` | Ordena la carpeta de descargas en staging, sin sacar ni borrar nada |
 | `/brain-newskill` | Armá un skill nuevo siguiendo la anatomía que funciona |
 | `/brain-evalskill` | Medí un skill contra su rúbrica y proponé mejoras (no las aplica) |
+| `/brain-messirve` | ¿Esto que viste afuera te sirve? Lo cruza con lo tuyo: si ya lo tenés, qué le robás, y si no, lo agrega |
 
 ¿Solo querés un skill suelto, no todo el toolkit? Cherry-pick: es MIT y texto plano, copiá `kit/skills/<nombre>/` y su comando `commands/brain-<nombre>.md` a tu `~/.claude/skills/` y `~/.claude/commands/`, sin instalar el coach ni tocar el resto del repo.
 

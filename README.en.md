@@ -62,6 +62,7 @@ The plugin ships slash commands that work the moment you install it, with no set
 | `/brain-tidy` | Tidies your downloads folder into staging, never moves out, never deletes |
 | `/brain-newskill` | Build a new skill following the anatomy that works |
 | `/brain-evalskill` | Grade a skill against its rubric and propose fixes (doesn't apply them) |
+| `/brain-messirve` | Does that thing you saw out there help you? Cross-checks it against yours: what you already have, what to steal, what to add |
 
 Just want one skill, not the whole toolkit? Cherry-pick it: it's MIT and plain text, copy `kit/skills/<name>/` and its command `commands/brain-<name>.md` into your own `~/.claude/skills/` and `~/.claude/commands/`, no coach install, nothing else touched.
 

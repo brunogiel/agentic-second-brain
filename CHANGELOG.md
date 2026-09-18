@@ -1,5 +1,34 @@
 # Changelog
 
+## 2.39.0 (2026-09-18)
+
+- **Skill nuevo: `/brain-messirve`, el filtro de entrada de lo que ves afuera.** Le pasás un
+  tuit, un video, un repo o el skill que te mandó un amigo, y lo cruza contra lo que ya tenés
+  armado. Devuelve un veredicto por cada capacidad que la fuente promete: **ya lo tengo**,
+  **lo tengo pero** (con el diff concreto de qué le robás y a qué archivo entra), o **no lo
+  tengo** (y ahí corre el gate). Antes lo que veías afuera terminaba en un link guardado que
+  nadie volvía a abrir.
+  - **El inventario va antes del veredicto.** Sin leer primero qué tenés, los dos errores
+    salen juntos: "no lo tengo" sobre algo que tenías, y "ya lo tengo" sobre algo que se le
+    parece de nombre y hace otra cosa. Por eso el Paso 3 busca por lo que hace cada skill, no
+    por cómo se llama.
+  - **El gate de "me sirve" pide dos cosas, no una.** Un caso de uso tuyo con nombre (la
+    última vez que lo hiciste a mano, o el próximo momento concreto), y que ningún skill tuyo
+    lo cubra ya. Si falla la primera, va al inbox como idea. Si falla la segunda, deja de ser
+    skill nuevo y se convierte en parche. Un brain con cien skills que no usás es peor que uno
+    con diez que sí.
+  - **Hay que leer la fuente entera antes de opinar.** El título de un video no es el video.
+    Si la fuente no se puede abrir, el skill frena en vez de adivinar: un veredicto sobre algo
+    que no leíste es la vía más rápida de meterle basura al brain.
+  - **Modo figuritas**, para cuando el intercambio es con otra persona: corre en las dos
+    direcciones (qué le robás y cuáles de los tuyos le tapan un hueco) y obliga a la pasada de
+    privacidad antes de pasar nada. Un skill tuyo suele tener tu contexto adentro; lo que se
+    intercambia es el mecanismo, no tus datos.
+
+- **Los dos manifests del plugin estaban atrasados en 2.37.0** mientras `VERSION` iba en
+  2.38.0. Quedan sincronizados en 2.39.0. Falta además el tag `v2.37.0`, que se salteó entre
+  `v2.36.1` y `v2.38.0`.
+
 ## 2.38.0 (2026-08-28)
 
 - **`como-trabajo.md` suma la regla de delegación por costo.** Cuando una tarea se parte en

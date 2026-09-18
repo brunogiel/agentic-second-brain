@@ -37,7 +37,7 @@ MODULO_DEV=0
 for arg in "$@"; do [ "$arg" = "--dev" ] && MODULO_DEV=1; done
 DEV_COMMANDS=("dev-branch" "dev-listo" "dev-integrar" "dev-mergear" "dev-subir" "dev-limpiar" "dev-guardar" "dev-sync")
 
-SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar" "publicar" "repaso-visual" "spec" "transcribir" "ordenar")  # kit/skills
+SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar" "publicar" "repaso-visual" "spec" "transcribir" "ordenar" "messirve")  # kit/skills
 
 # --- el brain que se scaffoldea (desde kit/brain/) ---
 ROOT_FILES=("CLAUDE.md" "ESTADO.md" "AGENTS.md")
@@ -94,7 +94,7 @@ fetch "CHANGELOG.md" "coach/CHANGELOG.md"
 # que en Cowork se vean /brain-coach. Clave: Cowork muestra el comando por su NOMBRE DE ARCHIVO, no por
 # el namespace del plugin — un archivo pelado se vería /coach (genérico). Por eso van prefijados en el repo.
 CONSERJE="brain"                                                                                              # commands/brain.md → /brain
-TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-recap" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill" "brain-spec" "brain-transcribe" "brain-tidy")   # commands/brain-<x>.md → /brain-<x>
+TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-recap" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill" "brain-spec" "brain-transcribe" "brain-tidy" "brain-messirve")   # commands/brain-<x>.md → /brain-<x>
 fetch "commands/${CONSERJE}.md" "commands/${CONSERJE}.md"
 for c in "${TOOLKIT[@]}"; do fetch "commands/${c}.md" "commands/${c}.md"; done
 
