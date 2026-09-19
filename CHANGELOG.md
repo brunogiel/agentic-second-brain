@@ -1,5 +1,29 @@
 # Changelog
 
+## 2.40.0 (2026-09-19)
+
+- **Skill nuevo: `/brain-lesson`, un tema que no sabés en un solo HTML.** Le pasás un tuit, un
+  link, un artículo o una pregunta suelta y devuelve una pieza autocontenida para aprender eso:
+  se abre con doble click, sin internet, y se imprime digna en A4. Hasta ahora el kit sabía
+  repasar lo que ya habías hecho (`/brain-recap`); no sabía enseñarte algo nuevo.
+  - **Dos modos, y se preguntan siempre.** *A fondo:* abre por el mapa del campo, entra por la
+    tensión del tema, usa subtítulos que afirman algo y cierra con referencias reales. *Nivel
+    cero:* ~150 palabras en toda la pieza, dibujos grandes, una idea por pantalla.
+    **No existe el punto medio:** un híbrido pierde las dos cosas, la profundidad y la brevedad.
+  - **El techo de 150 palabras es una regla, no una sugerencia.** Si el tema no entra, se saca
+    contenido y nunca se achica la tipografía. Sin ese techo el modo corto se degrada a una
+    lección corta, que es la peor de las dos piezas. Si el tema no se entiende sin una precisión
+    que no entra, el skill lo dice y ofrece el modo a fondo en vez de entregar el híbrido.
+  - **El encuadre se confirma antes de escribir.** Una lección mal encuadrada se tira entera, y
+    darse cuenta al final cuesta la pieza completa. Por eso el paso 3 enuncia tema, ángulo y
+    profundidad en una línea y espera el sí.
+  - **Los SVG se renderizan y se miran antes de entregar.** Que el código parezca correcto no
+    alcanza: un `viewBox` más chico que el dibujo lo desborda sobre el texto, y un ícono encima
+    de una cifra la vuelve ilegible. En nivel cero, donde el dibujo es la pieza, ese chequeo es
+    el que más importa.
+  - **Una referencia que no estás seguro de que exista, se omite.** Una lección con una cita
+    inventada vale menos que una con tres citas menos.
+
 ## 2.39.0 (2026-09-18)
 
 - **Skill nuevo: `/brain-messirve`, el filtro de entrada de lo que ves afuera.** Le pasás un

@@ -119,6 +119,7 @@ Reemplazaste cada skill del catálogo por una propia, tuneada a tu manera. Ese d
 - [ ] `publicar` → `/brain-ship`: sube lo que te hizo Claude y te da el link; la primera vez conecta tu host (Vercel/Netlify/Supabase) y lo deja listo, después sube solo.
 - [ ] `simple` → `/brain-simple`: te baja el estado de la charla en simple cuando perdés el hilo.
 - [ ] `repaso-visual` → `/brain-recap`: el repaso visual de una sesión o un tema en un solo HTML, para mirarlo o mostrarlo.
+- [ ] `leccion` → `/brain-lesson`: convierte un tuit, un link o un tema en una lección en un solo HTML, a fondo o nivel cero.
 - [ ] `spec` → `/brain-spec`: el contrato antes de construir, con requisitos numerados y su verificación.
 - [ ] `transcribir` → `/brain-transcribe`: pasa un audio local a texto con Whisper, sin nube.
 - [ ] `ordenar` → `/brain-tidy`: la pasada de limpieza sobre la carpeta de descargas.

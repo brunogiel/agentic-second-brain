@@ -57,6 +57,7 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-doc` | Cierra la sesión: rutea todo lo durable a su lugar |
 | `/brain-simple` | ¿Perdiste el hilo? Estado en simple: dónde estamos, qué hacés vos, qué sigo yo |
 | `/brain-recap` | El repaso visual de la sesión en un solo HTML: qué pasó, qué se decidió, qué queda abierto |
+| `/brain-lesson` | Un tema que no sabés, en un solo HTML para aprenderlo: a fondo, o nivel cero con dibujos |
 | `/brain-spec` | El contrato antes de construir: requisitos numerados y cómo se verifica cada uno |
 | `/brain-transcribe` | Transcribe un audio local con Whisper, sin mandar nada a la nube |
 | `/brain-tidy` | Ordena la carpeta de descargas en staging, sin sacar ni borrar nada |
