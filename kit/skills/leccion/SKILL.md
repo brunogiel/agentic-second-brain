@@ -22,10 +22,10 @@ Sirve para dos momentos distintos: cuando querés **entender un tema a fondo** p
 
 El principio: **una lección enseña, no informa.** Un resumen te cuenta qué dice el material. Una lección te deja pudiendo explicárselo a otro.
 
-## La frontera con `/brain-recap` (leer antes que nada)
+## La frontera con `/brain-simple html` (leer antes que nada)
 Los dos devuelven un HTML autocontenido y ahí se terminan los parecidos:
 
-| | `/brain-recap` (repaso-visual) | `/brain-lesson` (este) |
+| | `/brain-simple html` (repaso-visual) | `/brain-lesson` (este) |
 |---|---|---|
 | De dónde sale | Lo que pasó en tu sesión o tu proyecto | Un tema del mundo que todavía no sabés |
 | Qué te deja | Saber dónde quedaste parado | Poder explicar el tema |
@@ -133,7 +133,7 @@ Toda sección vacía se elimina: la estructura refleja lo que hay, nunca al rev�
 Un solo archivo `.html` guardado en su lugar, más tu respuesta en tres líneas: el path, qué cubre la lección y qué quedó afuera.
 
 ## Cuándo NO usar
-- **Para repasar lo que ya hiciste:** eso es `/brain-recap`, que sale de tu sesión y no de un tema del mundo.
+- **Para repasar lo que ya hiciste:** eso es `/brain-simple html`, que sale de tu sesión y no de un tema del mundo.
 - **Para ubicarte en una charla enredada:** eso es `/brain-simple`, y es texto corto, sin archivo.
 - **Para convencer a alguien:** una pieza que argumenta por etapas es `/brain-deck`. Esta enseña, no persuade.
 - **Para un curso o una serie:** un pedido, un archivo. Si el tema no entra en una pieza, es más de un tema: decilo y proponé cuál va primero.

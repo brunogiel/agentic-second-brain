@@ -94,7 +94,7 @@ fetch "CHANGELOG.md" "coach/CHANGELOG.md"
 # que en Cowork se vean /brain-coach. Clave: Cowork muestra el comando por su NOMBRE DE ARCHIVO, no por
 # el namespace del plugin — un archivo pelado se vería /coach (genérico). Por eso van prefijados en el repo.
 CONSERJE="brain"                                                                                              # commands/brain.md → /brain
-TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-recap" "brain-lesson" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill" "brain-spec" "brain-transcribe" "brain-tidy" "brain-messirve")   # commands/brain-<x>.md → /brain-<x>
+TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-lesson" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill" "brain-spec" "brain-transcribe" "brain-tidy" "brain-messirve")   # commands/brain-<x>.md → /brain-<x>
 fetch "commands/${CONSERJE}.md" "commands/${CONSERJE}.md"
 for c in "${TOOLKIT[@]}"; do fetch "commands/${c}.md" "commands/${c}.md"; done
 
@@ -139,6 +139,10 @@ COMMANDS_DIR="${HOME}/.claude/commands"
 mkdir -p "$COMMANDS_DIR"
 cp "${TMP}/commands/${CONSERJE}.md" "${COMMANDS_DIR}/${CONSERJE}.md"                          # /brain (el conserje)
 for c in "${TOOLKIT[@]}"; do cp "${TMP}/commands/${c}.md" "${COMMANDS_DIR}/${c}.md"; done
+# comandos retirados: se borran de las instalaciones viejas para que no queden apuntando a nada.
+# brain-recap salio en la 3.0.0, absorbido por /brain-simple html.
+RETIRADOS=("brain-recap")
+for c in "${RETIRADOS[@]}"; do rm -f "${COMMANDS_DIR}/${c}.md"; done
 if [ "$MODULO_DEV" = "1" ]; then
   for c in "${DEV_COMMANDS[@]}"; do cp "${TMP}/dev/commands/${c}.md" "${COMMANDS_DIR}/${c}.md"; done
   mkdir -p "${COACH_DIR}/dev"

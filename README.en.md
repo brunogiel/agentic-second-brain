@@ -56,7 +56,7 @@ The plugin ships slash commands that work the moment you install it, with no set
 | `/brain-audit` | Health check of your second brain |
 | `/brain-doc` | Closes a session: routes everything durable to its place |
 | `/brain-simple` | Lost the thread? Plain-language recap: where we are, your move, mine |
-| `/brain-recap` | Visual recap of the session in a single HTML file: what happened, what got decided, what's still open |
+| `/brain-simple html` | Visual recap of the session in a single HTML file: what happened, what got decided, what's still open. Add `inline` to get it rendered in the chat, with no file |
 | `/brain-lesson` | A topic you don't know yet, as a single HTML file to learn it: in depth, or ground zero with drawings |
 | `/brain-spec` | The contract before you build: numbered requirements and how each one gets checked |
 | `/brain-transcribe` | Transcribes local audio with Whisper, nothing leaves your machine |

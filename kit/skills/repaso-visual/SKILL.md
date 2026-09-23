@@ -4,11 +4,13 @@ description: >
   Arma un repaso visual de lo que pasó: un único archivo HTML autocontenido que
   cuenta, de un vistazo, qué se hizo, qué se decidió, qué números salieron y qué
   queda abierto. Sirve para una sesión de trabajo entera o para un tema que
-  nombres. Usalo cuando digas "/brain-recap", "armame el repaso de esta sesión",
-  "un resumen visual de X", "resumime en una infografía lo que pasó con Y", o
-  cuando quieras mostrarle a alguien un recorrido sin mandarle la conversación
-  entera. El resultado es SIEMPRE un solo .html: se escanea en 30 segundos y se
-  lee a fondo en 3 minutos.
+  nombres. Usalo cuando digas "/brain-simple html", "/brain-simple html inline",
+  "armame el repaso de esta sesión", "un resumen visual de X", "resumime en una
+  infografía lo que pasó con Y", o cuando quieras mostrarle a alguien un
+  recorrido sin mandarle la conversación entera. Tiene DOS FORMATOS: completo
+  (un solo .html guardado, imprimible y compartible) e inline (la misma pieza
+  mostrada en el chat, sin archivo). Los dos se escanean en 30 segundos; el
+  completo además se lee a fondo en 3 minutos.
 ---
 
 # repaso-visual — lo que pasó, en un solo HTML
@@ -18,12 +20,14 @@ Una pasada que mira todo lo que pasó (esta sesión, o un tema que nombres) y lo
 
 Sirve para dos cosas: **repasar** vos mismo algo largo sin releer la conversación, y **mostrárselo a alguien** que no estuvo, sin mandarle un chat de 300 mensajes.
 
+**Este skill no tiene comando propio: se entra por [`simple`](../simple/SKILL.md).** `/brain-simple html` lo corre en formato completo y `/brain-simple html inline` en formato inline. El `/brain-recap` que existió hasta la v2.40.0 se dio de baja: hacía exactamente lo mismo que `/brain-simple html`, y dos comandos para una sola pieza es una decisión de más cada vez que la querés.
+
 El principio: **es un repaso, no un acta.** Un acta registra todo con el mismo peso. Un repaso jerarquiza: lo que cambió el rumbo va grande, lo accesorio va chico o directamente no va.
 
 ## La frontera con `/brain-doc` (leer antes que nada)
 Los dos barren la misma conversación. Hacen cosas distintas y **no se reemplazan**:
 
-| | `/brain-doc` (documenta) | `/brain-recap` (este) |
+| | `/brain-doc` (documenta) | `/brain-simple html` (este) |
 |---|---|---|
 | Qué hace | Rutea y **escribe** en tu sistema | **Muestra**, no escribe en tu sistema |
 | Sale hacia | El log del proyecto, tu estado, tu memoria, el inbox | Un `.html` para mirar o compartir |
@@ -31,9 +35,39 @@ Los dos barren la misma conversación. Hacen cosas distintas y **no se reemplaza
 
 **Regla dura.** Si la sesión tuvo decisiones, números o pendientes durables, el repaso **no cierra el tema**: es lindo, pero tu sistema quedó igual que antes. Al entregar el archivo, cerrá con una línea ofreciendo `/brain-doc`, sin correrlo por tu cuenta. Nunca des una sesión por cerrada porque saliste con un repaso: el riesgo real es quedarte con la sensación de haber guardado, con el estado sin tocar.
 
-## Los dos modos
+## Los dos alcances
+*El alcance dice de qué material salís. El formato (abajo) dice qué entregás. Son dos ejes independientes: cualquier alcance sale en cualquier formato.*
+
 - **Sesión:** el material es la conversación actual. Repasás lo que se hizo, se decidió y quedó pendiente en ESTA sesión, en orden.
 - **Tema:** te nombran un tema. El material es lo que haya en contexto más lo que te peguen o te señalen. No inventes historia que no tenés: si el material no alcanza, pedirlo cuenta como una de tus preguntas.
+
+## Los dos formatos: completo e inline
+
+El formato no es un matiz: son dos piezas distintas, con costos distintos. **Lo elige el comando, no vos:** `/brain-simple html` es completo, `/brain-simple html inline` es inline. Si el pedido llegó por una frase suelta ("armame el repaso de esto"), sin comando, ahí sí preguntás cuál de los dos.
+
+| | **Completo** | **Inline** |
+|---|---|---|
+| Sale como | un archivo `.html` guardado | la pieza mostrada en el chat |
+| Preguntas | una (¿busco en la web?) | **ninguna** |
+| Busca en la web | según la respuesta | **nunca** |
+| Permanencia | vive en tu sistema | vive en la conversación |
+| Imprimible / compartible | sí | no |
+| Techo | el que el material pida (~7 bloques) | ~5 bloques, entra de un vistazo |
+| Cuándo | para volver, para mandar, para imprimir | repasar YA, para vos |
+
+### El contrato del formato inline
+
+- **Cero preguntas.** Ni siquiera la de la web: buscar afuera es justo lo lento, y este formato existe para salir rápido. Si el material no alcanza, aplicá el freno del paso 3, no una pregunta.
+- **Necesita un cliente que sepa mostrar HTML en la conversación** (un panel de artefactos, un visor de widgets, una vista previa inline). **Si el tuyo no puede, no lo simules con un bloque de código:** decilo en una línea y ofrecé el completo. Un repaso que no se ve no es un repaso.
+- **Efímero a propósito.** No se guarda archivo, no lleva footer, no lleva `@media print`.
+- **Se ve solo, pero igual se mira.** No hay paso de abrir el archivo, pero revisá la pieza renderizada antes de darla por terminada: un SVG desbordado se ve igual de mal inline.
+- **Siguen valiendo enteras:** números reales o ninguno, un destacado por bloque, toda sección vacía se elimina, nada sensible adentro, y que la pieza no mencione a la IA ni a este skill.
+- **Ojo con lo sensible.** Una pieza inline parece descartable y no lo es: queda en la conversación, que se comparte, se exporta y se lee después. Pasale el mismo filtro que al completo.
+- **Cerrá ofreciendo guardarlo.** Una línea: si le sirve, "guardámelo" lo convierte en la pieza completa, con destino y todo. **No lo guardes por tu cuenta.**
+
+### Cuándo empujar al completo
+
+Si el material tiene más de ~5 bloques con contenido real, o números que piden lectura detenida, o te dijeron que es para mostrarle a alguien, decilo en una línea antes de escribir y ofrecé el completo. **No entregues un inline que ya sabés que se queda corto.**
 
 ## Flujo
 
@@ -44,7 +78,11 @@ Antes de armar nada, mirá si hay un sistema escribible: carpetas PARA (`1. Proy
 ¿Sesión o tema? ¿Desde cuándo hasta cuándo? Si el pedido ya lo dice, no preguntes nada de esto.
 
 ### Paso 2: Preguntá, una sola tanda, máximo 5 [DET]
-Todas juntas, no de a una, y con la opción por defecto marcada para que se conteste rápido. Una es **fija, se hace siempre**:
+**Si el formato es inline, no preguntes nada: andá al paso 3.** Es el contrato de ese formato.
+
+**Si el pedido llegó sin comando** (una frase suelta), la primera pregunta es cuál de los dos formatos quiere, y va sola.
+
+En completo, todas juntas, no de a una, y con la opción por defecto marcada para que se conteste rápido. Una es **fija, se hace siempre**:
 
 - **¿Busco referencias externas en la web para enriquecer el repaso, o uso solo lo que hay en la sesión y el contexto actual?**
 
@@ -67,10 +105,12 @@ Máximo 7 bloques en la pieza final. Si hay más material, fusioná o cortá: un
 
 **Freno.** Si al terminar de destilar no queda ni un bloque con contenido real, frená acá: decilo en una línea y ofrecé la respuesta en dos renglones, en vez de armar un HTML con seis secciones vacías. Una charla de tres mensajes no necesita un repaso visual.
 
-### Paso 4: Armá el HTML [LAT]
-Seguí las reglas de contenido y de HTML de acá abajo.
+*Acá el proceso se bifurca. Si es inline, seguí el paso 4 y saltá directo al 7. Si es completo, seguí los pasos 4 a 7.*
 
-### Paso 5: Guardalo donde va [DET]
+### Paso 4: Armá la pieza [LAT]
+Seguí las reglas de contenido y de HTML de acá abajo. En inline se suspenden cuatro de las reglas del HTML (archivo único, imprimible, footer y destino); las demás valen enteras, sobre todo la estética dictada por el tema y lo de no meter nada sensible.
+
+### Paso 5: Guardalo donde va [DET] *(solo completo)*
 Nombre `repaso-<tema>-<YYYY-MM-DD>.html`, y el lugar según de quién sea el tema:
 
 | El tema es de… | Va a… |
@@ -83,7 +123,7 @@ Nombre `repaso-<tema>-<YYYY-MM-DD>.html`, y el lugar según de quién sea el tem
 
 Nunca lo dejes en la carpeta de descargas ni en un temporal: un archivo que no sabés dónde quedó es un archivo perdido. La excepción es que te digan explícitamente que es descartable.
 
-### Paso 6: Probalo antes de entregarlo [DET]
+### Paso 6: Probalo antes de entregarlo [DET] *(solo completo)*
 Abrí el archivo y miralo. Tres chequeos concretos, con la pieza delante:
 
 1. Buscá en el HTML `http`, `src=` y `@import`. Toda referencia a algo de afuera (un CDN, una fuente, una imagen remota) se saca o se incrusta. Los únicos links que sobreviven son los de la sección Referencias, que están para hacer click, no para que la página se dibuje.
@@ -93,7 +133,11 @@ Abrí el archivo y miralo. Tres chequeos concretos, con la pieza delante:
 Si no lo abriste, no lo entregues: un repaso que no miraste es un intento, no un entregable.
 
 ### Paso 7: Entregá [DET]
-Devolvé el path, mostralo, y decí en UNA línea qué cubre. Cerrá ofreciendo `/brain-doc` según la regla dura de arriba.
+**Completo:** devolvé el path, mostralo, y decí en UNA línea qué cubre.
+
+**Inline:** mostrá la pieza, decí en UNA línea qué cubre, y sumá otra ofreciendo guardarla. Miralo renderizado antes: que el código parezca correcto no alcanza.
+
+En los dos casos, cerrá ofreciendo `/brain-doc` según la regla dura de arriba.
 
 ## Reglas de contenido
 - **Un destacado por bloque, máximo.** Cada bloque tiene a lo sumo UN protagonista: una cifra grande, una frase destacada o un hito. Si todo grita, no se escucha nada.
@@ -127,11 +171,12 @@ Un solo archivo `.html` guardado en su lugar, más tu respuesta en tres líneas:
 ## Cuándo NO usar
 - **Para guardar lo que pasó:** eso es `/brain-doc`. Este muestra, no guarda.
 - **Para convencer a alguien:** una pieza que argumenta y persuade por etapas es `/brain-deck`. Este repasa lo que hubo, no arma un caso.
-- **Para ubicarte en una charla que se te enredó:** eso es `/brain-simple`, que te lo baja en texto corto sin armar ningún archivo.
+- **Para ubicarte en una charla que se te enredó:** eso es `/brain-simple` a secas, que te lo baja en texto corto sin armar ninguna pieza.
 - **Cuando no hay material:** una sesión de tres mensajes no necesita un repaso visual, necesita una respuesta.
 
 ## Señales de que lo hiciste bien (chequeo binario)
-- [ ] Hiciste la pregunta fija (web sí o web no) antes de escribir una línea de HTML.
+- [ ] El formato salió del comando; no lo preguntaste de nuevo.
+- [ ] En completo: hiciste la pregunta fija (web sí o web no) antes de escribir una línea de HTML. En inline: no hiciste ninguna.
 - [ ] Barriste el material entero, no solo lo último que pasó.
 - [ ] Cada número que aparece salió del material; no hay ni una cifra decorativa.
 - [ ] Ningún bloque tiene dos protagonistas peleando por la atención.
@@ -140,5 +185,6 @@ Un solo archivo `.html` guardado en su lugar, más tu respuesta en tres líneas:
 - [ ] El archivo abre sin internet: cero CDNs, cero fuentes remotas, cero imágenes externas.
 - [ ] Se imprime digno en A4, sin bloques cortados a la mitad.
 - [ ] Cero em-dashes en el texto en español.
-- [ ] Quedó guardado en su carpeta, con su nombre y su fecha, sin pisar un repaso anterior, y dijiste dónde.
+- [ ] Completo: quedó guardado en su carpeta, con su nombre y su fecha, sin pisar un repaso anterior, y dijiste dónde.
+- [ ] Inline: lo viste renderizado, no guardaste nada por tu cuenta, y ofreciste convertirlo en completo.
 - [ ] Si había algo durable sin guardar, ofreciste `/brain-doc` en vez de dar el tema por cerrado.

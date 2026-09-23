@@ -31,7 +31,7 @@ Sos el conserje del Agentic Second Brain. La persona quiere ubicarse. Hacelo cor
    - `/brain-audit` : chequeo de salud de tu segundo cerebro.
    - `/brain-doc` : guarda lo durable de la charla donde corresponde (log, estado, inbox, memoria).
    - `/brain-simple` : si te perdiste, te baja el estado de la charla en simple.
-   - `/brain-recap` : el repaso visual de la sesión en un HTML, para mirarlo o mostrárselo a alguien.
+   - `/brain-simple html` : el repaso visual de la sesión en un HTML, para mirarlo o mostrárselo a alguien. Con `inline`, en el chat y sin archivo.
    - `/brain-spec` : el contrato antes de construir: requisitos numerados y cómo se verifica cada uno.
    - `/brain-transcribe` : pasa un audio local a texto con Whisper, sin mandar nada a la nube.
    - `/brain-tidy` : ordena la carpeta de descargas, sin sacar ni borrar nada.

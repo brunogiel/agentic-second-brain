@@ -6,6 +6,11 @@ El comando (`commands/<cmd>.md`) se arma como:
     su propia cabecera  (frontmatter + linea-puente con $ARGUMENTS, todo lo anterior al primer "# ")
   + el body de la kit-skill  (del primer "# " en adelante)
 
+Un comando puede mapear a VARIAS kit-skills (una lista en PAIRS). Ahi los bodies se
+concatenan en orden, separados por una regla `---`. Es el caso de `brain-simple`, que
+tiene modos: el modo corto lo resuelve `simple` y los visuales los resuelve
+`repaso-visual`, y el comando tiene que viajar con los dos adentro para ser autocontenido.
+
 Asi el body vive en UN solo lugar (la kit-skill) y el comando solo aporta su
 frontmatter `description` + la linea de intro. Esto mata el riesgo de que las dos
 copias se desincronicen a mano.
@@ -20,7 +25,7 @@ corrrunla despues de editar una kit-skill, y/o como check en pre-commit / CI.
 import os
 import sys
 
-# comando -> kit-skill (los 15 del toolkit; brain y brain-coach NO mapean a una kit-skill).
+# comando -> kit-skill, o lista de kit-skills (brain y brain-coach NO mapean a ninguna).
 # Los comandos viven con prefijo brain- en el repo (commands/brain-slop.md) porque Cowork muestra
 # el comando por su nombre de archivo (/brain-slop), no por el namespace del plugin.
 PAIRS = {
@@ -32,8 +37,11 @@ PAIRS = {
     "brain-deck": "ppt-builder",
     "brain-audit": "auditar-sistema",
     "brain-doc": "documenta",
-    "brain-simple": "simple",
-    "brain-recap": "repaso-visual",
+    # brain-simple tiene 3 modos: el corto sale de `simple`, los visuales de `repaso-visual`.
+    # `brain-recap` se dio de baja en la 3.0.0: era el mismo comando que `/brain-simple html`.
+    "brain-simple": ["simple", "repaso-visual"],
+    "brain-lesson": "leccion",
+    "brain-messirve": "messirve",
     "brain-triage": "triage",
     "brain-verify": "verificar",
     "brain-ship": "publicar",
@@ -59,26 +67,32 @@ def split_at_title(text):
 def main():
     check = "--check" in sys.argv
     drift = []
-    for cmd, skill in PAIRS.items():
+    for cmd, skills in PAIRS.items():
+        if isinstance(skills, str):
+            skills = [skills]
         cmd_path = os.path.join(ROOT, "commands", cmd + ".md")
-        kit_path = os.path.join(ROOT, "kit", "skills", skill, "SKILL.md")
-        if not os.path.exists(cmd_path) or not os.path.exists(kit_path):
-            print(f"  FALTA: {cmd} <-> {skill} (revisar paths)")
+        kit_paths = [os.path.join(ROOT, "kit", "skills", sk, "SKILL.md") for sk in skills]
+        faltan = [p for p in kit_paths if not os.path.exists(p)]
+        if not os.path.exists(cmd_path) or faltan:
+            print(f"  FALTA: {cmd} <-> {', '.join(skills)} (revisar paths)")
             drift.append(cmd)
             continue
         with open(cmd_path) as f:
             current = f.read()
         header, _ = split_at_title(current)
-        with open(kit_path) as f:
-            _, body = split_at_title(f.read())
-        regenerated = header + body
+        bodies = []
+        for kit_path in kit_paths:
+            with open(kit_path) as f:
+                _, body = split_at_title(f.read())
+            bodies.append(body.rstrip() + "\n")
+        regenerated = header + "\n---\n\n".join(bodies)
         if check:
             if current != regenerated:
                 drift.append(cmd)
         elif current != regenerated:
             with open(cmd_path, "w") as f:
                 f.write(regenerated)
-            print(f"  sync  commands/{cmd}.md  <-  kit/skills/{skill}")
+            print(f"  sync  commands/{cmd}.md  <-  " + ", ".join("kit/skills/" + sk for sk in skills))
         else:
             print(f"  ok    commands/{cmd}.md")
 

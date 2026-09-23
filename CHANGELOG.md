@@ -1,5 +1,37 @@
 # Changelog
 
+## 3.0.0 (2026-09-23)
+
+⚠️ **Cambio incompatible: `/brain-recap` ya no existe.** Lo absorbió `/brain-simple`, que ahora
+tiene modos. Si lo tenías instalado, el `install.sh` te lo borra solo al actualizar.
+
+- **`/brain-simple` pasa a tener tres modos, y el argumento elige.** Sin nada te baja el estado
+  de la charla en lenguaje simple y corto, como siempre. Con `html` te arma el repaso visual de
+  la sesión en un archivo. Con `html inline` te muestra esa misma pieza en el chat, sin archivo.
+  Lo que escribas después del modo es el alcance: `/brain-simple html el rediseño del onboarding`
+  arma el repaso de ese tema y no de la sesión.
+  - **Nunca pregunta cuál de los tres.** Si el argumento no matchea ninguno, cae al corto. El
+    skill existe para ubicarte cuando ya estás perdido: una pregunta más ahí es una decisión más.
+  - **El desempate lo hace la palabra `inline`** (o `flash` / `widget`): si aparece, gana el
+    inline, esté o no la palabra `html` al lado.
+- **`repaso-visual` gana el formato inline.** Hasta ahora siempre escribía un archivo. Ahora
+  tiene dos formatos con costos distintos: *completo* (el `.html` guardado, imprimible y
+  compartible, una sola pregunta) e *inline* (la pieza mostrada en la conversación, sin archivo
+  y sin ninguna pregunta). El formato lo elige el comando, no una pregunta más.
+  - **El inline necesita un cliente que sepa mostrar HTML en la conversación.** Si el tuyo no
+    puede, el skill lo dice y te ofrece el completo, en vez de escupirte un bloque de código.
+  - **Lo efímero engaña.** Una pieza inline parece descartable y no lo es: queda en la
+    conversación, que se comparte y se exporta. El filtro de lo sensible corre igual que en el
+    archivo.
+- **Por qué se fue `/brain-recap`.** Hacía exactamente lo mismo que `/brain-simple html`. Dos
+  comandos para una sola pieza no es más potencia: es una decisión de más, justo en el momento
+  en que estás perdido y no querés decidir nada.
+- **`scripts/sync.py` ahora acepta varias kit-skills por comando.** `/brain-simple` viaja con el
+  modo corto y con el motor visual adentro, y los dos siguen teniendo una sola fuente de verdad.
+  De paso entraron al mapa `brain-lesson` y `brain-messirve`, que se habían quedado afuera y por
+  eso no se regeneraban al editar su skill.
+- **`uninstall.sh` ahora también saca `/brain-lesson`**, que faltaba en la lista.
+
 ## 2.40.0 (2026-09-19)
 
 - **Skill nuevo: `/brain-lesson`, un tema que no sabés en un solo HTML.** Le pasás un tuit, un
