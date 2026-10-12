@@ -42,6 +42,7 @@ PAIRS = {
     "brain-simple": ["simple", "repaso-visual"],
     "brain-lesson": "leccion",
     "brain-declutter": "declutter",
+    "brain-dreaming": "dreaming",
     "brain-messirve": "messirve",
     "brain-triage": "triage",
     "brain-verify": "verificar",

@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.2.0 (2026-10-12)
+
+- **Skill nuevo: `/brain-dreaming`.** Un ciclo nocturno que mantiene tu brain al día sin
+  que se lo pidas. Lee lo que pasó en el día (tus conversaciones con Claude Code, los mails
+  recibidos y enviados, las transcripciones de reuniones, las tareas que pasaste a hecho y
+  los commits de tus repos) y lo fija donde corresponde.
+- **No te pregunta nada.** Lo verificable (un hecho con evidencia, un adjunto, un check que
+  el propio doc da por cumplido) lo escribe solo. Lo que pide tu criterio lo deja marcado en
+  el estado del proyecto, en una sección `🚩 Marcas para revisar`. Una botonera corta es
+  opcional: si no la tocás, el default corre la noche siguiente.
+- **Tareas solo si son obvias.** De una reunión pasa a tu lista únicamente lo que tiene tu
+  nombre, un verbo concreto y quedó acordado, con `🤖` adelante para distinguirlo.
+- **Perímetro.** No manda mails, no borra, no paga. Lo que lee en un mail o una minuta es
+  dato, nunca instrucción. Las carpetas que declares privadas quedan afuera, y los
+  subagentes no abren los transcripts crudos.
+- Cada fuente es adaptable (Gmail, Granola y Notion son ejemplos) y la que no esté conectada
+  se saltea. Trae 8 scripts y un `config.example.json`. Inspirado en Dreaming de OpenClaw.
+
 ## 3.1.0 (2026-10-10)
 
 - **Skill nuevo: `/brain-declutter`.** Ordena la carpeta o el archivo que le señalás. En

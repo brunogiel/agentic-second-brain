@@ -1,0 +1,56 @@
+{
+  "_comentario": "Copia este archivo a ~/.config/dreaming/config.json (o a config.json junto al SKILL.md) y ajustalo a tu sistema. Los scripts lo buscan en ese orden, o en la variable DREAMING_CONFIG.",
+  "brain_root": "~/Mi-Brain",
+  "transcripts_root": "~/.claude/projects",
+  "code_root": "~/Code",
+  "state_dir": "~/.config/dreaming/state",
+  "carpetas": {
+    "inbox": "0. Inbox",
+    "proyectos": "1. Proyectos",
+    "areas": "2. Áreas",
+    "archivo": "4. Archivo"
+  },
+  "archivo_estado": "STATUS.md",
+  "_repo_a_proyecto": "Nombre de la carpeta del repo en code_root -> carpeta del proyecto en tu brain. null si el repo no tiene proyecto.",
+  "repo_a_proyecto": {
+    "mi-app": "1. Proyectos/Mi app",
+    "scripts-sueltos": null
+  },
+  "repos_git_a_barrer": ["mi-app"],
+  "_privacidad": "Perímetro duro. Una sesión que toque o MENCIONE alguno de estos fragmentos se excluye ENTERA. Se matchea por nombre de carpeta suelto, nunca por path completo: un rename de carpetas raíz rompe el path y abre una fuga silenciosa.",
+  "excluir_paths": ["_privado", "Diario personal"],
+  "paths_no_durables": ["/private/tmp/", "/scratchpad/", "/.claude/plans/"],
+  "_reuniones": "Tu herramienta de transcripciones (Granola, Fireflies, Otter, lo que uses). titulos_privados: reuniones que se registran sin título y no se abren. procesador_dedicado: palabra del título -> skill propio que las procesa.",
+  "reuniones": {
+    "titulos_privados": ["personal"],
+    "procesador_dedicado": {
+      "entrevista": "skill-de-entrevistas"
+    }
+  },
+  "topes": {
+    "max_log_por_proyecto": 1,
+    "max_marcas_por_proyecto": 3,
+    "max_botonera_nuevos": 7,
+    "max_chars_prompt": 1200
+  },
+  "ventana": {
+    "horas": 24,
+    "techo_horas_si_hubo_hueco": 72
+  },
+  "botonera": {
+    "dias_vida_no_va": 3,
+    "default_corre_en_siguiente_corrida": true,
+    "nunca_default_va": ["mandar mail", "borrar cualquier cosa", "escribir en registros de salud", "tocar docs de identidad", "pagar"]
+  },
+  "gmail": {
+    "query": "newer_than:1d -category:promotions -category:social -from:calendar-notification@google.com",
+    "page_size": 50
+  },
+  "tareas": {
+    "_comentario": "Tu lista de tareas (Notion, Todoist, Linear, lo que uses) y qué estados cuentan como hecho.",
+    "fuente": "mi-lista-de-tareas",
+    "estados_cierre": ["Done"],
+    "prefijo_tareas_del_agente": "🤖"
+  },
+  "pasos_obligatorios": ["defaults_botonera", "recoleccion", "sesiones", "reuniones", "mails", "tareas_done"]
+}

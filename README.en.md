@@ -62,6 +62,7 @@ The plugin ships slash commands that work the moment you install it, with no set
 | `/brain-transcribe` | Transcribes local audio with Whisper, nothing leaves your machine |
 | `/brain-tidy` | Tidies your downloads folder into staging, never moves out, never deletes |
 | `/brain-declutter` | Tidies the folder or file you point at: duplicates, bloat, and the script that keeps making the mess |
+| `/brain-dreaming` | Nightly cycle: reads your day (conversations, mail, meetings, tasks, commits), writes what it can verify into your docs and flags what needs your call |
 | `/brain-newskill` | Build a new skill following the anatomy that works |
 | `/brain-evalskill` | Grade a skill against its rubric and propose fixes (doesn't apply them) |
 | `/brain-messirve` | Does that thing you saw out there help you? Cross-checks it against yours: what you already have, what to steal, what to add |
