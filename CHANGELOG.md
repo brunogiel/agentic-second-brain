@@ -1,5 +1,30 @@
 # Changelog
 
+## 3.1.0 (2026-10-10)
+
+- **Skill nuevo: `/brain-declutter`.** Ordena la carpeta o el archivo que le señalás. En
+  vez de correr siempre lo mismo, diagnostica qué necesita entre seis intervenciones
+  (limpiar duplicados, tirar basura regenerable, reordenar el árbol, destilar un documento
+  inflado, sincerar un doc que quedó mintiendo, o **tapar la fuente**: arreglar el script
+  que vuelve a ensuciar cada semana). Te muestra la tabla de cómo está y cómo quedaría, y
+  aplica solo lo que marcás.
+- **Nada se borra.** Lo condenado va a una cuarentena con manifiesto, y `revertir` deja
+  todo byte-idéntico, verificado por hash. El manifiesto registra toda escritura, no solo
+  los movimientos: si solo anotara movimientos, revertir una mudanza dejaría la copia en
+  el destino y recrearía el duplicado.
+- **Clasifica por procedencia, no por nombre.** Un archivo cuyo generador lo vuelve a
+  crear no hay que defenderlo uno por uno: va como un solo ítem a aprobar, en vez de N.
+  Uno que nadie regenera no se toca sin leer.
+- **Gate de invariantes antes de sacar o mover nada.** Un README que explica *por qué* dos
+  archivos se parecen cuenta como guarda: ahí el duplicado es a propósito y no se toca.
+  Es el caso de los sets de evaluación con nombres neutros, donde deduplicar no rompe nada
+  visible y sin embargo rompe el evaluador.
+- **Muestra el árbol de la carpeta, no solo la lista de archivos.** Antes de la tabla por
+  ítem, `scripts/arbol.py` dibuja la carpeta ahora → queda por subcarpeta, con lo que
+  pierde cada una y lo que va a la cuarentena: con más de cinco ítems, una lista no deja
+  ver la forma del resultado, que es lo que se aprueba.
+- `scripts/sync.py` suma el par `brain-declutter` → `declutter`.
+
 ## 3.0.0 (2026-09-23)
 
 ⚠️ **Cambio incompatible: `/brain-recap` ya no existe.** Lo absorbió `/brain-simple`, que ahora

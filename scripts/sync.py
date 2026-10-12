@@ -41,6 +41,7 @@ PAIRS = {
     # `brain-recap` se dio de baja en la 3.0.0: era el mismo comando que `/brain-simple html`.
     "brain-simple": ["simple", "repaso-visual"],
     "brain-lesson": "leccion",
+    "brain-declutter": "declutter",
     "brain-messirve": "messirve",
     "brain-triage": "triage",
     "brain-verify": "verificar",

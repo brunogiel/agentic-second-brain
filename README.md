@@ -61,6 +61,7 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-spec` | El contrato antes de construir: requisitos numerados y cómo se verifica cada uno |
 | `/brain-transcribe` | Transcribe un audio local con Whisper, sin mandar nada a la nube |
 | `/brain-tidy` | Ordena la carpeta de descargas en staging, sin sacar ni borrar nada |
+| `/brain-declutter` | Ordena la carpeta o el archivo que le señalás: duplicados, lo inflado, y el script que lo ensucia |
 | `/brain-newskill` | Armá un skill nuevo siguiendo la anatomía que funciona |
 | `/brain-evalskill` | Medí un skill contra su rúbrica y proponé mejoras (no las aplica) |
 | `/brain-messirve` | ¿Esto que viste afuera te sirve? Lo cruza con lo tuyo: si ya lo tenés, qué le robás, y si no, lo agrega |
