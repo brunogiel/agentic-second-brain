@@ -77,7 +77,7 @@ fetch "kit/brain/inbox/INBOX.md" "kit/brain/inbox/INBOX.md"
 # kit/skills (catálogo de skills de uso): se bundlea con el coach
 for s in "${SKILLS_USO[@]}"; do fetch "kit/skills/${s}/SKILL.md" "kit/skills/${s}/SKILL.md"; done
 # skills que ademas traen scripts: sin esto el SKILL.md llega y sus herramientas no.
-SKILL_SCRIPTS=("declutter/scripts/censar.py" "declutter/scripts/invariantes.py" "declutter/scripts/aplicar.py" "declutter/scripts/arbol.py" "dreaming/config.example.json" "dreaming/scripts/_comun.py" "dreaming/scripts/extraer-dia.py" "dreaming/scripts/estado-docs.py" "dreaming/scripts/marcas.py" "dreaming/scripts/barrido-mtime.py" "dreaming/scripts/verificar-corrida.py" "dreaming/scripts/transcript-a-txt.py" "dreaming/scripts/git-dia.sh")
+SKILL_SCRIPTS=("declutter/scripts/censar.py" "declutter/scripts/invariantes.py" "declutter/scripts/aplicar.py" "declutter/scripts/arbol.py" "dreaming/config.example.json" "dreaming/scripts/_comun.py" "dreaming/scripts/extraer-dia.py" "dreaming/scripts/estado-docs.py" "dreaming/scripts/marcas.py" "dreaming/scripts/barrido-mtime.py" "dreaming/scripts/verificar-corrida.py" "dreaming/scripts/transcript-a-txt.py" "dreaming/scripts/git-dia.sh" "dreaming/scripts/calcular-ventana.py")
 for f in "${SKILL_SCRIPTS[@]}"; do fetch "kit/skills/${f}" "kit/skills/${f}"; done
 # el motor (skills/brain-coach en el repo)
 fetch "skills/${MOTOR_SRC}/SKILL.md" "motor/${MOTOR_SRC}/SKILL.md"

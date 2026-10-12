@@ -8,6 +8,9 @@ nadie se entera de que un estado quedó tres semanas atrás hasta que lo abre.
 Este script mide esa deriva. Read-only, cero criterio propio: mide y ordena.
 Qué hacer con cada caso lo decide el agente, cruzando contra la actividad real del día.
 
+El archivo de salida (`--out`) se resuelve con realpath y tiene que colgar de `brain_root` o
+de `state_dir`. Los proyectos bajo una carpeta de `excluir_paths` no se leen.
+
 Uso:
     python3 estado-docs.py                  # todos los proyectos
     python3 estado-docs.py --md
@@ -23,7 +26,7 @@ import re
 import sys
 from datetime import datetime, timedelta
 
-from _comun import TZ_LOCAL, cargar_config, ruta_estado
+from _comun import TZ_LOCAL, cargar_config, es_privado, resolver_salida, ruta_estado
 
 RE_FECHA = re.compile(r"(20\d{2})-(\d{2})-(\d{2})")
 RE_CHECK_ABIERTO = re.compile(r"^\s*[-*]\s*\[ \]\s*(.+)$", re.MULTILINE)
@@ -122,13 +125,17 @@ def main():
 
     dirs = []
     if args.solo:
-        dirs = [os.path.join(raiz, args.solo)]
+        dirs = [resolver_salida(cfg, os.path.join(raiz, args.solo), permitidos=("brain_root",))]
     else:
         base = os.path.join(raiz, cfg["carpetas"]["proyectos"])
         if os.path.isdir(base):
             for profundidad in ("*", "*/*", "*/*/*"):
                 for cm in glob.glob(os.path.join(base, profundidad, "CLAUDE.md")):
-                    dirs.append(os.path.dirname(cm))
+                    d = os.path.dirname(cm)
+                    # Perímetro de privacidad: un proyecto bajo una carpeta privada no se lee.
+                    if es_privado(os.path.relpath(d, raiz), cfg):
+                        continue
+                    dirs.append(d)
 
     proyectos = [auditar_proyecto(d, raiz, archivo_estado, ahora) for d in sorted(set(dirs))]
 
@@ -154,7 +161,8 @@ def main():
     }
 
     if args.out:
-        destino = args.out if os.path.isabs(args.out) else ruta_estado(cfg, args.out)
+        destino = resolver_salida(
+            cfg, args.out if os.path.isabs(args.out) else ruta_estado(cfg, args.out))
         os.makedirs(os.path.dirname(destino), exist_ok=True)
         with open(destino, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)

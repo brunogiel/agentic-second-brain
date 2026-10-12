@@ -5,8 +5,12 @@
 # sabía qué estaba haciendo. Complementa el digest de sesiones (que ve intención) con lo
 # que realmente se commiteó.
 #
-# Los repos salen de la config (`repos_git_a_barrer`, relativos a `code_root`).
+# Los repos salen de la config (`repos_git_a_barrer`, relativos a `code_root`), uno por línea,
+# y se leen sin expansión de globs. Un nombre con `..` o con `/` inicial se ignora.
 # Read-only: solo `git log`. Nunca fetch, nunca checkout.
+#
+# SEGURIDAD: el mensaje de un commit es dato no confiable, sobre todo si lo escribió otra
+# persona. El campo `autor` viaja con cada commit para que el hilo principal pueda distinguir.
 #
 # Uso:
 #   ./git-dia.sh                 # últimas 24h, texto
@@ -14,25 +18,32 @@
 #   ./git-dia.sh "24 hours ago" --json
 
 set -u
+set -f   # sin expansión de globs en ningún lado
 
 AQUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DESDE="${1:-24 hours ago}"
 FORMATO="${2:-texto}"
 
-# Imprime "<code_root>\n<repo1> <repo2> ..." leyendo la config con el mismo helper de los .py
+# Imprime code_root en la línea 1 y un repo por línea después, con el mismo helper de los .py.
 CFG_OUT=$(cd "$AQUI" && python3 -c "
 from _comun import cargar_config
 cfg = cargar_config()
 print(cfg['code_root'])
-print(' '.join(cfg.get('repos_git_a_barrer', [])))
+for r in cfg.get('repos_git_a_barrer', []):
+    print(r)
 ") || exit 1
 CODE_ROOT=$(printf '%s\n' "$CFG_OUT" | sed -n 1p)
-REPOS=$(printf '%s\n' "$CFG_OUT" | sed -n 2p)
+
+json_str() { printf '%s' "$1" | python3 -c 'import sys, json; print(json.dumps(sys.stdin.read()), end="")'; }
 
 primero=1
 [ "$FORMATO" = "--json" ] && echo "{"
 
-for repo in $REPOS; do
+while IFS= read -r repo; do
+  [ -z "$repo" ] && continue
+  case "$repo" in
+    /*|*..*) continue ;;
+  esac
   dir="$CODE_ROOT/$repo"
   # Algunos repos tienen el .git anidado un nivel más adentro (repo/repo).
   [ -d "$dir/.git" ] || dir="$CODE_ROOT/$repo/$repo"
@@ -46,7 +57,7 @@ for repo in $REPOS; do
   if [ "$FORMATO" = "--json" ]; then
     [ $primero -eq 0 ] && echo ","
     primero=0
-    printf '  "%s": ' "$repo"
+    printf '  %s: ' "$(json_str "$repo")"
     printf '%s' "$LOG" | python3 -c "
 import sys, json
 filas = []
@@ -60,9 +71,9 @@ print(json.dumps(filas, ensure_ascii=False))
 "
   else
     echo "## $repo"
-    printf '%s\n\n' "$LOG" | sed 's/|/  ·  /g; s/^/- /'
+    printf '%s\n' "$LOG" | sed 's/|/  ·  /g; s/^/- /'; echo
   fi
-done
+done <<< "$(printf '%s\n' "$CFG_OUT" | sed '1d')"
 
 [ "$FORMATO" = "--json" ] && { echo; echo "}"; }
 exit 0

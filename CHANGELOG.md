@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.3.0 (2026-10-12)
+
+- **`/brain-dreaming` lee Slack.** Paso nuevo 4c: tus DMs, tus grupos y los hilos donde
+  participaste o te nombraron. Tus mensajes enviados pesan más, igual que en el mail. Los
+  canales que declares privados no se abren, y el ciclo nunca escribe en Slack.
+- **Te ayuda a conectar las fuentes.** En la instalación se fija qué conectores tenés (mail,
+  Slack, reuniones, lista de tareas) y te explica cómo sumar los que faltan. No bloquea: lo que
+  no conectes se saltea.
+- **Tareas también desde mails y mensajes**, con las mismas tres condiciones que en una
+  reunión: el dueño sos vos, el verbo es concreto y quedó acordado o prometido.
+- **No duplica tareas.** Antes de crear una, consulta tu lista (abiertas y cerradas hace poco).
+  Si ya está, no la crea; si se parece, te pregunta; si la lista no responde, no crea nada.
+- **Endurecido contra texto ajeno.** Una tarea solo entra directo si la promesa sale de un
+  mail o mensaje que mandaste vos; lo que pide un tercero va a la botonera. Lo que dice un
+  tercero se anota atribuido, nunca como decisión tuya. El borrador de respuesta ya no tiene
+  default «Va», y `verificar-corrida.py` falla si la botonera trae un default «Va» prohibido.
+- **Privacidad por código en todas las fuentes:** remitentes y etiquetas de mail, canales de
+  Slack y títulos de reuniones se filtran antes de llegar a un subagente. El extractor mira
+  también el cwd, el título y los comandos de cada sesión. Los scripts no escriben fuera de tu
+  brain ni del `state_dir`.
+- Script nuevo `calcular-ventana.py`: estira la ventana si una noche no corrió, con tope.
+
 ## 3.2.0 (2026-10-12)
 
 - **Skill nuevo: `/brain-dreaming`.** Un ciclo nocturno que mantiene tu brain al día sin

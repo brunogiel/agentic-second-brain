@@ -19,7 +19,7 @@ import os
 import re
 import sys
 
-from _comun import cargar_config
+from _comun import cargar_config, contiene_alguno
 
 HEADER = "## 🚩 Marcas para revisar"
 LINEA = re.compile(r"^- \[ \] (\d{4}-\d{2}-\d{2}) · (.+)$")
@@ -32,7 +32,9 @@ def marcas_estado(cfg):
     excluir = tuple(cfg.get("excluir_paths", [])) + (cfg["carpetas"]["archivo"],) + SIEMPRE_EXCLUIDAS
     out = []
     for dir_actual, dirs, files in os.walk(raiz):
-        if any(x in dir_actual + "/" for x in excluir):
+        # Se compara contra el path relativo al brain, normalizado (NFC + minúsculas).
+        rel_dir = "/" + os.path.relpath(dir_actual, raiz).replace(os.sep, "/") + "/"
+        if contiene_alguno(rel_dir, excluir):
             dirs[:] = []
             continue
         if archivo_estado not in files:

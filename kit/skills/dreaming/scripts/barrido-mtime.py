@@ -7,8 +7,9 @@ disco no miente.
 
 Uso: python3 barrido-mtime.py --horas 24 [--json]
 
-Agrupa por proyecto (las primeras dos carpetas). Excluye por NOMBRE de carpeta suelto (la
-regla de privacidad del skill) y ruido conocido. NO recortar la salida con `head`: el
+Agrupa por proyecto (las primeras dos carpetas). Excluye por fragmento de nombre (substring,
+normalizado NFC + minúsculas, igual que el extractor: la regla de privacidad del skill) y
+ruido conocido. NO recortar la salida con `head`: el
 orden del filesystem es arbitrario y un bloque de archivos de ruido puede tapar el resto
 de la ventana.
 """
@@ -18,7 +19,7 @@ import json
 import os
 import time
 
-from _comun import cargar_config
+from _comun import cargar_config, contiene_alguno
 
 RUIDO_DIRS = {".git", "node_modules", "__pycache__", "backups"}
 
@@ -32,19 +33,20 @@ def main():
     cfg = cargar_config()
     raiz = cfg["brain_root"]
     horas = a.horas if a.horas is not None else cfg.get("ventana", {}).get("horas", 24)
-    excl_dirs = RUIDO_DIRS | set(cfg.get("excluir_paths", []))
-    state_dir = os.path.abspath(cfg["state_dir"])
+    excluir = cfg.get("excluir_paths", [])
+    state_dir = os.path.realpath(cfg["state_dir"])
     corte = time.time() - horas * 3600
 
     grupos = collections.defaultdict(list)
     total = 0
     for dp, dn, fn in os.walk(raiz):
-        dn[:] = [x for x in dn if x not in excl_dirs]
-        if os.path.abspath(dp).startswith(state_dir):
+        dn[:] = [x for x in dn if x not in RUIDO_DIRS and not contiene_alguno(x, excluir)]
+        real = os.path.realpath(dp)
+        if real == state_dir or real.startswith(state_dir + os.sep):
             dn[:] = []
             continue
         for f in fn:
-            if f == ".DS_Store":
+            if f == ".DS_Store" or contiene_alguno(f, excluir):
                 continue
             fp = os.path.join(dp, f)
             try:

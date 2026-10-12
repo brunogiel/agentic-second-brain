@@ -16,13 +16,24 @@
     "mi-app": "1. Proyectos/Mi app",
     "scripts-sueltos": null
   },
-  "repos_git_a_barrer": ["mi-app"],
-  "_privacidad": "Perímetro duro. Una sesión que toque o MENCIONE alguno de estos fragmentos se excluye ENTERA. Se matchea por nombre de carpeta suelto, nunca por path completo: un rename de carpetas raíz rompe el path y abre una fuga silenciosa.",
-  "excluir_paths": ["_privado", "Diario personal"],
-  "paths_no_durables": ["/private/tmp/", "/scratchpad/", "/.claude/plans/"],
-  "_reuniones": "Tu herramienta de transcripciones (Granola, Fireflies, Otter, lo que uses). titulos_privados: reuniones que se registran sin título y no se abren. procesador_dedicado: palabra del título -> skill propio que las procesa.",
+  "repos_git_a_barrer": [
+    "mi-app"
+  ],
+  "_privacidad": "Perímetro duro. Una sesión que toque o MENCIONE alguno de estos fragmentos (en el cwd, el título, los prompts, los comandos o el input de cualquier herramienta) se excluye ENTERA. Se matchea por fragmento de nombre de carpeta (substring, sin distinguir mayúsculas), nunca por path completo: un rename de carpetas raíz rompe el path y abre una fuga silenciosa.",
+  "excluir_paths": [
+    "_privado",
+    "Diario personal"
+  ],
+  "paths_no_durables": [
+    "/private/tmp/",
+    "/scratchpad/",
+    "/.claude/plans/"
+  ],
+  "_reuniones": "Tu herramienta de transcripciones (Granola, Fireflies, Otter, lo que uses). titulos_privados: fragmentos de título (substring, sin distinguir mayúsculas); esas reuniones se registran sin título y no se abren. procesador_dedicado: palabra del título -> skill propio que las procesa.",
   "reuniones": {
-    "titulos_privados": ["personal"],
+    "titulos_privados": [
+      "personal"
+    ],
     "procesador_dedicado": {
       "entrevista": "skill-de-entrevistas"
     }
@@ -40,17 +51,59 @@
   "botonera": {
     "dias_vida_no_va": 3,
     "default_corre_en_siguiente_corrida": true,
-    "nunca_default_va": ["mandar mail", "borrar cualquier cosa", "escribir en registros de salud", "tocar docs de identidad", "pagar"]
+    "_nunca_default_va": "Palabras o frases. verificar-corrida.py falla si un ítem con default Va las contiene (substring, sin distinguir mayúsculas) en su accion o etiqueta.",
+    "nunca_default_va": [
+      "mandar",
+      "enviar",
+      "borrador",
+      "responder",
+      "borrar",
+      "eliminar",
+      "salud",
+      "identidad",
+      "pagar"
+    ]
   },
   "gmail": {
     "query": "newer_than:1d -category:promotions -category:social -from:calendar-notification@google.com",
-    "page_size": 50
+    "page_size": 50,
+    "_privacidad": "Antes de despachar un hilo a un subagente, el hilo principal compara por código el remitente y las etiquetas contra estas listas (substring, sin distinguir mayúsculas). Si coincide, el hilo no se abre.",
+    "excluir_remitentes": [
+      "@mi-terapeuta.example"
+    ],
+    "etiquetas_privadas": [
+      "Privado"
+    ]
   },
   "tareas": {
     "_comentario": "Tu lista de tareas (Notion, Todoist, Linear, lo que uses) y qué estados cuentan como hecho.",
     "fuente": "mi-lista-de-tareas",
-    "estados_cierre": ["Done"],
-    "prefijo_tareas_del_agente": "🤖"
+    "estados_cierre": [
+      "Done"
+    ],
+    "prefijo_tareas_del_agente": "🤖",
+    "dias_dedupe": 14
   },
-  "pasos_obligatorios": ["defaults_botonera", "recoleccion", "sesiones", "reuniones", "mails", "tareas_done"]
+  "pasos_obligatorios": [
+    "defaults_botonera",
+    "recoleccion",
+    "sesiones",
+    "reuniones",
+    "mails",
+    "mensajes",
+    "tareas_done"
+  ],
+  "mensajes": {
+    "_comentario": "Slack por MCP. alcance: dónde leer. Los canales privados no se abren.",
+    "fuente": "slack",
+    "alcance": [
+      "dms",
+      "grupos",
+      "hilos_donde_participaste",
+      "menciones"
+    ],
+    "canales_privados": [
+      "ejemplo-canal-privado"
+    ]
+  }
 }

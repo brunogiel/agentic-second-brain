@@ -13,6 +13,10 @@ Reglas de seguridad que aplica el script:
   - Solo extrae TUS prompts (origin.kind == "human", sin sidechain). Lo demás (resultados de
     herramientas, mails, páginas web) es dato no confiable y no entra al digest.
   - Una sesión que toca o MENCIONA un fragmento de `excluir_paths` se descarta entera.
+    "Mencionar" incluye el cwd, el título, los prompts, los comandos de Bash y todo el input
+    de cualquier herramienta. Se compara normalizado (NFC + minúsculas) en ambos lados.
+  - El archivo de salida (`--out`) se resuelve con realpath y tiene que colgar de
+    `brain_root` o de `state_dir`. Si no, el script aborta.
 
 Uso:
     python3 extraer-dia.py                         # últimas 24h, JSON a stdout
@@ -29,7 +33,7 @@ import sys
 from collections import OrderedDict
 from datetime import datetime, timedelta, timezone
 
-from _comun import TZ_LOCAL, cargar_config, ruta_estado
+from _comun import TZ_LOCAL, cargar_config, es_privado, resolver_salida, ruta_estado
 
 # Comandos que valen como "cambio ejecutado" y no como ruido de exploración.
 CMDS_INTERESANTES = (
@@ -153,10 +157,6 @@ def inferir_proyecto(sesion, cfg, indice):
     return ("Brain (sin proyecto)", None)
 
 
-def es_privado(path, cfg):
-    return any(frag in (path or "") for frag in cfg["excluir_paths"])
-
-
 def es_no_durable(path, cfg):
     return any(frag in (path or "") for frag in cfg["paths_no_durables"])
 
@@ -221,6 +221,8 @@ def recolectar(desde, hasta, cfg, max_chars):
 
                 if tipo == "custom-title" and d.get("customTitle"):
                     s["titulo"] = d["customTitle"]
+                    if es_privado(d["customTitle"], cfg):
+                        s["privada"] = True
 
                 if tipo == "pr-link" and d.get("prUrl"):
                     if d["prUrl"] not in s["prs"]:
@@ -237,6 +239,8 @@ def recolectar(desde, hasta, cfg, max_chars):
 
                 if d.get("cwd"):
                     s["cwd"] = d["cwd"]
+                    if es_privado(d["cwd"], cfg):
+                        s["privada"] = True
                 if d.get("gitBranch"):
                     s["branch"] = d["gitBranch"]
                 if d.get("attributionSkill"):
@@ -268,6 +272,12 @@ def recolectar(desde, hasta, cfg, max_chars):
                             continue
                         nombre = bloque.get("name")
                         entrada = bloque.get("input") or {}
+
+                        # Perímetro sobre TODO el input de la herramienta (paths, comandos,
+                        # patrones de búsqueda, urls): mencionar alcanza.
+                        if es_privado(json.dumps(entrada, ensure_ascii=False), cfg):
+                            s["privada"] = True
+                            continue
 
                         if nombre in ("Edit", "Write", "NotebookEdit"):
                             fp = entrada.get("file_path") or entrada.get("notebook_path")
@@ -423,7 +433,8 @@ def main():
     }
 
     if args.out:
-        destino = args.out if os.path.isabs(args.out) else ruta_estado(cfg, args.out)
+        destino = resolver_salida(
+            cfg, args.out if os.path.isabs(args.out) else ruta_estado(cfg, args.out))
         os.makedirs(os.path.dirname(destino), exist_ok=True)
         with open(destino, "w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, indent=2)
