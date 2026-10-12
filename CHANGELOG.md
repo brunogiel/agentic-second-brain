@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.4.0 (2026-10-12)
+
+- **`/brain-dreaming` lee varias listas de tareas** (Notion, Asana, Todoist, Linear). Cierra
+  pendientes con las tareas hechas de todas, busca duplicados en todas, y crea las nuevas
+  solo en la que marcás como principal.
+- **Agenda en tu calendario** los compromisos con día y hora que salieron de un mail o
+  mensaje tuyo o que acordaste en una reunión. Solo en tu calendario, sin invitados, sin
+  tocar eventos que ya existen, y sin duplicar. Invitar o mover un evento siempre pasa por
+  la botonera, y `verificar-corrida.py` lo bloquea si viene con default «Va».
+
 ## 3.3.0 (2026-10-12)
 
 - **`/brain-dreaming` lee Slack.** Paso nuevo 4c: tus DMs, tus grupos y los hilos donde

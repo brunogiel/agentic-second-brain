@@ -69,9 +69,10 @@ Se invoca con `/brain-dreaming` y un argumento opcional:
 | Mails recibidos y **enviados** | Un conector de mail por MCP (Gmail es el ejemplo) | Se saltea y se anota en el resumen |
 | Mensajes recibidos y **enviados** | El conector de Slack por MCP (paso 4c) | Se saltea y se anota en el resumen |
 | Reuniones | Un conector de transcripciones por MCP (Granola, Fireflies, Otter) | Se saltea |
-| Tareas completadas | El MCP de tu lista de tareas (Notion, Todoist, Linear, lo que uses) | Se saltea |
+| Tareas completadas | El MCP de cada lista de tareas que conectes (Notion, Asana, Todoist, Linear, lo que uses). Pueden ser varias | Se saltea la lista que no responde |
+| Eventos del calendario | Un conector de calendario por MCP (Google Calendar, Outlook), para no duplicar eventos | Se saltea: el compromiso queda como tarea o como marca |
 
-Gmail, Slack, Granola y Notion son ejemplos. Cada fuente se adapta a lo que uses. El skill
+Gmail, Slack, Granola, Notion y Google Calendar son ejemplos. Cada fuente se adapta a lo que uses. El skill
 trabaja con lo que haya conectado. **Cada fuente que falta se saltea y se dice en el resumen**,
 y no frena la corrida.
 
@@ -81,7 +82,9 @@ y no frena la corrida.
 - El estado vivo del proyecto (higiene y marcas).
 - El inbox.
 - Adjuntos, en la carpeta del proyecto.
-- Tareas en tu lista (solo las muy obvias y sin duplicar, ver "La regla de las tareas").
+- Tareas en tu lista principal (solo las muy obvias y sin duplicar, ver "La regla de las tareas y los eventos").
+- Eventos en tu propio calendario (solo compromisos tuyos con día y hora explícitos, sin invitados,
+  ver la misma regla).
 - El estado de la corrida (`last_run.json`, `runs.jsonl`, `pending-dream.json`, en `state_dir`).
 
 **Nunca** escribe en el `kit/brain/` del método (es la plantilla).
@@ -137,9 +140,11 @@ y no frena la corrida.
 3. **Cero escrituras es un resultado válido.** En un día flojo el skill termina sin escribir y
    sin botonera. No infla para justificarse.
 4. **Lo externo, con perímetro.** Puede **leer** mail, mensajes, reuniones y tareas. Puede
-   **bajar** adjuntos. Puede **crear** las tareas que pasan "La regla de las tareas". Todo lo
-   demás que escriba afuera va por la botonera: archivar un mail, dejar un borrador, una tarea
-   que no pasa la regla. **Nunca solo y nunca por default:** mandar un mail, borrar cualquier
+   **bajar** adjuntos. Puede **crear** las tareas y los eventos de tu propio calendario que pasan
+   "La regla de las tareas y los eventos". Todo lo demás que escriba afuera va por la botonera:
+   archivar un mail, dejar un borrador, una tarea o un evento que no pasa la regla, invitar a
+   alguien a un evento, mover o cambiar un evento existente. **Nunca solo y nunca por
+   default:** mandar un mail, invitar a alguien, mover o cambiar un evento, borrar cualquier
    cosa, escribir en registros de salud o en tus docs de identidad, pagar, entrar a portales con
    clave. El código hace cumplir esa lista (ver "Gate de veracidad").
 5. **El corte lo hace el código sobre dato duro y no la confianza del modelo.** Se escribe si el
@@ -176,8 +181,8 @@ y no frena la corrida.
    Los scripts buscan la config en este orden: la variable `DREAMING_CONFIG`,
    `~/.config/dreaming/config.json`, `config.json` junto a este SKILL.md.
 3. **Completá la config.** Abrí `~/.config/dreaming/config.json` y ajustá estas claves:
-   `brain_root`, `carpetas`, `repo_a_proyecto`, `excluir_paths`, la query de mail y tu lista de
-   tareas. La tabla "Parámetros" explica cada clave.
+   `brain_root`, `carpetas`, `repo_a_proyecto`, `excluir_paths`, la query de mail, tus listas de
+   tareas (`tareas.fuentes`) y tu calendario. La tabla "Parámetros" explica cada clave.
 4. **Verificá que la config coincide con tu brain.** Corré `python3 "$DREAM/estado-docs.py" --md`
    y revisá tres cosas:
    1. Los nombres de `carpetas` existen dentro de `brain_root` (`ls` de esa carpeta).
@@ -187,7 +192,8 @@ y no frena la corrida.
       exactamente ese título, sin distinguir mayúsculas). Si falta, la señal es
       `sin sección 'Log de decisiones'`.
 5. **Conectá tus fuentes.** Hacé estos sub-pasos de a uno:
-   1. Mirá qué herramientas MCP tenés cargadas (mail, Slack, reuniones, lista de tareas).
+   1. Mirá qué herramientas MCP tenés cargadas (mail, Slack, reuniones, listas de tareas,
+      calendario como Google Calendar u Outlook).
    2. Por cada fuente que falte, decile al usuario cuál es y para qué la usa el ciclo.
    3. Explicale cómo se conecta: en Claude (app o claude.ai), desde **Settings → Connectors**;
       en Claude Code, con `/mcp` o `claude mcp add`.
@@ -200,9 +206,11 @@ y no frena la corrida.
    no puede pedir permisos, así que dejá pre-aprobado esto y nada más:
    - Escritura en `brain_root` y en `state_dir`.
    - Bash sobre los scripts de `scripts/` (`python3 .../scripts/*.py` y `bash .../git-dia.sh`).
-   - Los MCP de **lectura** de tus fuentes (mail, Slack, reuniones, tareas).
-   - Crear tareas en tu lista, si querés que cree las tareas obvias.
-   - No pre-apruebes enviar mails, escribir en Slack ni borrar: el ciclo nunca lo hace.
+   - Los MCP de **lectura** de tus fuentes (mail, Slack, reuniones, tareas, calendario).
+   - Crear tareas en tu lista principal, si querés que cree las tareas obvias.
+   - Crear eventos en tu calendario, si querés que agende los compromisos con día y hora.
+   - No pre-apruebes enviar mails, invitar gente, modificar o borrar eventos, escribir en Slack
+     ni borrar: el ciclo nunca lo hace.
 
 ## Parámetros
 
@@ -236,19 +244,30 @@ los scripts corten con un mensaje claro si faltan. Las demás son opcionales y t
 | `gmail.page_size` | no | Cuántos hilos trae por página |
 | `gmail.excluir_remitentes` | no | Remitentes (substring) cuyos hilos no se abren |
 | `gmail.etiquetas_privadas` | no | Etiquetas cuyos hilos no se abren |
-| `tareas.fuente` | no | Nombre de tu lista de tareas (el MCP que se consulta) |
-| `tareas.estados_cierre` | no | Estados que cuentan como hecho |
-| `tareas.prefijo_tareas_del_agente` | no | Prefijo del título de las tareas que crea el ciclo (`🤖`) |
-| `tareas.dias_dedupe` | no | Cuántos días hacia atrás mira las tareas cerradas para no crear un duplicado |
+| `tareas.fuentes` | no | Lista de tus listas de tareas conectadas. Cada una lleva `nombre` (ej. `notion`, `asana`, `todoist`, `linear`), `estados_cierre` y, en **una sola**, `principal: true` (donde se crean las tareas nuevas). Si hay una sola lista, se toma como principal aunque no lo diga. Si hay varias y no hay exactamente una `principal`, no se crea ninguna tarea: van a la botonera y el resumen lo avisa |
+| `tareas.fuentes[].estados_cierre` | no | Estados que cuentan como hecho en esa lista |
+| `tareas.fuente` + `tareas.estados_cierre` | no | **Forma vieja, sigue valiendo.** Una sola lista: se trata como una lista única y principal. Si están `fuentes` y `fuente`, manda `fuentes` |
+| `tareas.prefijo_tareas_del_agente` | no | Prefijo del título de las tareas y los eventos que crea el ciclo (`🤖`) |
+| `tareas.dias_dedupe` | no | Cuántos días hacia atrás mira las tareas cerradas, en todas las listas, para no crear un duplicado |
+| `calendario.fuente` | no | Conector de calendario (Google Calendar, Outlook). Sin esta clave o sin conector, el ciclo no agenda nada |
+| `calendario.id` | no | Calendario donde se crean los eventos. Siempre el tuyo. Default `primary` |
+| `calendario.duracion_min` | no | Duración de un evento creado por el ciclo. Default 30 |
 | `pasos_obligatorios` | no | Pasos que el gate de veracidad exige en `last_run.json` |
 | `mensajes.fuente` | no | Conector de mensajes (Slack) |
 | `mensajes.alcance` | no | Dónde lee: DMs, grupos, hilos donde participaste, menciones |
 | `mensajes.canales_privados` | no | Canales que no se abren nunca |
 
-## La regla de las tareas (reuniones, mails y mensajes)
+## La regla de las tareas y los eventos (reuniones, mails y mensajes)
 
-Una tarea entra **directo** a tu lista solo si pasa los dos filtros. Vale igual para lo que sale
-de una reunión (paso 3), de un mail (paso 4) o de un mensaje (paso 4c).
+Una tarea entra **directo** a tu lista principal solo si pasa los dos filtros. Un evento entra
+**directo** a tu calendario solo si pasa los mismos filtros más una cuarta condición (ver
+"Eventos de calendario"). Vale igual para lo que sale de una reunión (paso 3), de un mail
+(paso 4) o de un mensaje (paso 4c).
+
+**Varias listas de tareas.** Podés conectar más de una (Notion, Asana, Todoist, Linear). Se
+declaran en `tareas.fuentes`. Una es la `principal` y es la única donde el ciclo **crea**. Las
+demás solo se **leen**: el paso 4b cierra pendientes con las tareas hechas de todas, y el filtro 2
+las consulta todas.
 
 **1. Es muy obvia.** Cumple las tres condiciones: **el dueño sos vos**, **la acción tiene un
 verbo concreto**, y **en la fuente aparece acordada o prometida** ("te lo mando el viernes",
@@ -270,22 +289,60 @@ El hilo principal decide solo con estos campos. Arma el **título de la tarea co
 fija**: `<prefijo> <tema>: <verbo> <objeto>` (por ejemplo `🤖 Propuesta Ana: mandar versión
 final`), de unos 80 caracteres como máximo. Nunca copia texto libre del tercero.
 
-**2. No está ya en tu lista.** Antes de crearla, se consulta la lista: las tareas abiertas y las
-cerradas en los últimos `tareas.dias_dedupe` días (por si ya la hiciste). Se compara con el mismo
+**2. No está ya en tus listas.** Antes de crearla, se consultan **todas** las listas conectadas:
+las tareas abiertas y las cerradas en los últimos `tareas.dias_dedupe` días (por si ya la hiciste). Se compara con el mismo
 criterio que el paso 4b: **mismo verbo y mismo objeto** ("Mandar la propuesta a Ana" ↔ "Mandarle
 la propuesta a Ana").
 
 - **Match claro:** no se crea. Va a `ya_documentado` con el título de la tarea existente.
 - **Parecida pero no igual** (mismo objeto, otro verbo; o el mismo verbo con un objeto más
   amplio): no se crea. Va a la botonera: "¿es la misma que «X»?", con default **No va**.
-- **Sin match:** se crea, con el prefijo `🤖` y el tema en el título, para distinguir en tu lista
-  lo que creó el agente.
+- **Sin match:** se crea **solo en la lista principal**, con el prefijo `🤖` y el tema en el
+  título, para distinguir en tu lista lo que creó el agente.
 
-Si la lista no se puede consultar esa noche, **no se crea nada**: todas van a la botonera. Una
-tarea duplicada es peor que una que espera un día.
+Si **alguna** lista no se puede consultar esa noche, **no se crea nada**: todas van a la
+botonera. Una tarea duplicada es peor que una que espera un día.
 
 Lo que no pasa el filtro 1 (tareas dudosas, decisiones pendientes, pedidos a terceros) es marca
 en el estado vivo del proyecto más un ítem en la botonera.
+
+### Eventos de calendario
+
+Un compromiso con **día y hora explícitos** ("te llamo el jueves a las 15", "quedamos el martes
+10 hs") se suma a tu calendario. Condiciones, todas juntas:
+
+1. **Pasa el filtro 1 completo:** las tres condiciones (dueño vos, verbo concreto, acordado o
+   prometido) y el mismo **origen válido verificado por código** (enviado por vos, tu user id, o
+   acordado por vos en la reunión).
+2. **Cuarta condición: día y hora explícitos en la cita.** Sin hora, es tarea y no evento. Un
+   "la semana que viene" o un "el jueves" sin hora también es tarea. El subagente devuelve la
+   fecha y la hora como campos aparte, con la cita textual.
+3. **La fecha está en el futuro.** Un evento con fecha ya vencida no se crea. Si el compromiso ya
+   pasó, no hay nada que agendar.
+4. **Sin duplicado:** antes de crear, el hilo principal consulta los eventos de ese día en tu
+   calendario. Si hay uno con el mismo objeto y un horario a ±60 minutos, no se crea y va a
+   `ya_documentado` con el título del evento existente.
+
+**Cómo se crea.** El hilo principal arma todo por plantilla y nunca copia texto libre del tercero:
+
+- **Dónde:** solo en **tu propio calendario** (`calendario.id`, default `primary`).
+- **Sin invitados, sin videollamada y sin recordatorios a terceros.**
+- **Título:** `🤖 <tema>: <verbo> <objeto>`, con el prefijo de `tareas.prefijo_tareas_del_agente`.
+- **Descripción:** la procedencia (*"lo agendó el ciclo dreaming el DD/MM leyendo <fuente>"*) más
+  la cita textual corta.
+- **Duración:** `calendario.duracion_min` (default 30).
+
+**Lo que nunca hace.** Nunca modifica ni borra un evento existente. Nunca invita a nadie. Si el
+compromiso implica invitar a alguien o mover un evento que ya está, va a la botonera con default
+**No va**: invitar es mandar algo en tu nombre (`invitar` está en `botonera.nunca_default_va`).
+
+**Si el calendario no responde.** Si el conector no está conectado o falla esa noche, no se crea
+ningún evento. El compromiso sigue por la regla de las tareas (si pasa el filtro 1 y el 2, es una
+tarea) o queda como marca. Si no se pudo consultar el calendario, tampoco se arriesga un duplicado.
+
+El paso que detectó el compromiso (3, 4 o 4c) informa los eventos creados en la `evidencia` de
+su propio paso en `last_run.json` (por ejemplo "18 hilos, 1 evento creado"). No hay un paso
+obligatorio aparte.
 
 ## Flujo: la corrida nocturna, pasos 0 a 5
 
@@ -418,9 +475,10 @@ no se abrió) o `derivada` (la procesa otro skill). Lo escribe el hilo principal
    decisiones que **quedaron acordadas en la reunión** (por vos o con vos). Todo dato que dijo un
    tercero y no se acordó (una fecha, un monto, un estado) va al estado vivo, atribuido: "según
    la reunión con X del DD/MM: ...".
-6. **Tareas:** las que salen de la reunión pasan por "La regla de las tareas". El subagente
-   devuelve, por tarea, las tres condiciones con su cita. En la minuta tiene que constar que el
-   acuerdo es tuyo. La consulta de duplicados la hace el hilo principal.
+6. **Tareas y eventos:** los que salen de la reunión pasan por "La regla de las tareas y los
+   eventos". El subagente devuelve, por tarea, las tres condiciones con su cita y, si el acuerdo
+   trae día y hora explícitos, la fecha y la hora aparte. En la minuta tiene que constar que el
+   acuerdo es tuyo. La consulta de duplicados (listas y calendario) la hace el hilo principal.
 7. **El resto** (decisiones pendientes, preguntas para terceros): marca en el estado vivo del
    proyecto más un ítem en la botonera ("procesé la reunión X, ¿paso esta decisión al log?").
 8. Además de lo nuevo, las **3 pendientes más viejas** del registro entran por el mismo camino.
@@ -459,7 +517,8 @@ plataformas que no abriste. Sin `in:`, el buscador cubre recibidos, archivados y
 
 - **Tus enviados son la fuente más valiosa:** ahí quedan tus decisiones y compromisos. Una
   decisión tuya en un mail enviado va al log del proyecto. Un compromiso tuyo ("te lo paso
-  mañana") o un pedido que aceptaste es una tarea: pasa por "La regla de las tareas". Para saber
+  mañana") o un pedido que aceptaste es una tarea, o un evento si trae día y hora explícitos: pasa
+  por "La regla de las tareas y los eventos". Para saber
   qué mensajes enviaste, el hilo principal corre una segunda consulta con `from:me`.
 - **El label `INBOX` se conserva como dato del hilo:** sirve para saber si algo espera respuesta.
 - **Antes de escribir, cruzar el hilo con las sesiones del digest y con el mtime del proyecto.**
@@ -474,7 +533,8 @@ Subagentes baratos, de a tandas de 10 hilos. Por hilo devuelven:
 - si tiene adjunto que valga guardar,
 - si espera tu respuesta,
 - si es ruido,
-- las tareas candidatas, con las tres condiciones y su cita.
+- las tareas candidatas, con las tres condiciones y su cita,
+- si el compromiso trae día y hora explícitos, esos dos campos aparte, con su cita.
 
 El hilo principal decide:
 
@@ -488,7 +548,8 @@ El hilo principal decide:
 - **Va a la botonera:**
   - Archivar el mail ya capturado (default **Va**: es reversible).
   - Dejar un borrador de respuesta (default **No va**, siempre).
-  - Las tareas que la regla manda a la botonera (default **No va**).
+  - Las tareas y los eventos que la regla manda a la botonera, incluido invitar a alguien o mover
+    un evento existente (default **No va**).
 - **Salud:** el estudio se baja a la carpeta. Integrarlo a tus registros de salud es siempre
   botonera, sin default Va.
 
@@ -498,12 +559,14 @@ Si el conector falla, se saltea la fuente, se anota en el resumen y la corrida s
 
 Una tarea que pasás a hecho es dato duro: sirve para cerrar pendientes viejos que nadie tildó.
 
-1. Consultar tu lista de tareas: las que pasaron a un estado de `tareas.estados_cierre` con fecha
-   de edición dentro de la ventana. Las abandonadas no cierran nada.
+1. Consultar **todas** tus listas de tareas conectadas (`tareas.fuentes`): en cada una, las que
+   pasaron a un estado de sus `estados_cierre` con fecha de edición dentro de la ventana. Las
+   abandonadas no cierran nada. Si una lista no responde, se saltea esa lista y se anota en la
+   `evidencia`; las otras siguen.
 2. Por tarea, buscar en los estados vivos y docs de proyecto una línea `- [ ]` que diga **lo
    mismo**.
 3. **Se tilda solo si el match es claro:** mismo verbo y mismo objeto. La línea tildada lleva la
-   procedencia: *"tildado por el ciclo dreaming el DD/MM: la tarea «X» pasó a hecho el DD/MM"*.
+   procedencia: *"tildado por el ciclo dreaming el DD/MM: la tarea «X» pasó a hecho el DD/MM en <lista>"*.
 4. **Nombre vago** ("arreglar lo de ayer"): se ignora. No se marca ni se pregunta, porque es
    ruido.
 5. Si el cierre deja un dato sin anotar, se tilda igual y se agrega abajo una submarca
@@ -525,7 +588,7 @@ dice en el resumen (la instalación ya ofreció conectarlo).
   **antes** de leerlo. Si coincide, no se abre (regla 2).
 - **Tus mensajes enviados pesan más**, igual que en el mail. Un mensaje es tuyo si su autor es tu
   user id. Una decisión tuya va al log del proyecto. Un compromiso tuyo o un pedido que aceptaste
-  pasa por "La regla de las tareas".
+  pasa por "La regla de las tareas y los eventos".
 - **Lo que dicen otros** se escribe solo atribuido ("según mensaje de X del DD/MM: ...") y en el
   estado vivo. Nunca va al log de decisiones como decisión tuya.
 - **Archivos compartidos** que valgan guardarse: igual que un adjunto de mail, con nombre
@@ -569,7 +632,7 @@ El ciclo **nunca** escribe en Slack: no responde, no reacciona, no marca como le
 - **Defaults:** "Va" para lo reversible y de bajo riesgo (archivar un mail ya capturado, pasar una
   decisión tomada al log). "No va" para lo que no se puede deshacer o sale con tu firma, y
   **siempre** para dejar un borrador de respuesta. **Nunca default "Va":** mandar un mail,
-  borrar, salud, identidad, pagar (`botonera.nunca_default_va`). Lo hace cumplir el código.
+  invitar, borrar, salud, identidad, pagar (`botonera.nunca_default_va`). Lo hace cumplir el código.
 - Orden: los nuevos arriba (con el tope de la config), los abiertos de noches anteriores abajo.
 - Si nadie toca nada, el paso 0 de la corrida siguiente ejecuta los defaults.
 
@@ -593,8 +656,8 @@ estar. Ejemplo mínimo, igual a lo que espera el script:
    {"nombre": "recoleccion", "ok": true, "evidencia": "4 sesiones, 37 archivos en el barrido"},
    {"nombre": "sesiones", "ok": true, "evidencia": "2 proyectos, 2 subagentes"},
    {"nombre": "reuniones", "ok": false, "detalle": "el conector de reuniones no respondió"},
-   {"nombre": "mails", "ok": true, "evidencia": "query newer_than:1d, 18 hilos"},
-   {"nombre": "tareas_done", "ok": true, "evidencia": "3 tareas cerradas, 0 matches"},
+   {"nombre": "mails", "ok": true, "evidencia": "query newer_than:1d, 18 hilos, 1 evento creado"},
+   {"nombre": "tareas_done", "ok": true, "evidencia": "2 listas, 3 tareas cerradas, 0 matches"},
    {"nombre": "mensajes", "ok": true, "evidencia": "Slack, 6 hilos"}]}
 ```
 

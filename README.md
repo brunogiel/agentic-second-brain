@@ -62,7 +62,7 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-transcribe` | Transcribe un audio local con Whisper, sin mandar nada a la nube |
 | `/brain-tidy` | Ordena la carpeta de descargas en staging, sin sacar ni borrar nada |
 | `/brain-declutter` | Ordena la carpeta o el archivo que le señalás: duplicados, lo inflado, y el script que lo ensucia |
-| `/brain-dreaming` | Ciclo nocturno: lee tu día (conversaciones, mails, reuniones, tareas, commits), fija lo verificable en tus docs y marca lo que pide tu decisión |
+| `/brain-dreaming` | Ciclo nocturno: lee tu día (conversaciones, mails, mensajes, reuniones, tareas, commits), registra lo verificable en tus docs, suma tus compromisos a tus tareas y calendario, y marca lo que pide tu decisión |
 | `/brain-newskill` | Armá un skill nuevo siguiendo la anatomía que funciona |
 | `/brain-evalskill` | Medí un skill contra su rúbrica y proponé mejoras (no las aplica) |
 | `/brain-messirve` | ¿Esto que viste afuera te sirve? Lo cruza con lo tuyo: si ya lo tenés, qué le robás, y si no, lo agrega |

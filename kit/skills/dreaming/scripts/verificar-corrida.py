@@ -9,7 +9,8 @@ Dos chequeos:
 
 2. `pending-dream.json` (en state_dir, si existe): falla si algún ítem con `default` "Va"
    tiene una `accion` o `etiqueta` que contenga (substring, minúsculas) alguna entrada de
-   `botonera.nunca_default_va`. Es el cumplimiento por código de esa lista: el modelo no
+   `botonera.nunca_default_va` (por ejemplo "mandar" o "invitar": un evento con invitados
+   es mandar algo en tu nombre). Es el cumplimiento por código de esa lista: el modelo no
    decide si un ítem peligroso puede correr solo.
 
 Formato esperado de last_run.json:

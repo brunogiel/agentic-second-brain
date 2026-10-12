@@ -61,7 +61,10 @@
       "eliminar",
       "salud",
       "identidad",
-      "pagar"
+      "pagar",
+      "invitar",
+      "mover",
+      "modificar"
     ]
   },
   "gmail": {
@@ -76,13 +79,30 @@
     ]
   },
   "tareas": {
-    "_comentario": "Tu lista de tareas (Notion, Todoist, Linear, lo que uses) y qué estados cuentan como hecho.",
-    "fuente": "mi-lista-de-tareas",
-    "estados_cierre": [
-      "Done"
+    "_comentario": "Tus listas de tareas (Notion, Asana, Todoist, Linear, lo que uses). Cada una con los estados que cuentan como hecho. Exactamente UNA lleva principal: true: ahí se crean las tareas nuevas. Las otras solo se leen. Compatibilidad: la forma vieja (tareas.fuente + tareas.estados_cierre, una sola lista) sigue valiendo y se trata como una lista única principal.",
+    "fuentes": [
+      {
+        "nombre": "notion",
+        "estados_cierre": [
+          "Done"
+        ],
+        "principal": true
+      },
+      {
+        "nombre": "asana",
+        "estados_cierre": [
+          "Completada"
+        ]
+      }
     ],
     "prefijo_tareas_del_agente": "🤖",
     "dias_dedupe": 14
+  },
+  "calendario": {
+    "_comentario": "Los compromisos con día y hora explícitos se crean SOLO en tu propio calendario, sin invitados. Opcional: sin este bloque no se agenda nada.",
+    "fuente": "google-calendar",
+    "id": "primary",
+    "duracion_min": 30
   },
   "pasos_obligatorios": [
     "defaults_botonera",

@@ -58,6 +58,26 @@ def ruta_estado(cfg, nombre):
     return os.path.join(cfg["state_dir"], nombre)
 
 
+def listas_tareas(cfg):
+    """Listas de tareas conectadas, como lista de dicts {nombre, estados_cierre, principal}.
+
+    Acepta las dos formas de la config: `tareas.fuentes` (varias) y la vieja `tareas.fuente` +
+    `tareas.estados_cierre` (una sola, que se trata como principal). Si hay una sola lista y no
+    dice `principal`, se toma como principal. Todo es opcional: sin `tareas` devuelve [].
+    """
+    t = cfg.get("tareas") or {}
+    fuentes = t.get("fuentes")
+    if isinstance(fuentes, list) and fuentes:
+        listas = [dict(f) for f in fuentes if isinstance(f, dict)]
+    elif t.get("fuente"):
+        listas = [{"nombre": t["fuente"], "estados_cierre": t.get("estados_cierre", [])}]
+    else:
+        return []
+    if len(listas) == 1:
+        listas[0]["principal"] = True
+    return listas
+
+
 def norm(texto):
     """Normaliza para comparar: Unicode NFC + minúsculas. Se aplica a AMBOS lados."""
     return unicodedata.normalize("NFC", texto or "").lower()
