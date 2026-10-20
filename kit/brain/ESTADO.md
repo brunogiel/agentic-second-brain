@@ -120,6 +120,7 @@ Reemplazaste cada skill del catálogo por una propia, tuneada a tu manera. Ese d
 - [ ] `simple` → `/brain-simple`: te baja el estado de la charla en simple cuando perdés el hilo.
 - [ ] `repaso-visual` → `/brain-simple html`: el repaso visual de una sesión o un tema en un solo HTML, para mirarlo o mostrarlo. Con `inline`, la misma pieza en el chat y sin archivo.
 - [ ] `leccion` → `/brain-lesson`: convierte un tuit, un link o un tema en una lección en un solo HTML, a fondo o nivel cero.
+- [ ] `decisiones` → `/brain-decide`: junta lo que tenés que decidir y te lo muestra como botonera, con recomendación y un clic por ítem.
 - [ ] `spec` → `/brain-spec`: el contrato antes de construir, con requisitos numerados y su verificación.
 - [ ] `transcribir` → `/brain-transcribe`: pasa un audio local a texto con Whisper, sin nube.
 - [ ] `ordenar` → `/brain-tidy`: la pasada de limpieza sobre la carpeta de descargas.

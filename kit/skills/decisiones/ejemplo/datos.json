@@ -1,0 +1,60 @@
+{
+  "titulo": "Qué decidimos sobre el newsletter",
+  "fecha": "2026-03-10",
+  "clave": "decisiones-2026-03-10-newsletter",
+  "contexto": "Quedaron cuatro cosas abiertas antes del primer envío. Marcá cuáles van.",
+  "items": [
+    {
+      "n": 1,
+      "icono": "calendario",
+      "titulo": "Mandar el primer número el jueves",
+      "contexto": "El borrador está cerrado y la lista tiene 212 suscriptos. El martes no llega: falta la revisión final.",
+      "reco": "va",
+      "reco_motivo": "Da dos días para la revisión sin perder la semana.",
+      "si_va": "Lo programo para el jueves a las 9.",
+      "si_no_va": "Queda sin fecha hasta que me digas cuándo.",
+      "impacto": {
+        "positivo": "El primer número sale revisado y en la misma semana.",
+        "negativo": "Dos días más de espera para los que ya se suscribieron."
+      }
+    },
+    {
+      "n": 2,
+      "titulo": "Pasar al plan pago del proveedor",
+      "contexto": "El plan gratis llega a 500 suscriptos. Hoy hay 212, así que el tope no aparece este trimestre.",
+      "reco": "no va",
+      "reco_motivo": "Sería pagar por un límite que todavía no tocás.",
+      "porque": "Con el ritmo de altas de las últimas cuatro semanas, el tope de 500 queda a más de tres meses. Conviene revisarlo cuando la lista pase de 400.",
+      "accent": "warning",
+      "dibujo": {
+        "viewBox": "0 0 240 64",
+        "alt": "La lista tiene 212 suscriptos y el tope del plan gratis es 500",
+        "svg": "<rect class=\"box\" x=\"10\" y=\"20\" width=\"220\" height=\"18\" rx=\"4\"/><rect class=\"fa\" x=\"10\" y=\"20\" width=\"93\" height=\"18\" rx=\"4\"/><line class=\"sno\" x1=\"230\" y1=\"12\" x2=\"230\" y2=\"46\" stroke-width=\"2\"/><text class=\"t\" x=\"10\" y=\"12\">Hoy: 212</text><text class=\"tm\" x=\"230\" y=\"58\" text-anchor=\"end\">Tope del plan gratis: 500</text>"
+      },
+      "impacto": {
+        "positivo": "No pagás por un límite que no tocás.",
+        "negativo": "Si la lista crece de golpe, hay que pasar de plan con apuro."
+      }
+    },
+    {
+      "n": 3,
+      "icono": "borrar",
+      "titulo": "Borrar los 18 contactos rebotados",
+      "contexto": "Son direcciones que rebotaron dos veces en la prueba. Borrarlas no se deshace desde el proveedor.",
+      "reco": "va",
+      "reco_motivo": "Mandarles de nuevo baja la reputación del remitente.",
+      "si_va": "Exporto la lista a un archivo antes de borrar.",
+      "accent": "danger"
+    },
+    {
+      "n": 4,
+      "icono": "persona",
+      "titulo": "Sumar la firma con foto",
+      "contexto": "La versión con foto pesa 40 KB más y en la prueba cayó en promociones en una de tres casillas.",
+      "reco": "no va",
+      "reco_motivo": "El riesgo de promociones pesa más que la foto.",
+      "si_no_va": "Queda la firma de texto que ya está en el borrador."
+    }
+  ],
+  "encabezado": "Decisiones del newsletter"
+}

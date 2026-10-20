@@ -37,7 +37,7 @@ MODULO_DEV=0
 for arg in "$@"; do [ "$arg" = "--dev" ] && MODULO_DEV=1; done
 DEV_COMMANDS=("dev-branch" "dev-listo" "dev-integrar" "dev-mergear" "dev-subir" "dev-limpiar" "dev-guardar" "dev-sync")
 
-SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar" "publicar" "repaso-visual" "spec" "transcribir" "ordenar" "messirve" "declutter" "dreaming")  # kit/skills
+SKILLS_USO=("redactar" "anti-slop" "crear-skill" "evaluar-skill" "auditar-sistema" "triage" "ppt-builder" "panel" "council" "prompt-optimizer" "documenta" "simple" "verificar" "publicar" "repaso-visual" "spec" "transcribir" "ordenar" "messirve" "declutter" "dreaming" "decisiones")  # kit/skills
 
 # --- el brain que se scaffoldea (desde kit/brain/) ---
 ROOT_FILES=("CLAUDE.md" "ESTADO.md" "AGENTS.md")
@@ -77,7 +77,7 @@ fetch "kit/brain/inbox/INBOX.md" "kit/brain/inbox/INBOX.md"
 # kit/skills (catálogo de skills de uso): se bundlea con el coach
 for s in "${SKILLS_USO[@]}"; do fetch "kit/skills/${s}/SKILL.md" "kit/skills/${s}/SKILL.md"; done
 # skills que ademas traen scripts: sin esto el SKILL.md llega y sus herramientas no.
-SKILL_SCRIPTS=("declutter/scripts/censar.py" "declutter/scripts/invariantes.py" "declutter/scripts/aplicar.py" "declutter/scripts/arbol.py" "dreaming/config.example.json" "dreaming/scripts/_comun.py" "dreaming/scripts/extraer-dia.py" "dreaming/scripts/estado-docs.py" "dreaming/scripts/marcas.py" "dreaming/scripts/barrido-mtime.py" "dreaming/scripts/verificar-corrida.py" "dreaming/scripts/transcript-a-txt.py" "dreaming/scripts/git-dia.sh" "dreaming/scripts/calcular-ventana.py")
+SKILL_SCRIPTS=("declutter/scripts/censar.py" "declutter/scripts/invariantes.py" "declutter/scripts/aplicar.py" "declutter/scripts/arbol.py" "dreaming/config.example.json" "dreaming/scripts/_comun.py" "dreaming/scripts/extraer-dia.py" "dreaming/scripts/estado-docs.py" "dreaming/scripts/marcas.py" "dreaming/scripts/barrido-mtime.py" "dreaming/scripts/verificar-corrida.py" "dreaming/scripts/transcript-a-txt.py" "dreaming/scripts/git-dia.sh" "dreaming/scripts/calcular-ventana.py" "decisiones/armar.py" "decisiones/plantilla.html" "decisiones/iconos.json" "decisiones/elicit-header.svg" "decisiones/ejemplo/datos.json")
 for f in "${SKILL_SCRIPTS[@]}"; do fetch "kit/skills/${f}" "kit/skills/${f}"; done
 # el motor (skills/brain-coach en el repo)
 fetch "skills/${MOTOR_SRC}/SKILL.md" "motor/${MOTOR_SRC}/SKILL.md"
@@ -97,7 +97,7 @@ fetch "CHANGELOG.md" "coach/CHANGELOG.md"
 # que en Cowork se vean /brain-coach. Clave: Cowork muestra el comando por su NOMBRE DE ARCHIVO, no por
 # el namespace del plugin — un archivo pelado se vería /coach (genérico). Por eso van prefijados en el repo.
 CONSERJE="brain"                                                                                              # commands/brain.md → /brain
-TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-lesson" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill" "brain-spec" "brain-transcribe" "brain-tidy" "brain-messirve" "brain-declutter" "brain-dreaming")   # commands/brain-<x>.md → /brain-<x>
+TOOLKIT=("brain-coach" "brain-slop" "brain-write" "brain-panel" "brain-council" "brain-prompt" "brain-deck" "brain-audit" "brain-doc" "brain-simple" "brain-lesson" "brain-triage" "brain-verify" "brain-ship" "brain-newskill" "brain-evalskill" "brain-spec" "brain-transcribe" "brain-tidy" "brain-messirve" "brain-declutter" "brain-dreaming" "brain-decide")   # commands/brain-<x>.md → /brain-<x>
 fetch "commands/${CONSERJE}.md" "commands/${CONSERJE}.md"
 for c in "${TOOLKIT[@]}"; do fetch "commands/${c}.md" "commands/${c}.md"; done
 

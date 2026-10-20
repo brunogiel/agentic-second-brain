@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.5.0 (2026-10-19)
+
+- **Skill nuevo: `/brain-decide`.** Junta lo que tenés que decidir sobre un tema (o sobre la
+  conversación actual) y te lo muestra como una botonera: por ítem, el dato que decide, la
+  recomendación con su motivo, botones Va / No va y un comentario. Mandás la respuesta y se
+  aplica solo lo marcado; lo sin marcar no se hace.
+- **El formato sale de la cantidad.** Hasta 5 decisiones, un widget en el chat hecho con el
+  formulario nativo de la app, sin script propio. Con 6 o más, una página completa con conteo en
+  vivo y "Copiar respuesta". Si las decisiones se agrupan por tema, la página las separa en
+  secciones con un índice lateral que muestra cuánto falta en cada una.
+- **Dibujos que explican, no que decoran.** Un ítem puede llevar un esquema propio (antes y
+  después, A contra B, una cantidad contra un tope). Si no hay esquema que explique, va sin
+  dibujo.
+- **Impacto de cada lado**, plegado en el detalle: qué mejora y qué cuesta si va.
+- **La recomendación se ve en el borde del botón, no viene marcada.** Al tocarlo se pinta
+  entero, Va en verde y No va en rojo.
+- **`armar.py` valida antes de mostrar:** campos, íconos, dibujos, secciones y techos de
+  palabras. Si algo se pasa, no arma nada y te dice qué recortar.
+- Biblioteca de 23 íconos en `iconos.json` y un ejemplo completo en `ejemplo/datos.json`.
+- Los manifests del plugin vuelven a llevar la misma versión que `VERSION`.
+
 ## 3.4.0 (2026-10-12)
 
 - **`/brain-dreaming` lee varias listas de tareas** (Notion, Asana, Todoist, Linear). Cierra
