@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.5.1 (2026-10-22)
+
+- **`/brain-decide`: las flechas de los dibujos se ven.** Las clases de trazo (`a`, `sgo`,
+  `sno`) llevan `fill: none` en el widget y en la página completa. Antes, una flecha hecha con
+  `<path>` salía rellena de negro y en modo oscuro casi no se veía.
+- **La prueba del widget inline dice cómo medir.** La página de prueba lleva `--surface-1` y
+  `--font-sans`: sin la fuente, el texto cae a 16px y la medición marca desbordes que no existen.
+
 ## 3.5.0 (2026-10-19)
 
 - **Skill nuevo: `/brain-decide`.** Junta lo que tenés que decidir sobre un tema (o sobre la
