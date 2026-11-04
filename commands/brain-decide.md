@@ -65,6 +65,7 @@ Si lo que llega empieza con `/brain-decide respuesta ·`, no se arma nada: es la
    - **El widget** usa el formulario nativo de la app de Claude (el shell `<form class="elicit">`), **sin `<script>`**: la app cablea los botones y el envío. Un widget con script propio se ve bien pero sus botones pueden no responder. Si tu sesión no tiene widgets inline, armá la página completa con `--html`.
    - **La página completa** necesita un navegador que corra su script. Si tu app trae un navegador integrado, abrila ahí con un server local (`python3 -m http.server` en la carpeta temporal) en vez de un `file://`, que en algunos visores sale estático. En la página, "Copiar respuesta" arma el texto para pegar en el chat.
 7. **[DET] Probarlo.** Antes de entregar: que ningún dibujo se salga de su recuadro (`getBBox()` contra el `viewBox`), que Va / No va se pinte al tocarlo y que la respuesta se arme.
+   **Widget inline:** no se abre en un navegador. Sacá los `<svg>` del archivo armado a una página de prueba (con `<meta charset="utf-8">`, las variables de color, `--surface-1` y **`--font-sans`**), servila y medí ahí. Sin `--font-sans` el `font` del texto es inválido, cae a 16px y la medición da desbordes falsos.
 8. **Entregar.** En el chat, afuera de la botonera: cuántos ítems, cuál es el más urgente, y las preguntas abiertas que quedaron afuera. Nada más.
 
 La botonera no se guarda en tu brain. Es descartable: una vez que decidiste, lo que queda es lo aplicado.
@@ -93,7 +94,7 @@ Un ejemplo completo que pasa el validador: [`ejemplo/datos.json`](ejemplo/datos.
     "n": 1, "seccion": "urg",
     "titulo": "Acción en infinitivo, hasta 9 palabras",
     "contexto": "El dato que decide, hasta 25 palabras. No repite el título.",
-    "reco": "va | no va", "reco_motivo": "Por qué, hasta 15 palabras.",
+    "reco": "va", "reco_motivo": "Por qué, hasta 15 palabras.",
     "dibujo": {"viewBox": "0 0 240 100", "alt": "qué muestra", "svg": "…"},
     "impacto": {"positivo": "qué mejora y dónde", "negativo": "qué empeora o cuesta, y dónde"},
     "porque": "opcional, plegado", "si_va": "opcional", "si_no_va": "opcional",
@@ -113,6 +114,7 @@ Un ejemplo completo que pasa el validador: [`ejemplo/datos.json`](ejemplo/datos.
 
 - **Lo visible de una tarjeta son 50 palabras como mucho, más el dibujo**: título, contexto y motivo. El resto va plegado: impacto, por qué, si va, si no va, fuente.
 - **El contexto trae el dato, no repite el título.** Mal: "Hay que ver el mail". Bien: "El mail del martes solo tiene el link; faltan las tres tareas que prometiste".
+- **La recomendada es siempre Va, y Va está a la derecha.** Aceptar lo que te recomiendo es siempre el mismo botón, el de la derecha: la decisión ya llega pensada. Si lo que conviene es no hacer algo, el título se escribe al revés para que Va sea eso ("Seguir con el plan gratis", no "Pasar al plan pago"). `armar.py` frena un ítem con `reco: "no va"`.
 - **La recomendación se ve en el borde del botón, no en una marca.** Nada viene marcado: una propuesta prellenada no es una respuesta. Al tocarlo, el botón se pinta entero: Va en verde, No va en rojo. "Marcar todo como te recomiendo" existe solo en la página, y sigue siendo un clic tuyo.
 - **Números reales o ningún número.** Si un número no se verificó, no va.
 - **Sin emojis de adorno.** Un término, un significado: si en un ítem algo está "agendado", en los otros también es "agendado".

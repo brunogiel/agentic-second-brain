@@ -62,8 +62,13 @@ def validar(d):
         if n in vistos:
             errores.append(f"ítem {n}: número repetido")
         vistos.add(n)
-        if str(it.get("reco", "")).strip().lower() not in ("va", "no va"):
-            errores.append(f"ítem {n}: reco tiene que ser 'va' o 'no va'")
+        r = str(it.get("reco", "")).strip().lower()
+        if r not in ("va", "no va"):
+            errores.append(f"ítem {n}: reco tiene que ser 'va' (la recomendada es siempre Va)")
+        elif r == "no va":
+            # la recomendada es siempre Va, a la derecha: avanzar es aceptar la recomendación
+            errores.append(f"ítem {n}: la recomendada es siempre Va (el botón de la derecha). Si recomendás no hacerlo, "
+                           "reescribí el título para que Va sea eso (ej.: «Seguir con el plan gratis» en vez de «Pasar al plan pago»)")
         if it.get("icono") and it["icono"] not in ICONOS:
             errores.append(f"ítem {n}: icono '{it.get('icono')}' no existe (o pasá 'svg' propio)")
         dib = it.get("dibujo")
@@ -149,8 +154,8 @@ def armar_inline(d):
             +             f'<div style="font-size:14px;line-height:1.5;color:var(--text-secondary)">{e(it["contexto"])}'
             f'<br><span style="font-size:13px">Te recomiendo {reco}: {e(it["reco_motivo"])}</span></div></div>'
             f'<div class="elicit-pills" data-name="decision_{n}" data-multi="false">'
-            f'<button type="button" class="elicit-pill" data-value="Va"{acc_va}>Va</button>'
-            f'<button type="button" class="elicit-pill" data-value="No va"{acc_no}>No va</button></div>'
+            f'<button type="button" class="elicit-pill" data-value="No va"{acc_no}>No va</button>'
+            f'<button type="button" class="elicit-pill" data-value="Va"{acc_va}>Va</button></div>'
             f'<textarea class="elicit-textarea" data-name="comentario_{n}" rows="1" placeholder="Comentario (opcional)"></textarea>'
             + (f'<details style="font-size:13px;color:var(--text-secondary);margin-top:6px"><summary style="cursor:pointer;color:var(--text-accent)">Ver el detalle</summary>{det}</details>' if det else "")
             + '</div>')
