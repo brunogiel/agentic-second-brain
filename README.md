@@ -52,7 +52,7 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-council` | Un concilio de 5 asesores para una decisión con peso |
 | `/brain-verify` | El gate antes de mandar: chequea que el output cumpla lo pedido y fact-checkea sus datos |
 | `/brain-ship` | Sube lo que te hizo Claude y te da el link; la primera vez conecta tu host y lo deja listo, después sube solo |
-| `/brain-deck` | Arma una presentación por etapas, de bruto a final |
+| `/brain-deck` | Arma una presentación por etapas, de bruto a final (o un video animado con voz) |
 | `/brain-audit` | Chequeo de salud de tu segundo cerebro |
 | `/brain-doc` | Cierra la sesión: rutea todo lo durable a su lugar |
 | `/brain-simple` | ¿Perdiste el hilo? Estado en simple: dónde estamos, qué hacés vos, qué sigo yo |

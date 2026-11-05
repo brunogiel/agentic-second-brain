@@ -52,7 +52,7 @@ The plugin ships slash commands that work the moment you install it, with no set
 | `/brain-council` | A council of 5 advisors for a decision with real stakes |
 | `/brain-verify` | The gate before you send: checks the output meets the ask and fact-checks its data |
 | `/brain-ship` | Ships what Claude built and hands you the link; first run connects your host and leaves it ready, then it just ships |
-| `/brain-deck` | Builds a presentation in stages, rough to final |
+| `/brain-deck` | Builds a presentation in stages, rough to final (or an animated video with voiceover) |
 | `/brain-audit` | Health check of your second brain |
 | `/brain-doc` | Closes a session: routes everything durable to its place |
 | `/brain-simple` | Lost the thread? Plain-language recap: where we are, your move, mine |

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Plantilla de video · motor</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+/* FUENTES. Pegá acá el @font-face de la marca (base64) y poné su nombre en --sans / --mono.
+   Sin fuente de marca cae a Helvetica y a la monoespaciada del sistema. */
+:root{--sans:'Helvetica Neue',Helvetica,Arial,sans-serif;--mono:ui-monospace,Menlo,Monaco,monospace}
+/* Los colores NO se tocan acá: se cambian en el objeto C del script (el script los vuelca a --bg, --tx, --ac, etc.). */
+html,body{margin:0;height:100%;background:var(--tx);overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg);overflow:hidden;
+  font-family:var(--sans);color:var(--tx);-webkit-font-smoothing:antialiased}
+#svg{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.t{font-family:var(--sans)}
+.tm{font-family:var(--sans);font-weight:500}
+.mo{font-family:var(--mono);font-weight:400}
+.mo5{font-family:var(--mono);font-weight:500}
+/* Texto grande en pantalla (ost): una línea centrada, cada palabra entra en la suya */
+#ost{position:absolute;left:0;top:140px;width:1920px;height:130px;text-align:center;font-size:100px;line-height:130px;font-weight:500;letter-spacing:-0.015em;white-space:nowrap;color:var(--tx)}
+#ost .ostline{position:absolute;left:0;top:0;width:1920px}
+#ost span{display:inline-block;opacity:0;margin:0 .13em}
+#ost span.ac{color:var(--ac)}
+/* Subtítulo palabra por palabra; text-wrap:balance evita la palabra huérfana en la última línea */
+#subs{position:absolute;left:0;bottom:52px;width:1920px;text-align:center}
+#subs .sub{display:none;box-sizing:border-box;margin:0 auto;max-width:1640px;width:max-content;padding:20px 46px 22px;border-radius:20px;
+  background:var(--b3);border:1px solid var(--b2);font-size:42px;line-height:60px;font-weight:400;color:var(--tx);text-align:center;text-wrap:balance}
+#subs .sub span{opacity:0}
+</style>
+</head>
+<body>
+<div id="stage">
+<svg id="svg" viewBox="0 0 1920 1080" width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+ <g id="back"></g><g id="mid"></g><g id="mid2"></g><g id="dots"></g><g id="top"></g>
+</svg>
+<div id="ost"></div>
+<div id="subs"></div>
+</div>
+<script>
+/* ======================================================================================
+   PLANTILLA DE VIDEO · motor de ppt-builder/video
+   Todo es función del tiempo: renderAt(t) dibuja el cuadro exacto del segundo t (nada de CSS animations).
+
+   CÓMO SE AGREGA UNA ESCENA
+   1. Una entrada en SC (abajo): { t: narración tal cual el guion, hold: pausa final, ost: [...] }
+        ost  = texto grande, ≤ 4 palabras: [texto, palabra-ancla, 'ac'?, k?, {keep?, alt?, altWord?}]
+               'ac' = color acento · k = qué aparición de la palabra-ancla (0 = la primera)
+               keep = ya visible al arrancar la escena · alt/altWord = cambia una palabra por otra a mitad
+        subW / subF = ancho máximo / tamaño de letra del subtítulo de esa escena (para no pasar a 3 líneas)
+        ostSize = tamaño del texto grande · mute:true + dur = escena muda de duración fija (sin subtítulo)
+   2. Un bloque con GR[n-1] que arma los nodos de la escena. Cada nodo es N(grupo, markup SVG, keys):
+        K({estado inicial}, M(t0,t1,{cambios},'ease'), ...)  →  keys por tiempo; ease: lin out in io back bounce
+        M(t0,t1,p,e) mueve de t0 a t1 · IN(t,d,p,e) aparece · POP(t,p) aparece de golpe
+        estado: x, y, s (escala), o (opacidad), r (rotación) + los campos propios que uses (leelos en n.fn)
+   3. Cada acción se ancla con W(escena,'palabra',k): el segundo en que la voz dice esa palabra.
+        S(n) / E(n) = inicio y fin de la escena n.
+   Los nodos de la capa L.dots viven fuera de las escenas y pueden persistir de una a otra.
+
+   VOZ (tiempos por palabra). Si hay  voz/tiempos.json  junto a este HTML, render.py lo inyecta como
+   window.__TIEMPOS__ y pisa el WPS. Formato (tiempos relativos al INICIO de cada escena, en segundos):
+     { "escenas": [
+         { "n": 1,
+           "dur": 8.9,                                   // opcional: duración del audio de la escena
+           "palabras": [ ["Este", 0.10], ["es", 0.32], ... ]   // una por palabra de la narración, en orden
+         }, ... ] }
+   Tiene que traer TODAS las palabras de la narración (se parte por espacios); se comparan sin puntuación.
+   La escena dura  max(dur, última palabra + .45) + hold. Sin entrada en el JSON sigue con el WPS de abajo.
+   Modos: abrir el HTML = loop de preview (espacio pausa, flechas ±2 s) · ?t=12.5 = un solo cuadro.
+   ====================================================================================== */
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const FPS=30, WPS=2.2, LEAD=0.5;   // WPS: palabras por segundo cuando todavía no hay voz
+/* PALETA. Se cambia ACÁ y en ningún otro lado: poné los colores de tu marca.
+   bg fondo · tx texto · gr gris · gl gris claro · ac acento · b1/b2/b3 acento cada vez más claro (rellenos y fondos). */
+const C={bg:'#f7f7f5',tx:'#1c1c1e',gr:'#5b5f66',gl:'#b8bdc4',ac:'#0f766e',b1:'#5eb8ad',b2:'#bfe3dd',b3:'#e6f4f1'};
+for(const k in C) document.documentElement.style.setProperty('--'+k,C[k]);
+
+/* ------------------------------------------------------------------ guion (narración TAL CUAL el guion.md) */
+const SC=[
+ // 1 · puntos que aparecen uno por uno, cada uno en la palabra que lo nombra
+ {t:'Contamos hasta cinco: uno, dos, tres, cuatro, cinco.',hold:0.6,
+  ost:[['Contar','Contamos'],['hasta 5','cinco','ac']]},
+ // 2 · una ventana de navegador que se arma pieza por pieza, y un cursor que hace clic
+ {t:'Ahora armamos una ventana de navegador: primero la barra, después el título y por último el botón.',hold:0.6,
+  ost:[['Armar','armamos'],['ventana','ventana','ac']]},
+ // 3 · escena muda de duración fija, con un rótulo
+ {t:'',mute:true,dur:3.0,hold:0,ost:[]}
+];
+function norm(s){return s.toLowerCase().replace(/[.,:;¿?¡!«»"]/g,'');}
+const TJ=(typeof window!=='undefined'&&window.__TIEMPOS__)||null;
+SC.forEach((s,i)=>{
+  s.words=s.mute?[]:s.t.split(/\s+/); s.nw=s.words.length; s.nm=s.words.map(norm);
+  s.S=i?SC[i-1].E:0;
+  if(s.mute){ s.E=s.S+s.dur; s.wt=[]; return; }   // escena muda de duración fija: sin narración ni subtítulo
+  const ov=TJ&&TJ.escenas&&TJ.escenas.find(e=>e.n===i+1);
+  if(ov){
+    if(!ov.palabras||ov.palabras.length!==s.nw) throw new Error('tiempos.json: la escena '+(i+1)+' tiene '+(ov.palabras?ov.palabras.length:0)+' palabras y el subtítulo '+s.nw);
+    ov.palabras.forEach((p,j)=>{ if(norm(p[0])!==s.nm[j]) throw new Error('tiempos.json: escena '+(i+1)+' palabra '+j+' es "'+p[0]+'" y el subtítulo dice "'+s.words[j]+'"'); });
+    s.wt=ov.palabras.map(p=>s.S+p[1]);
+    s.E=s.S+Math.max(ov.dur||0,ov.palabras[ov.palabras.length-1][1]+.45)+s.hold;
+    s.voz=true;
+  }else{
+    s.E=s.S+LEAD+s.nw/WPS+s.hold;
+    s.wt=s.words.map((_,j)=>s.S+LEAD+j/WPS);
+  }
+});
+const TOTAL=SC[SC.length-1].E;
+function W(n,word,k=0){const s=SC[n-1];let c=0;for(let j=0;j<s.nm.length;j++){if(s.nm[j]===norm(word)){if(c===k)return s.wt[j];c++;}}throw new Error('palabra "'+word+'" no está en la escena '+n);}
+const S=n=>SC[n-1].S, E=n=>SC[n-1].E;
+
+/* ------------------------------------------------------------------ util */
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const EA={
+ lin:u=>u, out:u=>1-Math.pow(1-u,3), in:u=>u*u*u, io:u=>u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2,
+ back:u=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(u-1,3)+c1*Math.pow(u-1,2);},
+ bounce:u=>{const n1=7.5625,d1=2.75;if(u<1/d1)return n1*u*u;if(u<2/d1){u-=1.5/d1;return n1*u*u+.75;}if(u<2.5/d1){u-=2.25/d1;return n1*u*u+.9375;}u-=2.625/d1;return n1*u*u+.984375;}
+};
+const DEF={x:0,y:0,s:1,o:1,r:0};
+function flatSteps(a){const out=[];for(const x of a){if(Array.isArray(x)&&Array.isArray(x[0]))out.push(...flatSteps(x));else out.push(x);}return out;}
+/* K(estado inicial, ...pasos): lista de keyframes. Un paso fuera de orden se corrige y avisa por consola. */
+function K(init,...steps){
+  const keys=[{t:-1e9,v:Object.assign({},DEF,init),e:'lin'}];let cur=Object.assign({},keys[0].v);
+  for(const st of flatSteps(steps)){let [t,p,e]=st; const last=keys[keys.length-1].t;
+    if(t<last+1e-6){ if(t<last-1e-9) console.warn('keys fuera de orden (se corrige): '+t+' < '+last); t=last+1e-6; }
+    cur=Object.assign({},cur,p); keys.push({t,v:cur,e:e||'io'});}
+  return keys;
+}
+function interp(keys,t){
+  let i=0;const n=keys.length; while(i<n&&keys[i].t<=t)i++;
+  if(i===0)return keys[0].v; if(i===n)return keys[n-1].v;
+  const a=keys[i-1],b=keys[i];const u=EA[b.e]((t-a.t)/(b.t-a.t));const r={};
+  for(const k in b.v){const av=a.v[k];r[k]=av+(b.v[k]-av)*u;}
+  return r;
+}
+const M=(t0,t1,p,e)=>[[t0,{},'lin'],[t1,p,e||'io']];
+const POP=(t,p)=>[[t-.001,{},'lin'],[t,Object.assign({o:1},p||{}),'lin']]; // aparece de golpe en t
+const IN=(t,d,p,e)=>M(t,t+d,Object.assign({o:1,s:1},p||{}),e||'out');
+/* helpers SVG */
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+const L={};
+const NODES=[],UPD=[];   // NODES: todo lo animado · UPD: funciones t=>{} para cosas que siguen a otras (etiquetas)
+function N(parent,markup,keys,fn){
+  const g=el('g',{},parent);g.innerHTML=markup;const n={g,keys,fn};NODES.push(n);return n;
+}
+function rect(x,y,w,h,r,fill,stroke,sw,extra){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}"${stroke?` stroke="${stroke}" stroke-width="${sw||2}"`:''} ${extra||''}/>`;}
+function txt(s,x,y,size,fill,anchor,cls,extra){return `<text class="${cls||'t'}" x="${x}" y="${y}" font-size="${size}" fill="${fill}" text-anchor="${anchor||'middle'}" ${extra||''}>${s}</text>`;}
+const hx=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
+const mix=(a,b,u)=>{const A=hx(a),B=hx(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*u).toString(16).padStart(2,'0')).join('');};
+const CURSOR=`<path d="M0 0 L0 30 L8 23 L14 36 L20 33 L14 21 L24 21 Z" fill="${C.tx}" stroke="${C.bg}" stroke-width="2.5" stroke-linejoin="round"/>`;
+const click=t=>[M(t,t+.08,{s:.82},'out'),M(t+.08,t+.25,{s:1},'out')];   // el cursor «aprieta» y vuelve
+
+/* ------------------------------------------------------------------ build */
+function build(){
+L.back=document.getElementById('back');L.mid=document.getElementById('mid');L.dots=document.getElementById('dots');L.top=document.getElementById('top');
+{const df=el('defs',{},document.getElementById('svg'));
+ df.innerHTML=`<filter id="sh1" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="${C.tx}" flood-opacity=".20"/></filter><filter id="sh2" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="9" stdDeviation="11" flood-color="${C.tx}" flood-opacity=".16"/></filter>`;}
+const GR=[];for(let i=0;i<SC.length;i++){GR.push(el('g',{},L.back));}   // un grupo por escena; el motor apaga los que no tocan
+
+/* ======= PUNTOS (viven en L.dots: persisten de la escena 1 a la 2) ======= */
+const NUMW=['uno','dos','tres','cuatro','cinco'];
+const ROW=i=>({x:960+(i-2)*170,y:620});       // escena 1: en fila
+const SIDE=i=>({x:190,y:400+90*i});           // escena 2: en columna a la izquierda de la ventana
+let marcado=null;                              // keys del punto que se pinta de acento (lo sigue una etiqueta)
+const tBo=W(2,'botón');
+for(let i=0;i<5;i++){
+  const ta=W(1,NUMW[i],i===4?1:0);             // el punto i aparece en la palabra que lo nombra («cinco» es la 2.ª vez)
+  const steps=[
+    M(ta,ta+.3,{s:1,o:1},'back'),
+    M(S(2)+.15+.06*i,S(2)+.8+.06*i,{x:SIDE(i).x,y:SIDE(i).y,s:.7},'io'),
+    M(S(3),S(3)+.01,{o:0},'lin')                // se apagan en el corte a la escena muda
+  ];
+  if(i===2) steps.splice(2,0,M(tBo,tBo+.3,{k:1,s:.85},'out'));   // el del medio se pinta de acento en «botón»
+  const keys=K({x:ROW(i).x,y:ROW(i).y,s:0,o:0,k:0},steps);
+  if(i===2)marcado=keys;
+  const n=N(L.dots,`<circle r="30" fill="${C.gr}"/>`,keys);
+  const circ=n.g.querySelector('circle');
+  n.fn=(v)=>{circ.setAttribute('fill',mix(C.gr,C.ac,clamp(v.k)));};
+}
+// etiqueta que sigue al punto marcado (ejemplo de UPD)
+{
+  const g=el('g',{},L.top);
+  g.innerHTML=txt('un punto',0,0,22,C.ac,'start','mo');
+  UPD.push(t=>{
+    const v=interp(marcado,t);const o=EA.out(clamp((t-tBo)/.3))*(t<S(3)?1:0);
+    if(o<=.003||v.o<=.003){g.style.display='none';return;}
+    g.style.display='';g.setAttribute('opacity',o.toFixed(3));
+    g.setAttribute('transform',`translate(${(v.x+30*v.s+14).toFixed(2)} ${(v.y+7).toFixed(2)})`);
+  });
+}
+
+/* ======= ESCENA 2 : una ventana de navegador que se arma ======= */
+{
+ const g=GR[1];
+ const WX=960, WY=570, WW=1000, WH=400;       // centro y tamaño de la ventana
+ const tV=W(2,'ventana'), tBa=W(2,'barra'), tTi=W(2,'título'), tPo=W(2,'por');   // anclas a palabras que dejen tiempo entre sí: la voz real va más rápido que el WPS
+ // marco
+ N(g,rect(-WW/2,-WH/2,WW,WH,14,C.bg,C.gr,3),K({x:WX,y:WY,s:.94,o:0},IN(tV,.5,{s:1},'out')));
+ // barra de arriba: tres puntitos y la dirección
+ N(g,`<path d="M${-WW/2+1.5} ${-WH/2+36} V${-WH/2+15} Q${-WW/2+1.5} ${-WH/2+1.5} ${-WW/2+15} ${-WH/2+1.5} H${WW/2-15} Q${WW/2-1.5} ${-WH/2+1.5} ${WW/2-1.5} ${-WH/2+15} V${-WH/2+36} Z" fill="${C.b3}"/>
+   <line x1="${-WW/2+1.5}" x2="${WW/2-1.5}" y1="${-WH/2+36}" y2="${-WH/2+36}" stroke="${C.gl}" stroke-width="2"/>
+   <circle cx="${-WW/2+26}" cy="${-WH/2+18}" r="6" fill="${C.gl}"/><circle cx="${-WW/2+46}" cy="${-WH/2+18}" r="6" fill="${C.gl}"/><circle cx="${-WW/2+66}" cy="${-WH/2+18}" r="6" fill="${C.gl}"/>
+   ${rect(-340,-WH/2+9,680,18,9,C.bg,null)}`,
+   K({x:WX,y:WY,o:0},IN(tBa,.4,{},'out')));
+ // título de la página
+ N(g,`${rect(-440,-110,420,30,7,C.tx,null)}${rect(-440,-62,300,14,7,C.gl,null)}${rect(-440,-36,360,14,7,C.gl,null)}`,
+   K({x:WX,y:WY,o:0},[[tTi,{},'lin'],[tTi+.4,{o:1},'out']]));
+ // botón (aparece en «por último», el cursor lo aprieta en «botón»)
+ const BTN={x:WX-330,y:WY+110};
+ N(g,`${rect(-100,-28,200,56,28,C.ac,null)}${txt('Enviar',0,10,28,C.bg,'middle','tm')}`,
+   K({x:BTN.x,y:BTN.y,s:.6,o:0},IN(tPo,.4,{},'back'),M(tBo,tBo+.1,{s:.92},'out'),M(tBo+.1,tBo+.3,{s:1},'out')));
+ N(g,`<circle r="17" fill="${C.bg}" stroke="${C.ac}" stroke-width="3"/><path d="M-8 1 L-2 8 L9 -7" fill="none" stroke="${C.ac}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
+   K({x:BTN.x+150,y:BTN.y,s:.2,o:0},IN(tBo+.15,.35,{},'back')));
+ // cursor (arriba de todo): entra, llega al botón y hace clic en «botón»
+ N(L.top,CURSOR,K({x:WX+300,y:WY+250,s:.2,o:0},IN(tTi,.3,{},'back'),M(tTi+.4,tBo-.05,{x:BTN.x+30,y:BTN.y+6},'io'),click(tBo),[[E(2),{},'lin'],[E(2)+.0005,{o:0},'lin']]));
+}
+
+/* ======= ESCENA 3 : muda (mute:true, dur:3), solo un rótulo ======= */
+{
+ const g=GR[2], t0=S(3);
+ N(g,txt('Escena muda',0,0,96,C.tx,'middle','tm'),K({x:960,y:520,o:0},M(t0+.2,t0+.7,{y:510,o:1},'out')));
+ N(g,txt('SIN NARRACIÓN · DURACIÓN FIJA',0,0,28,C.ac,'middle','mo5','letter-spacing="5"'),K({x:960,y:590,o:0},M(t0+.5,t0+1.0,{o:1},'out')));
+}
+
+/* ======= fin de las escenas ======= */
+
+/* ======= subtítulos y texto en pantalla (HTML) ======= */
+const subsEl=document.getElementById('subs'),ostEl=document.getElementById('ost');
+SC.forEach((s,idx)=>{
+  const d=document.createElement('div');d.className='sub';
+  if(s.subW)d.style.maxWidth=s.subW+'px'; // subtítulo largo: más ancho, para que no pase a 3 líneas y tape la escena
+  if(s.subF){d.style.fontSize=s.subF+'px';d.style.lineHeight=Math.round(s.subF*1.42)+'px';} // mucho texto: letra más chica para quedar en 2 líneas
+  s.spans=s.words.map(w=>{const sp=document.createElement('span');sp.textContent=w;d.appendChild(sp);d.appendChild(document.createTextNode(' '));return sp;});
+  subsEl.appendChild(d);s.subEl=d;
+  const o=document.createElement('div');o.className='ostline';o.style.display='none';
+  if(s.ostSize)o.style.fontSize=s.ostSize+'px';
+  s.ostSpans=s.ost.map(tk=>{const op=tk[4]||{};const sp=document.createElement('span');if(tk[2]==='ac')sp.className='ac';
+    let a=null,b=null;
+    if(op.alt){ // texto que cambia en una palabra (la celda de grilla toma el ancho del más largo: nada se corre)
+      sp.style.display='inline-grid';
+      a=document.createElement('span');b=document.createElement('span');
+      for(const x of [a,b]){x.style.gridArea='1/1';x.style.margin='0';x.style.display='block';}
+      a.textContent=tk[0];b.textContent=op.alt;sp.appendChild(a);sp.appendChild(b);
+    }else sp.textContent=tk[0];
+    o.appendChild(sp);
+    return {sp,t:W(idx+1,tk[1],tk[3]||0),keep:!!op.keep,a,b,ta:op.altWord?W(idx+1,op.altWord):0};});
+  ostEl.appendChild(o);s.ostEl=o;
+});
+}
+
+/* ------------------------------------------------------------------ render */
+let built=false;
+function renderAt(t){
+  if(!built)return;
+  for(const n of NODES){
+    const v=interp(n.keys,t);
+    if(v.o<=0.003||v.s<=0.001){n.g.style.display='none';continue;}
+    n.g.style.display='';
+    n.g.setAttribute('transform',`translate(${v.x.toFixed(2)} ${v.y.toFixed(2)}) rotate(${(v.r||0).toFixed(2)}) scale(${v.s.toFixed(4)})`);
+    n.g.setAttribute('opacity',v.o>1?1:v.o.toFixed(3));
+    if(n.fn)n.fn(v,n.g,t);
+  }
+  for(const f of UPD)f(t);
+  const GRs=document.getElementById('back').children;
+  SC.forEach((s,i)=>{
+    const last=i===SC.length-1;
+    const vis=t>=s.S-1e-6&&(last?t<=s.E+1e-6:t<s.E-1e-6);
+    if(GRs[i])GRs[i].style.display=vis?'':'none';
+    const sub=s.subEl;
+    if(vis){
+      sub.style.display=s.mute?'none':'inline-block';
+      sub.style.opacity=EA.out(clamp((t-(s.S+.1))/.3));
+      s.spans.forEach((sp,j)=>{sp.style.opacity=clamp((t-s.wt[j])/.12);});
+      s.ostEl.style.display='block';
+      s.ostSpans.forEach(o=>{
+        if(o.keep){o.sp.style.opacity=1;o.sp.style.transform='none';}
+        else{const u=EA.out(clamp((t-o.t)/.4));o.sp.style.opacity=u;o.sp.style.transform=`translateY(${((1-u)*22).toFixed(1)}px)`;}
+        if(o.a){const ua=EA.out(clamp((t-o.ta)/.2)), ub=EA.out(clamp((t-o.ta-.2)/.3));o.a.style.opacity=1-ua;o.b.style.opacity=ub;}   // sale una palabra y recién después entra la otra
+      });
+    }else{sub.style.display='none';s.ostEl.style.display='none';}
+  });
+}
+/* Lo que lee render.py */
+window.SCENES=SC.map((s,i)=>({n:i+1,start:+s.S.toFixed(3),end:+s.E.toFixed(3),words:s.nw,voz:!!s.voz}));
+window.TOTAL=TOTAL;window.FPS=FPS;
+window.renderAt=renderAt;
+window.__ready=false;
+
+function fit(){const st=document.getElementById('stage');const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform=`scale(${k})`;st.style.left=((innerWidth-1920*k)/2)+'px';st.style.top=((innerHeight-1080*k)/2)+'px';}
+const q=new URLSearchParams(location.search);
+const RENDER=q.has('render');
+if(!RENDER){fit();addEventListener('resize',fit);}
+// espera a TODAS las fuentes declaradas (las que pegues en el @font-face también)
+Promise.all([...document.fonts].map(f=>f.load().catch(()=>{})).concat([document.fonts.ready])).then(()=>{
+  build();built=true;window.__ready=true;
+  if(q.has('t')){renderAt(parseFloat(q.get('t')));return;}   // ?t=12.5 → un solo cuadro
+  if(RENDER){renderAt(0);return;}
+  let t0=performance.now(),paused=false,tt=0;
+  function loop(now){ if(!paused){tt=(now-t0)/1000; if(tt>TOTAL+1.5){t0=now;tt=0;}} renderAt(Math.min(tt,TOTAL)); requestAnimationFrame(loop);}
+  addEventListener('keydown',e=>{
+    if(e.code==='Space'){paused=!paused;if(!paused)t0=performance.now()-tt*1000;}
+    if(e.code==='ArrowRight'){tt=Math.min(TOTAL,tt+2);t0=performance.now()-tt*1000;}
+    if(e.code==='ArrowLeft'){tt=Math.max(0,tt-2);t0=performance.now()-tt*1000;}
+    if(e.code==='Home'){tt=0;t0=performance.now();}
+  });
+  requestAnimationFrame(loop);
+});
+})();
+</script>
+</body>
+</html>
