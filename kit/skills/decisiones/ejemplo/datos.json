@@ -20,10 +20,10 @@
     },
     {
       "n": 2,
-      "titulo": "Pasar al plan pago del proveedor",
+      "titulo": "Seguir con el plan gratis del proveedor",
       "contexto": "El plan gratis llega a 500 suscriptos. Hoy hay 212, así que el tope no aparece este trimestre.",
-      "reco": "no va",
-      "reco_motivo": "Sería pagar por un límite que todavía no tocás.",
+      "reco": "va",
+      "reco_motivo": "Pagar ahora sería pagar por un límite que todavía no tocás.",
       "porque": "Con el ritmo de altas de las últimas cuatro semanas, el tope de 500 queda a más de tres meses. Conviene revisarlo cuando la lista pase de 400.",
       "accent": "warning",
       "dibujo": {
@@ -49,11 +49,12 @@
     {
       "n": 4,
       "icono": "persona",
-      "titulo": "Sumar la firma con foto",
+      "titulo": "Mantener la firma de texto, sin foto",
       "contexto": "La versión con foto pesa 40 KB más y en la prueba cayó en promociones en una de tres casillas.",
-      "reco": "no va",
+      "reco": "va",
       "reco_motivo": "El riesgo de promociones pesa más que la foto.",
-      "si_no_va": "Queda la firma de texto que ya está en el borrador."
+      "si_va": "Queda la firma de texto que ya está en el borrador.",
+      "si_no_va": "Se suma la firma con foto."
     }
   ],
   "encabezado": "Decisiones del newsletter"

@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.6.0 (2026-11-03)
+
+- **`/brain-decide`: la recomendada queda siempre a la derecha.** Cada decisión se escribe para
+  que Va sea lo que te recomiendo, y Va va a la derecha de No va, en el widget y en la página.
+  Aceptar la recomendación es siempre el mismo botón. Cuando lo que conviene es no hacer algo,
+  la tarjeta se escribe al revés: "Seguir con el plan gratis" en vez de "Pasar al plan pago".
+- **`armar.py` te avisa si una tarjeta no cumple.** Si un ítem llega con `reco: "no va"`, te dice
+  cómo reescribirlo para que Va sea la recomendada. El ejemplo del skill ya viene escrito así.
+
 ## 3.5.1 (2026-10-22)
 
 - **`/brain-decide`: las flechas de los dibujos se ven.** Las clases de trazo (`a`, `sgo`,

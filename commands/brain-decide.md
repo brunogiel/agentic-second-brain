@@ -94,7 +94,7 @@ Un ejemplo completo que pasa el validador: [`ejemplo/datos.json`](ejemplo/datos.
     "n": 1, "seccion": "urg",
     "titulo": "Acción en infinitivo, hasta 9 palabras",
     "contexto": "El dato que decide, hasta 25 palabras. No repite el título.",
-    "reco": "va | no va", "reco_motivo": "Por qué, hasta 15 palabras.",
+    "reco": "va", "reco_motivo": "Por qué, hasta 15 palabras.",
     "dibujo": {"viewBox": "0 0 240 100", "alt": "qué muestra", "svg": "…"},
     "impacto": {"positivo": "qué mejora y dónde", "negativo": "qué empeora o cuesta, y dónde"},
     "porque": "opcional, plegado", "si_va": "opcional", "si_no_va": "opcional",
@@ -114,6 +114,7 @@ Un ejemplo completo que pasa el validador: [`ejemplo/datos.json`](ejemplo/datos.
 
 - **Lo visible de una tarjeta son 50 palabras como mucho, más el dibujo**: título, contexto y motivo. El resto va plegado: impacto, por qué, si va, si no va, fuente.
 - **El contexto trae el dato, no repite el título.** Mal: "Hay que ver el mail". Bien: "El mail del martes solo tiene el link; faltan las tres tareas que prometiste".
+- **La recomendada es siempre Va, y Va está a la derecha.** Aceptar lo que te recomiendo es siempre el mismo botón, el de la derecha: la decisión ya llega pensada. Si lo que conviene es no hacer algo, el título se escribe al revés para que Va sea eso ("Seguir con el plan gratis", no "Pasar al plan pago"). `armar.py` frena un ítem con `reco: "no va"`.
 - **La recomendación se ve en el borde del botón, no en una marca.** Nada viene marcado: una propuesta prellenada no es una respuesta. Al tocarlo, el botón se pinta entero: Va en verde, No va en rojo. "Marcar todo como te recomiendo" existe solo en la página, y sigue siendo un clic tuyo.
 - **Números reales o ningún número.** Si un número no se verificó, no va.
 - **Sin emojis de adorno.** Un término, un significado: si en un ítem algo está "agendado", en los otros también es "agendado".

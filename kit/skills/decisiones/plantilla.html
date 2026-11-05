@@ -265,8 +265,8 @@ function render() {
       `<p class="ctx">${esc(it.contexto)}</p>` +
       `<p class="reco">Te recomiendo <b class="${recoGo(it) ? 'r-go' : 'r-no'}">${recoGo(it) ? 'Va' : 'No va'}</b><span>${esc(it.reco_motivo)}</span></p>` +
       `<div class="actions">` +
-        `<button type="button" class="btn go${recoGo(it) ? ' rec' : ''}${st.m === 'go' ? ' on' : ''}" data-m="go">Va</button>` +
         `<button type="button" class="btn no${recoGo(it) ? '' : ' rec'}${st.m === 'no' ? ' on' : ''}" data-m="no">No va</button>` +
+        `<button type="button" class="btn go${recoGo(it) ? ' rec' : ''}${st.m === 'go' ? ' on' : ''}" data-m="go">Va</button>` +
         `<textarea class="comment" rows="1" placeholder="Comentario (opcional)">${esc(st.c)}</textarea>` +
       `</div>` +
       (det ? `<details><summary>Ver el detalle</summary><div class="d">${det}</div></details>` : '');
