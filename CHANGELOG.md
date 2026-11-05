@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.7.0 (2026-11-05)
+
+- **`/brain-deck` arma videos.** Con `MEDIO: video`, el Asset final es un mp4 animado con voz:
+  un HTML que se dibuja cuadro por cuadro, se renderiza con Playwright y `ffmpeg`, y lleva la
+  voz alineada palabra por palabra con Whisper local. Video corre en "full" en las 5 etapas.
+- **Tres preguntas antes del guion.** Quién lo publica (si sale con una marca que no es tuya,
+  su dueño ve una muestra antes de producir), qué formato, del más humano al más IA, y qué hace
+  quien lo ve al terminar.
+- **La Historia de un video pasa por `/brain-panel`** con 4 lentes, sobre el storyboard y no
+  sobre el render, donde un cambio cuesta una línea y no una vuelta entera.
+- **Tabla de escenas en la Estructura:** narración, hasta 4 palabras en pantalla, la acción
+  anclada a la palabra que la nombra y la fuente de cada dato.
+- **Narración congelada (paso 4d).** La voz se genera recién con el texto cerrado, una toma por
+  escena; si después cambia una frase, `empalmar.py` la reemplaza cortando en los silencios.
+- **Las herramientas vienen con el skill**, en `kit/skills/ppt-builder/video/`: `plantilla.html`
+  (el motor, con la paleta y la fuente de tu marca como slot), `render.py`, `tiempos_voz.py`,
+  `alinear.py`, `mezclar.py` y `empalmar.py`. La receta paso a paso está en `reference-video.md`.
+- **Chequeos del mp4:** el cuadro final de cada escena mirado, voz contra acción medida con
+  Whisper, conteos y QR decodificado.
+- **Mejoras para decks:** la pregunta de formato (presentación con presenter o documento que
+  se lee solo), Piense / Sienta / Haga en el Brief, el patrón héroe/guía para pitches y
+  principios de composición de slides (el título es la conclusión, letra grande, revelar de a
+  poco).
+
 ## 3.6.0 (2026-11-03)
 
 - **`/brain-decide`: la recomendada queda siempre a la derecha.** Cada decisión se escribe para
