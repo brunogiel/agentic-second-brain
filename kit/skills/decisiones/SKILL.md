@@ -74,6 +74,7 @@ Si lo que llega empieza con `/brain-decide respuesta ·`, no se arma nada: es la
    - **El widget** usa el formulario nativo de la app de Claude (el shell `<form class="elicit">`), **sin `<script>`**: la app cablea los botones y el envío. Un widget con script propio se ve bien pero sus botones pueden no responder. Si tu sesión no tiene widgets inline, armá la página completa con `--html`.
    - **La página completa** necesita un navegador que corra su script. Si tu app trae un navegador integrado, abrila ahí con un server local (`python3 -m http.server` en la carpeta temporal) en vez de un `file://`, que en algunos visores sale estático. En la página, "Copiar respuesta" arma el texto para pegar en el chat.
 7. **[DET] Probarlo.** Antes de entregar: que ningún dibujo se salga de su recuadro (`getBBox()` contra el `viewBox`), que Va / No va se pinte al tocarlo y que la respuesta se arme.
+   **Widget inline:** no se abre en un navegador. Sacá los `<svg>` del archivo armado a una página de prueba (con `<meta charset="utf-8">`, las variables de color, `--surface-1` y **`--font-sans`**), servila y medí ahí. Sin `--font-sans` el `font` del texto es inválido, cae a 16px y la medición da desbordes falsos.
 8. **Entregar.** En el chat, afuera de la botonera: cuántos ítems, cuál es el más urgente, y las preguntas abiertas que quedaron afuera. Nada más.
 
 La botonera no se guarda en tu brain. Es descartable: una vez que decidiste, lo que queda es lo aplicado.

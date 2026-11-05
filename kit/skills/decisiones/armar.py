@@ -94,10 +94,11 @@ HEADER_SVG = (AQUI / "elicit-header.svg").read_text(encoding="utf-8").strip()  #
 
 
 CLASES_INLINE = {
-    "a": "stroke:var(--text-accent)", "b": "fill:var(--border-warning)", "fa": "fill:var(--text-accent)",
+    # Las de trazo llevan fill:none: sin eso, una flecha <path> sale rellena de negro.
+    "a": "stroke:var(--text-accent);fill:none", "b": "fill:var(--border-warning)", "fa": "fill:var(--text-accent)",
     "t": "fill:var(--text-primary);font:500 12px var(--font-sans)", "tm": "fill:var(--text-secondary);font:400 11px var(--font-sans)",
     "go": "fill:var(--text-success)", "no": "fill:var(--text-danger)",
-    "sgo": "stroke:var(--text-success)", "sno": "stroke:var(--text-danger)",
+    "sgo": "stroke:var(--text-success);fill:none", "sno": "stroke:var(--text-danger);fill:none",
     "box": "fill:var(--surface-1);stroke:var(--border)",
 }
 
