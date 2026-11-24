@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.7.1 (2026-11-24)
+
+- **`/brain-spec` pregunta más y mejor.** Tres niveles de profundidad: `corto` hasta 3 preguntas,
+  `completo` hasta 10 (el default) y `complejo` sin tope, que termina cuando no queda ninguna
+  decisión abierta. Si no se lo decís, elige el nivel y te avisa cuál tomó.
+- **La entrevista va por secciones:** qué y para quién, después los casos raros, y al final cómo se
+  prueba y cuándo está listo. Cada sección se pregunta en rondas de hasta 4 preguntas que no
+  dependen entre sí, con la opción recomendada primero.
+- **Piso en `completo` y `complejo`:** toda decisión es una respuesta tuya o un `SUPUESTO:` visible
+  en el spec. Un spec de `completo` sin ninguna pregunta cuenta como falla.
+- `full` y `express` siguen andando: equivalen a `completo` y `corto`.
+
 ## 3.7.0 (2026-11-05)
 
 - **`/brain-deck` arma videos.** Con `MEDIO: video`, el Asset final es un mp4 animado con voz:
