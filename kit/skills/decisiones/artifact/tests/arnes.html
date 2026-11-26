@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Arnés de la página</title>
+<script src="fake-claude.js"></script></head>
+<body>
+<script>
+// Carga la página real (../pagina.html) y la escribe en este documento: window.claude ya está definido.
+fetch('../pagina.html').then(r => r.text()).then(t => { document.open(); document.write(t); document.close(); });
+</script>
+</body></html>

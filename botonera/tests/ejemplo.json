@@ -1,0 +1,151 @@
+{
+  "titulo": "Decisiones de ejemplo",
+  "fecha": "2026-11-05",
+  "clave": "ejemplo-2026-11-05",
+  "origen": {
+    "sesion_titulo": "Demo de la botonera",
+    "skill": "botonera",
+    "proyecto": "Tienda de plantas",
+    "categoria": "trabajo"
+  },
+  "intro": [
+    {
+      "titulo": "Tanda de ejemplo",
+      "texto": "Datos inventados para probar el armado y la publicación."
+    }
+  ],
+  "items": [
+    {
+      "n": 1,
+      "titulo": "Subir el precio de los envíos",
+      "contexto": "Los envíos nos cuestan más desde octubre y hoy los cobramos al costo viejo.",
+      "antecedentes": [
+        "El correo subió sus tarifas en octubre.",
+        "El margen de los pedidos chicos bajó casi a cero."
+      ],
+      "si_no_decidis": "El margen sigue cayendo en cada pedido chico.",
+      "reco": "va",
+      "reco_motivo": "Es un ajuste chico y recupera margen enseguida.",
+      "accion_va": "Subir el envío",
+      "accion_no_va": "Dejarlo como está",
+      "icono": "plata",
+      "impacto": {
+        "positivo": "Los pedidos chicos vuelven a dejar ganancia.",
+        "negativo": "Algún cliente puede abandonar el carrito."
+      },
+      "vence": "2026-11-15",
+      "campos": [
+        {
+          "id": "precio",
+          "etiqueta": "Nuevo precio del envío (ARS)",
+          "valor": 3500,
+          "tipo": "numero"
+        },
+        {
+          "id": "desde",
+          "etiqueta": "Desde",
+          "valor": "2026-11-15",
+          "tipo": "fecha"
+        },
+        {
+          "id": "alcance",
+          "etiqueta": "A quiénes",
+          "valor": "Pedidos chicos",
+          "tipo": "opcion",
+          "opciones": [
+            "Pedidos chicos",
+            "Todos los pedidos"
+          ]
+        }
+      ],
+      "aplicar": {
+        "va": "Cambiar la tarifa de envíos en la tienda al precio y la fecha de campos. Avisar en el blog.",
+        "no_va": "Nada."
+      }
+    },
+    {
+      "n": 2,
+      "titulo": "Elegir el canal para los avisos",
+      "contexto": "Hay que decidir por dónde se avisa a los clientes que su pedido salió.",
+      "reco": "mail",
+      "reco_motivo": "Es gratis y ya tenemos todas las direcciones.",
+      "opciones": [
+        {
+          "id": "mail",
+          "etiqueta": "Mail"
+        },
+        {
+          "id": "whatsapp",
+          "etiqueta": "Mensaje de WhatsApp"
+        },
+        {
+          "id": "sms",
+          "etiqueta": "SMS"
+        }
+      ],
+      "icono": "mail",
+      "impacto": {
+        "positivo": "No suma costo mensual ni herramientas nuevas.",
+        "negativo": "Algunos mails caen en la carpeta de spam."
+      },
+      "aplicar": {
+        "mail": "Armar la plantilla de aviso por mail y activarla.",
+        "whatsapp": "Pedir el alta del número de WhatsApp.",
+        "sms": "Contratar el servicio de SMS."
+      },
+      "detalle": "El mail llega a todos los clientes y deja registro; el chat solo a quienes tienen la app abierta. Con mail no hace falta que el cliente instale nada."
+    },
+    {
+      "n": 3,
+      "titulo": "Archivar los pedidos viejos",
+      "contexto": "Quedan pedidos cerrados de hace más de un año mezclados con los activos.",
+      "reco": "va",
+      "reco_motivo": "Ordena la lista y no se pierde ningún dato.",
+      "accion_va": "Archivarlos",
+      "accion_no_va": "Dejarlos",
+      "icono": "archivo",
+      "accent": "warning",
+      "impacto": {
+        "positivo": "La lista de pedidos activos se lee más rápido.",
+        "negativo": "Hay que buscar en el archivo si alguien reclama."
+      },
+      "aplicar": {
+        "va": "Mover los pedidos cerrados de hace más de un año a la hoja de archivo.",
+        "no_va": "Nada."
+      },
+      "campos": [
+        {
+          "id": "mensaje",
+          "etiqueta": "Aviso a los clientes",
+          "tipo": "textarea",
+          "valor": "Hola,\nvamos a archivar los pedidos con más de un año sin movimiento.\nSi necesitás alguno, respondé este mail antes del viernes.\nGracias."
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "tipo": "revision",
+      "titulo": "Revisión de la tabla de tarifas",
+      "hice": "Cargué las tarifas nuevas del correo en la hoja de envíos.",
+      "verifique": "Comparé tres precios a mano contra la web del correo.",
+      "mirar": "Que el redondeo de los pesos te cierre.",
+      "link": "https://ejemplo.com/tarifas",
+      "aplicar": {
+        "comun": "Si hay un cambio pedido, corregir la hoja de tarifas."
+      }
+    }
+  ],
+  "fyi": {
+    "titulo": "Para tu info",
+    "lead": "Dos cosas que no son decisiones.",
+    "grupos": [
+      {
+        "titulo": "Ya resuelto",
+        "items": [
+          "Se renovó el dominio de la tienda de ejemplo.",
+          "Se archivó la lista de espera vieja."
+        ]
+      }
+    ]
+  }
+}

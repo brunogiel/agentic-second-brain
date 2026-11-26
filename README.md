@@ -68,6 +68,10 @@ El plugin trae slash commands que funcionan apenas lo instalás, sin configurar 
 | `/brain-evalskill` | Medí un skill contra su rúbrica y proponé mejoras (no las aplica) |
 | `/brain-messirve` | ¿Esto que viste afuera te sirve? Lo cruza con lo tuyo: si ya lo tenés, qué le robás, y si no, lo agrega |
 
+**`/brain-decide` en una página privada de Claude.** Si tu cuenta de Claude puede publicar páginas, tus pendientes quedan en una página privada: una tarjeta por cada cosa que hay que decidir, que deslizás o tocás. No instalás nada. Cuando terminás, tocás Enviar, volvés al chat y escribís "listo": Claude lee tu respuesta y la aplica. La página y lo que guardás ahí viven en tu cuenta de Claude, no en tu carpeta.
+
+**¿Querés decidir desde el celu, con avisos y una dirección propia?** Esa es la [botonera completa](botonera/README.md): la misma idea con una web tuya, PIN y avisos al celular, para Claude Code, Cursor, Codex o cualquier agente que corra Python. Pide terminal y dos cuentas gratis (Supabase y un hosting estático). Si no querés armar eso, quedate con `/brain-decide`.
+
 ¿Solo querés un skill suelto, no todo el toolkit? Cherry-pick: es MIT y texto plano, copiá `kit/skills/<nombre>/` y su comando `commands/brain-<nombre>.md` a tu `~/.claude/skills/` y `~/.claude/commands/`, sin instalar el coach ni tocar el resto del repo.
 
 Las del toolkit son de fábrica y sirven igual para todos. `/brain-coach` es el motor: su trabajo es, sobre todo, ayudarte a **generar y mantener la arquitectura de tu segundo cerebro** (tus proyectos, tu identidad, tus propias skills), de a un escalón. Un *skill* es una receta guardada que dispara una frase; usar las del toolkit es la forma más rápida de ver qué es uno antes de armar el tuyo.

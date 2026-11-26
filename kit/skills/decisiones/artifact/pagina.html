@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tus pendientes</title>
+<style>
+  :root {
+    --bg: #f6f3ee; --card: #ffffff; --soft: #faf8f4; --ink: #1f2328; --mut: #565e68; --line: #e1dcd2;
+    --brand: #2f5d8a; --brand-ink: #ffffff;
+    --pic-a: #2f5d8a; --pic-b: #f0b44c; --pic-bg: #eaf0f6;
+    --go: #1a7a4c; --go-bg: #e3f3e9; --no: #b83a52; --no-bg: #fae6ea; --warn: #9c6414; --warn-bg: #f8eede;
+    --shadow: 0 1px 2px rgba(31,35,40,.05), 0 8px 22px rgba(31,35,40,.07);
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121417; --card: #1b1e23; --soft: #20242a; --ink: #e8eaed; --mut: #a9b0b9; --line: #2e343b;
+      --brand: #7fb0e0; --brand-ink: #10161d; --pic-a: #7fb0e0; --pic-b: #f0c06a; --pic-bg: #1e2a37;
+      --go: #4cc588; --go-bg: #14301f; --no: #ee8195; --no-bg: #331920; --warn: #dba74e; --warn-bg: #322612;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121417; --card: #1b1e23; --soft: #20242a; --ink: #e8eaed; --mut: #a9b0b9; --line: #2e343b;
+    --brand: #7fb0e0; --brand-ink: #10161d; --pic-a: #7fb0e0; --pic-b: #f0c06a; --pic-bg: #1e2a37;
+    --go: #4cc588; --go-bg: #14301f; --no: #ee8195; --no-bg: #331920; --warn: #dba74e; --warn-bg: #322612;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 18px 16px 48px; }
+  h1 { font-size: 24px; line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+  h2 { font-size: 19px; line-height: 1.3; font-weight: 650; text-wrap: balance; }
+  h3 { font-size: 14px; font-weight: 650; letter-spacing: .02em; text-transform: uppercase; color: var(--mut); margin: 22px 0 8px; }
+  p { overflow-wrap: anywhere; }
+  .sub, .mut { color: var(--mut); }
+  .sub { margin-top: 4px; font-size: 15px; }
+  button { font: inherit; cursor: pointer; color: var(--ink); }
+  button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  button:disabled { opacity: .55; cursor: default; }
+  .link { background: none; border: 0; color: var(--brand); font-size: 14px; padding: 8px 0; text-decoration: underline; text-underline-offset: 3px; min-height: 36px; }
+  .btn { min-height: 48px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); padding: 10px 16px; font-weight: 650; font-size: 16px; flex: 1 1 0; min-width: 0; }
+  .btn.va { color: var(--go); } .btn.no { color: var(--no); }
+  .btn.va.rec { border-color: var(--go); } .btn.no.rec { border-color: var(--no); }
+  .btn.va[aria-pressed="true"] { background: var(--go); border-color: var(--go); color: var(--card); }
+  .btn.no[aria-pressed="true"] { background: var(--no); border-color: var(--no); color: var(--card); }
+  .btn.main { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+  .btn.opt { text-align: left; font-weight: 550; display: block; width: 100%; flex: none; }
+  .btn.opt.rec { border-color: var(--go); }
+  .btn.opt[aria-pressed="true"] { background: var(--go); border-color: var(--go); color: var(--card); }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .stack { display: grid; gap: 8px; }
+  .chip { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 99px; padding: 2px 10px; background: var(--soft); color: var(--mut); border: 1px solid var(--line); }
+  .chip.warning { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+  .chip.danger { background: var(--no-bg); color: var(--no); border-color: transparent; }
+  .chip.ok { background: var(--go-bg); color: var(--go); border-color: transparent; }
+  .aviso { background: var(--warn-bg); color: var(--ink); border-radius: 12px; padding: 12px 14px; font-size: 15px; border-left: 4px solid var(--warn); }
+  .vacio { background: var(--card); border: 1px dashed var(--line); border-radius: 16px; padding: 22px 18px; color: var(--mut); text-align: center; }
+  .lista-t { display: grid; gap: 10px; }
+  .tarj { display: block; width: 100%; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .tarj b { display: block; font-size: 17px; font-weight: 650; }
+  .tarj .mut { font-size: 14px; }
+  .tarj .meta { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .tarj .res { margin-top: 8px; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .tarj.leer { cursor: default; }
+  .barra { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 12px 0 4px; }
+  .barra i { display: block; height: 100%; background: var(--go); width: 0; transition: width .2s; }
+  .nav { display: flex; gap: 8px; align-items: center; justify-content: space-between; margin: 12px 0; flex-wrap: wrap; }
+  .nav .mut { font-size: 14px; }
+
+  .card { position: relative; background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--line); border-radius: 18px;
+          box-shadow: var(--shadow); padding: 16px; display: grid; gap: 10px; touch-action: pan-y; transition: transform .15s, box-shadow .15s; user-select: none; -webkit-user-select: none; }
+  .card.warning { border-left-color: var(--warn); } .card.danger { border-left-color: var(--no); }
+  .card.arrastra { transition: none; }
+  .card.tira-go { box-shadow: 0 0 0 3px var(--go); } .card.tira-no { box-shadow: 0 0 0 3px var(--no); }
+  .card textarea, .card input, .card select { user-select: text; -webkit-user-select: text; }
+  .card .top { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--mut); }
+  .card .num { font-weight: 700; }
+  .ctx { color: var(--mut); font-size: 16px; }
+  .reco { font-size: 15px; }
+  .reco b.g { color: var(--go); } .reco b.r { color: var(--no); }
+  .dib { background: var(--soft); border-radius: 12px; padding: 10px; }
+  .dib svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; overflow: visible; }
+  .ico { width: 64px; height: 64px; border-radius: 14px; background: var(--pic-bg); display: flex; align-items: center; justify-content: center; }
+  .ico svg { width: 46px; height: 46px; }
+  svg .a { stroke: var(--pic-a); fill: none; } svg .b { fill: var(--pic-b); } svg .fa { fill: var(--pic-a); }
+  svg .t { fill: var(--ink); font: 600 12px var(--sans); } svg .tm { fill: var(--mut); font: 400 11px var(--sans); }
+  svg .go { fill: var(--go); } svg .no { fill: var(--no); } svg .sgo { stroke: var(--go); fill: none; } svg .sno { stroke: var(--no); fill: none; }
+  svg .box { fill: var(--card); stroke: var(--line); }
+  .antec { font-size: 14px; background: var(--soft); border-radius: 12px; padding: 10px 12px; }
+  .antec ul { margin: 4px 0 0 18px; }
+  .rev h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .03em; color: var(--mut); margin: 6px 0 2px; }
+  .rev ul { margin-left: 18px; font-size: 15px; }
+  .tuya { font-size: 14px; font-weight: 600; color: var(--go); }
+  .extras { display: flex; gap: 6px; flex-wrap: wrap; }
+  .extras button { background: none; border: 1px solid var(--line); border-radius: 99px; padding: 6px 14px; font-size: 14px; min-height: 40px; color: var(--mut); }
+  .extras button[aria-pressed="true"] { border-color: var(--brand); color: var(--brand); }
+  .panel { background: var(--soft); border-radius: 12px; padding: 12px; display: grid; gap: 8px; }
+  .panel label { font-size: 13px; font-weight: 600; color: var(--mut); }
+  textarea, input, select { font: inherit; font-size: 16px; width: 100%; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; }
+  textarea { min-height: 64px; resize: vertical; }
+  details.det { font-size: 14px; color: var(--mut); }
+  details.det summary { cursor: pointer; color: var(--brand); font-weight: 550; min-height: 32px; }
+  details.det .in { display: grid; gap: 6px; margin-top: 6px; }
+  .imp { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .imp div { padding: 8px 10px; border-radius: 8px; border-left: 3px solid; }
+  .imp .p { border-color: var(--go); background: var(--go-bg); } .imp .n { border-color: var(--no); background: var(--no-bg); }
+  .imp b { display: block; color: var(--ink); font-size: 13px; }
+  @media (max-width: 440px) { .imp { grid-template-columns: 1fr; } }
+  .fila { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .fila:last-child { border-bottom: 0; }
+  .fila .l { min-width: 0; overflow-wrap: anywhere; }
+  .fila .l small { display: block; color: var(--mut); font-size: 13px; }
+  .bloque { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin: 12px 0; }
+  .bloque h4 { font-size: 15px; margin-bottom: 4px; }
+  .bloque p { color: var(--mut); font-size: 15px; margin-top: 4px; }
+  .bloque ul { margin: 4px 0 0 18px; color: var(--mut); font-size: 15px; }
+  #msg { font-weight: 600; min-height: 1.5em; }
+  #diag { font-size: 12px; color: var(--mut); white-space: pre-wrap; margin-top: 6px; }
+  footer { margin-top: 28px; }
+  .hola { animation: entra .18s ease-out; }
+  @keyframes entra { from { opacity: .3; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .hola { animation: none; } .card { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header id="top"></header>
+  <main id="main" aria-live="polite"></main>
+  <footer>
+    <button type="button" class="link" id="tec">detalles técnicos</button>
+    <pre id="diag" hidden></pre>
+  </footer>
+</div>
+<script>
+(function () {
+'use strict';
+const PREFIJO = '/brain-decide respuesta · ';
+const $ = (s, r) => (r || document).querySelector(s);
+
+/* ---------- utilidades ---------- */
+function h(tag, props) {
+  const el = document.createElement(tag);
+  if (props) for (const k in props) {
+    const v = props[k];
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v;
+    else if (k === 'text') el.textContent = v;
+    else if (k === 'on') { for (const ev in v) el.addEventListener(ev, v[ev]); }
+    else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (let i = 2; i < arguments.length; i++) {
+    for (const c of [].concat(arguments[i])) {
+      if (c == null || c === false) continue;
+      el.append(c.nodeType ? c : document.createTextNode(String(c)));
+    }
+  }
+  return el;
+}
+const lsGet = k => { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const clon = o => JSON.parse(JSON.stringify(o));
+const limpio = s => String(s == null ? '' : s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F­​-‏‪-‮⁠-⁤﻿]/g, '');
+const diag = {};
+function diagSet(k, v) { diag[k] = v; const p = $('#diag'); if (p) p.textContent = Object.keys(diag).map(x => x + ': ' + diag[x]).join('\n'); }
+const fechaCorta = iso => { try { return new Date(iso).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }); } catch (e) { return ''; } };
+
+/* ---------- dibujos: se re-sanean acá aunque armar.py ya lo hizo ---------- */
+const SVG_TAGS = new Set('svg g path rect circle ellipse line polyline polygon text tspan title desc defs marker'.split(' '));
+const SVG_ATTRS = new Set(('d x y x1 y1 x2 y2 cx cy r rx ry width height points viewBox transform class fill stroke stroke-width stroke-linecap ' +
+  'stroke-linejoin stroke-dasharray opacity font-size font-weight text-anchor dominant-baseline marker-start marker-end markerWidth markerHeight ' +
+  'refX refY orient id preserveAspectRatio').split(' '));
+const NS = 'http://www.w3.org/2000/svg';
+function svgSeguro(str, viewBox) {
+  let doc;
+  try { doc = new DOMParser().parseFromString('<svg xmlns="' + NS + '">' + String(str) + '</svg>', 'image/svg+xml'); } catch (e) { return null; }
+  if (!doc || doc.querySelector('parsererror')) return null;
+  const vb = /^-?\d+(\.\d+)?( -?\d+(\.\d+)?){3}$/.test(String(viewBox || '').trim()) ? String(viewBox).trim() : '0 0 240 100';
+  const out = document.createElementNS(NS, 'svg');
+  out.setAttribute('viewBox', vb);
+  (function copiar(src, dst) {
+    for (const n of src.childNodes) {
+      if (n.nodeType === 3) { dst.appendChild(document.createTextNode(n.nodeValue)); continue; }
+      if (n.nodeType !== 1) continue;
+      const t = n.localName;
+      if (!SVG_TAGS.has(t)) continue;               // script, style, foreignObject, use… se van con todo su contenido
+      const el = document.createElementNS(NS, t);
+      for (const a of n.attributes) {
+        if (!SVG_ATTRS.has(a.name) || /^on/i.test(a.name)) continue;
+        if (/url\(\s*(?!['"]?\s*#)/i.test(a.value) || /javascript:/i.test(a.value)) continue;
+        el.setAttribute(a.name, a.value);
+      }
+      copiar(n, el);
+      dst.appendChild(el);
+    }
+  })(doc.documentElement, out);
+  return out;
+}
+function dibujoEl(it) {
+  if (it.dibujo && it.dibujo.svg) {
+    const s = svgSeguro(it.dibujo.svg, it.dibujo.viewBox);
+    if (!s) return null;
+    s.setAttribute('role', 'img'); s.setAttribute('aria-label', String(it.dibujo.alt || ''));
+    return h('div', { class: 'dib' }, s);
+  }
+  if (it.svg) {
+    const s = svgSeguro(it.svg, '0 0 64 64');
+    if (!s) return null;
+    s.setAttribute('aria-hidden', 'true');
+    return h('div', { class: 'ico' }, s);
+  }
+  return null;
+}
+
+/* ---------- estado de la página ---------- */
+const S = {
+  db: null, user: null, room: null, comments: null, uid: null, puedeEscribir: null,
+  tandas: new Map(), respuestas: new Map(), estados: new Map(),
+  cargo: false, lento: false, sinBase: false, errLectura: false,
+  view: 'home', T: null
+};
+let animar = false;
+let T = null;   // la tanda abierta: {clave, d, marks, notas, idx, paso, lista, panel, hist, enviando, enviada, texto}
+
+const vacio = () => ({ m: '', o: [], f: {}, rot: [], c: '', regla: false });
+const tipoDe = it => it.tipo === 'revision' ? 'rev' : it.opciones ? (it.varias ? 'varias' : 'una') : 'sino';
+const recoVa = it => /^va$/i.test(String(it.reco || '').trim());
+const recoIds = it => (Array.isArray(it.reco) ? it.reco : [it.reco]).map(String);
+const etiquetaOp = (it, id) => { const o = (it.opciones || []).find(x => x.id === id); return o ? o.etiqueta : id; };
+const marcaDe = n => T.marks[n] || vacio();
+
+function guardar() { if (T) lsSet('tp:' + T.clave, { marks: T.marks, notas: T.notas, idx: T.idx }); }
+
+/* ---------- la respuesta: línea por tarjeta ---------- */
+function camposTxt(it, st) {
+  return Object.keys(st.f || {}).map(id => {
+    const c = (it.campos || []).find(x => x.id === id);
+    return id + '=' + st.f[id] + ' (antes ' + (c ? c.valor : '') + ')';
+  }).join('; ');
+}
+function palabraMarca(it, st) {
+  const c = (st.c || '').trim();
+  switch (st.m) {
+    case 'go': return 'va'; case 'no': return 'no va'; case 'vc': return 'va con cambios';
+    case 'op': return 'eligió'; case 'de': return 'después'; case 'rev': return 'revisado'; case 'rot': return 'rot';
+    default: return c ? 'comentario' : 'sin marcar';
+  }
+}
+function linea(it, st) {
+  const c = (st.c || '').trim().replace(/\s*\n\s*/g, ' ');
+  let marca = palabraMarca(it, st), acc = '';
+  if (st.m === 'go' || st.m === 'vc') acc = it.accion_va || '';
+  else if (st.m === 'no') acc = it.accion_no_va || '';
+  else if (st.m === 'op') { marca = 'eligió ' + st.o.join(', '); acc = st.o.map(id => etiquetaOp(it, id)).join(', '); }
+  else if (st.m === 'rot') acc = st.rot.join(' + ');
+  let s = it.n + '. ' + marca + ' · ' + it.titulo + (acc ? ' → ' + acc : '');
+  if (st.m === 'vc' && camposTxt(it, st)) s += ' · campos: ' + camposTxt(it, st);
+  if (c) s += ' · comentario: ' + c;
+  if (st.regla && st.m && st.m !== 'de' && st.m !== 'rot') s += ' · regla';
+  return s;
+}
+function textoRespuesta() {
+  const L = [PREFIJO + T.clave];
+  T.d.items.forEach(it => L.push(linea(it, marcaDe(it.n))));
+  const n = (T.notas || '').trim();
+  if (n) L.push('notas: ' + n.replace(/\s*\n\s*/g, ' '));
+  return L.join('\n');
+}
+function docRespuesta() {
+  const items = T.d.items.map(it => {
+    const st = marcaDe(it.n), c = (st.c || '').trim();
+    const r = { n: it.n, titulo: it.titulo, respuesta: palabraMarca(it, st) };
+    if (c) r.comentario = c;
+    if (st.m === 'vc') { const cs = {}; Object.keys(st.f).forEach(id => { const cc = (it.campos || []).find(x => x.id === id); cs[id] = { antes: cc ? cc.valor : null, ahora: st.f[id] }; }); r.campos = cs; }
+    if (st.m === 'op') { if (it.varias) r.opciones = st.o.slice(); else r.opcion = st.o[0]; }
+    if (st.m === 'rot') r.rot = st.rot.slice();
+    if (st.regla && st.m && st.m !== 'de' && st.m !== 'rot') r.regla = true;
+    return r;
+  });
+  return clon({ clave: T.clave, items, notas: (T.notas || '').trim(), texto: textoRespuesta(), por: S.uid || null, cuando: new Date().toISOString() });
+}
+function resumenMarca(it, st) {
+  switch (st.m) {
+    case 'go': return it.accion_va || 'Va'; case 'no': return it.accion_no_va || 'No va';
+    case 'vc': return 'Va con cambios'; case 'op': return 'Elegiste: ' + st.o.map(id => etiquetaOp(it, id)).join(', ');
+    case 'de': return 'Para después'; case 'rev': return 'Revisado'; case 'rot': return 'Pediste que se explique de nuevo';
+    default: return (st.c || '').trim() ? 'Solo un comentario' : 'Sin marcar';
+  }
+}
+const decidida = st => ['go', 'no', 'vc', 'op', 'rev'].includes(st.m);
+
+/* ---------- conexión: UNA suscripción por consulta ---------- */
+async function usar(n) { try { return window.claude ? await window.claude.use(n) : null; } catch (e) { return null; } }
+async function iniciar() {
+  render();
+  const r = await Promise.all(['db', 'user', 'room', 'comments'].map(usar));
+  S.db = r[0]; S.user = r[1]; S.room = r[2]; S.comments = r[3];
+  ['db', 'user', 'room', 'comments'].forEach((n, i) => diagSet(n, r[i] ? 'sí' : 'no (null)'));
+  if (S.user) {
+    try { S.uid = await S.user.id(); } catch (e) {}
+    try { S.puedeEscribir = await S.user.can('data.write'); diagSet('puede escribir', S.puedeEscribir); } catch (e) {}
+  }
+  if (!S.db) { S.sinBase = true; render(); return; }
+  const lento = setTimeout(() => { if (!S.cargo) { S.lento = true; render(); } }, 10000);
+  const err = e => { S.errLectura = true; diagSet('error de lectura', (e && e.code) || e); render(); };
+  S.db.collection('tandas').orderBy('creada', 'desc').limit(50).onSnapshot(s => {
+    clearTimeout(lento); S.cargo = true; S.lento = false;
+    S.tandas = new Map(s.docs.map(d => [d.id, d.data()])); refrescar();
+  }, err);
+  S.db.collection('respuestas').limit(100).onSnapshot(s => { S.respuestas = new Map(s.docs.map(d => [d.id, d.data()])); refrescar(); }, () => {});
+  S.db.collection('estado').limit(100).onSnapshot(s => { S.estados = new Map(s.docs.map(d => [d.id, d.data()])); refrescar(); }, () => {});
+}
+// cuando llegan datos nuevos no se rearma la tarjeta que se está tocando: solo lo que no tiene campos de texto
+function refrescar() {
+  if (S.view === 'home') render();
+  else if (T) { const e = $('#estado-vivo'); if (e) e.textContent = textoEstado(T.clave); }
+}
+const textoEstado = clave => { const e = S.estados.get(clave); return e && e.texto ? 'Claude: ' + e.texto : ''; };
+
+/* ---------- pantallas ---------- */
+function render() {
+  const main = $('#main'), top = $('#top');
+  main.replaceChildren(); top.replaceChildren();
+  if (S.view === 'tanda' && T) return renderTanda(main, top);
+  renderHome(main, top);
+}
+function renderHome(main, top) {
+  top.append(h('h1', { text: 'Tus pendientes' }), h('p', { class: 'sub', text: 'Claude deja acá lo que hay que decidir, una tarjeta por cosa.' }));
+  if (S.sinBase) return main.append(h('div', { class: 'aviso' }, 'Esta página no se puede conectar con Claude desde acá. Abrila de nuevo desde el chat, o volvé al chat y contale lo que decidiste.'));
+  if (S.errLectura) main.append(h('div', { class: 'aviso' }, 'No pude leer tus pendientes ahora. Probá recargar la página; si sigue igual, volvé al chat con Claude.'));
+  if (!S.cargo) return main.append(h('div', { class: 'vacio' }, S.lento ? 'Esto está tardando más de lo normal. Probá recargar la página; si sigue igual, volvé al chat con Claude y escribí "listo".' : 'Cargando…'));
+  const todas = [...S.tandas.entries()].filter(([, t]) => t && t.items && t.estado !== 'archivada');
+  const hecha = ([k, t]) => t.estado === 'decidida' || t.estado === 'aplicada' || S.respuestas.has(k);
+  const abiertas = todas.filter(x => !hecha(x)), hechas = todas.filter(hecha);
+  if (S.puedeEscribir === false) main.append(h('div', { class: 'aviso' }, 'Podés mirar las tarjetas, pero tu acceso no deja mandar respuestas desde acá. Copiá la respuesta y pegala en el chat con Claude.'));
+  if (!todas.length) return main.append(h('div', { class: 'vacio' }, 'Todavía no hay nada para decidir. Claude carga las tarjetas después de publicar esta página.'));
+  main.append(h('h3', { text: 'Para decidir' }));
+  main.append(abiertas.length ? h('div', { class: 'lista-t' }, abiertas.map(([k, t]) => tarjetaTanda(k, t, false))) : h('div', { class: 'vacio' }, 'No queda nada pendiente. Bien ahí.'));
+  if (hechas.length) { main.append(h('h3', { text: 'Lo decidido' })); main.append(h('div', { class: 'lista-t' }, hechas.map(([k, t]) => tarjetaTanda(k, t, true)))); }
+}
+function tarjetaTanda(clave, t, hecha) {
+  const n = t.items.length, resp = S.respuestas.get(clave), est = textoEstado(clave);
+  const abre = !hecha || resp;
+  const meta = h('div', { class: 'meta' }, h('span', { class: 'chip', text: n + (n === 1 ? ' tarjeta' : ' tarjetas') }), t.fecha ? h('span', { class: 'chip', text: t.fecha }) : null,
+    t.estado === 'aplicada' ? h('span', { class: 'chip ok', text: 'Hecho' }) : hecha ? h('span', { class: 'chip ok', text: 'Respuesta enviada' }) : null);
+  const cuerpo = [h('b', { text: t.titulo }), t.contexto ? h('span', { class: 'mut', text: t.contexto }) : null, meta,
+    t.resumen ? h('div', { class: 'res', text: t.resumen }) : est ? h('div', { class: 'res', text: est }) : null];
+  return abre ? h('button', { type: 'button', class: 'tarj', 'data-clave': clave, on: { click: () => abrir(clave) } }, cuerpo) : h('div', { class: 'tarj leer' }, cuerpo);
+}
+function abrir(clave) {
+  const d = S.tandas.get(clave);
+  if (!d) return;
+  const g = lsGet('tp:' + clave) || {};
+  const resp = S.respuestas.get(clave);
+  T = { clave, d, marks: g.marks || {}, notas: g.notas || '', idx: Math.min(g.idx || 0, d.items.length), paso: 'mazo', lista: false, panel: null,
+        hist: [], enviando: false, enviada: false, texto: '' };
+  if (resp) { T.enviada = true; T.texto = resp.texto || ''; T.paso = 'enviada'; if (!T.notas) T.notas = resp.notas || ''; }
+  else if (T.idx >= d.items.length) T.paso = 'revisar';
+  animar = true; S.view = 'tanda'; render(); window.scrollTo(0, 0);
+}
+function volver() { S.view = 'home'; T = null; render(); }
+
+function renderTanda(main, top) {
+  const d = T.d, n = d.items.length;
+  const hechas = d.items.filter(it => decidida(marcaDe(it.n))).length;
+  top.append(h('button', { type: 'button', class: 'link', id: 'volver', text: '‹ Volver a tus pendientes', on: { click: volver } }),
+    h('h1', { text: d.titulo }), d.contexto ? h('p', { class: 'sub', text: d.contexto }) : null);
+  if (S.puedeEscribir === false) main.append(h('div', { class: 'aviso' }, 'Podés mirar las tarjetas, pero tu acceso no deja mandar respuestas desde acá. Al final podés copiar la respuesta y pegarla en el chat con Claude.'));
+  if (T.paso === 'enviada') return renderEnviada(main);
+  main.append(h('div', { class: 'barra', 'aria-hidden': 'true' }, h('i', { style: 'width:' + Math.round(hechas / n * 100) + '%' })),
+    h('p', { class: 'mut', id: 'conteo', text: hechas + ' de ' + n + ' decididas' }));
+  if (Array.isArray(d.intro) && d.intro.length && (T.lista || T.idx === 0) && T.paso === 'mazo') main.append(introEl(d.intro));
+  if (T.paso === 'revisar') return renderRevisar(main);
+  if (T.lista) {
+    d.items.forEach((it, i) => main.append(cardEl(it, false, i)));
+    main.append(h('div', { class: 'nav' }, h('button', { type: 'button', class: 'link', text: 'Ver de a una', on: { click: () => { T.lista = false; render(); } } }),
+      h('button', { type: 'button', class: 'btn main', id: 'ir-revisar', text: 'Revisar y enviar', on: { click: () => { T.paso = 'revisar'; render(); window.scrollTo(0, 0); } } })));
+    return;
+  }
+  const it = d.items[T.idx];
+  main.append(cardEl(it, true, T.idx));
+  main.append(h('div', { class: 'nav' },
+    h('button', { type: 'button', class: 'link', id: 'deshacer', text: 'Deshacer', disabled: !T.hist.length, on: { click: deshacer } }),
+    h('span', { class: 'mut', text: 'Tarjeta ' + (T.idx + 1) + ' de ' + n }),
+    h('button', { type: 'button', class: 'link', id: 'ver-todas', text: 'Ver todas', on: { click: () => { T.lista = true; render(); } } })));
+  main.append(h('div', { class: 'row' },
+    T.idx > 0 ? h('button', { type: 'button', class: 'btn', text: 'Anterior', on: { click: () => { T.idx--; guardar(); render(); } } }) : null,
+    h('button', { type: 'button', class: 'btn', id: 'saltar', text: T.idx < n - 1 ? 'Siguiente' : 'Revisar y enviar', on: { click: () => siguiente() } })));
+}
+function introEl(intro) {
+  return h('details', { class: 'bloque det', open: true }, h('summary', { text: 'Antes de empezar' }),
+    intro.map(b => h('div', { class: 'in' }, b.titulo ? h('h4', { text: b.titulo }) : null,
+      String(b.texto || '').split(/\n\n+/).filter(Boolean).map(p => h('p', { text: p })),
+      Array.isArray(b.items) ? h('ul', null, b.items.map(x => h('li', { text: x }))) : null)));
+}
+function siguiente() {
+  T.idx++;
+  if (T.idx >= T.d.items.length) { T.idx = T.d.items.length; T.paso = 'revisar'; }
+  animar = true; guardar(); render(); window.scrollTo(0, 0);
+}
+function deshacer() {
+  const e = T.hist.pop(); if (!e) return;
+  if (e.prev) T.marks[e.n] = e.prev; else delete T.marks[e.n];
+  T.idx = e.idx; T.paso = 'mazo'; T.panel = null; animar = true; guardar(); render();
+}
+
+/* ---------- la tarjeta ---------- */
+function marcar(it, nuevo, avanza) {
+  T.hist.push({ n: it.n, prev: T.marks[it.n] ? clon(T.marks[it.n]) : null, idx: T.idx });
+  T.marks[it.n] = Object.assign(vacio(), T.marks[it.n] || {}, { o: [], f: {}, rot: [] }, nuevo);
+  T.panel = null;
+  if (avanza && !T.lista) return siguiente();
+  guardar(); render();
+}
+function accionDerecha(it) {            // swipe a la derecha y tecla →: lo que recomiendo
+  const t = tipoDe(it);
+  if (t === 'sino') marcar(it, { m: 'go' }, true);
+  else if (t === 'una') marcar(it, { m: 'op', o: [recoIds(it)[0]] }, true);
+  else if (t === 'varias') marcar(it, { m: 'op', o: recoIds(it) }, true);
+  else marcar(it, { m: 'rev' }, true);
+}
+function accionIzquierda(it) {
+  if (tipoDe(it) === 'sino') marcar(it, { m: 'no' }, true);
+  else { const e = $('#pista'); if (e) e.textContent = 'En esta tarjeta elegí una opción de la lista.'; }
+}
+function cardEl(it, deck, i) {
+  const st = marcaDe(it.n), t = tipoDe(it);
+  const sec = (T.d.secciones || []).find(x => x.id === it.seccion);
+  let secTxt = null;
+  if (sec) { const mismos = T.d.items.filter(x => x.seccion === it.seccion); secTxt = sec.titulo + ' · ' + mismos.filter(x => decidida(marcaDe(x.n))).length + '/' + mismos.length; }
+  const card = h('article', { class: 'card' + (animar && deck ? ' hola' : '') + (it.accent ? ' ' + it.accent : ''), 'data-n': it.n });
+  if (deck) animar = false;
+  card.append(h('div', { class: 'top' }, h('span', { class: 'num', text: it.n }),
+    secTxt ? h('span', { class: 'chip', text: secTxt }) : null,
+    it.accent === 'danger' ? h('span', { class: 'chip danger', text: 'ojo' }) : it.accent === 'warning' ? h('span', { class: 'chip warning', text: 'sensible' }) : null,
+    it.vence ? h('span', { class: 'chip', text: 'Vence ' + it.vence }) : null));
+  card.append(h('h2', { text: it.titulo }));
+  const dib = dibujoEl(it); if (dib) card.append(dib);
+  card.append(h('p', { class: 'ctx', text: it.contexto }));
+  if (Array.isArray(it.antecedentes) && it.antecedentes.length) card.append(h('div', { class: 'antec' }, h('b', { text: 'Qué pasó hasta acá' }), h('ul', null, it.antecedentes.map(x => h('li', { text: x })))));
+  if (it.si_no_decidis) card.append(h('p', { class: 'antec' }, h('b', { text: 'Si no decidís: ' }), it.si_no_decidis));
+  if (t === 'rev') {
+    const blq = [['hice', 'Qué hice'], ['verifique', 'Qué verifiqué'], ['mirar', 'Qué mirar']].filter(x => it[x[0]] && it[x[0]].length);
+    card.append(h('div', { class: 'rev' }, blq.map(x => [h('h4', { text: x[1] }), h('ul', null, [].concat(it[x[0]]).map(v => h('li', { text: v })))]).flat()));
+  } else if (it.reco_motivo) {
+    const quien = t === 'sino' ? (recoVa(it) ? 'Va' : 'No va') : recoIds(it).map(id => etiquetaOp(it, id)).join(' + ');
+    card.append(h('p', { class: 'reco' }, 'Te recomiendo ', h('b', { class: 'g', text: quien }), ': ' + it.reco_motivo));
+  }
+  if (st.m) card.append(h('p', { class: 'tuya', text: 'Tu respuesta: ' + resumenMarca(it, st) }));
+
+  // botones de decisión
+  if (t === 'sino') {
+    card.append(h('div', { class: 'row' },
+      h('button', { type: 'button', class: 'btn no' + (recoVa(it) ? '' : ' rec'), 'data-r': 'no', 'aria-pressed': String(st.m === 'no'), text: it.accion_no_va || 'No va', on: { click: () => marcar(it, { m: 'no' }, deck) } }),
+      h('button', { type: 'button', class: 'btn va' + (recoVa(it) ? ' rec' : ''), 'data-r': 'va', 'aria-pressed': String(st.m === 'go' || st.m === 'vc'), text: it.accion_va || 'Va', on: { click: () => marcar(it, { m: 'go' }, deck) } })));
+  } else if (t === 'una' || t === 'varias') {
+    const rec = recoIds(it);
+    card.append(h('div', { class: 'stack', role: t === 'una' ? 'radiogroup' : 'group' }, it.opciones.map(o => h('button', {
+      type: 'button', class: 'btn opt' + (rec.includes(o.id) ? ' rec' : ''), 'data-op': o.id, 'aria-pressed': String(st.m === 'op' && st.o.includes(o.id)), text: o.etiqueta,
+      on: { click: () => elegir(it, o, t) } }))));
+    if (t === 'varias') card.append(h('button', { type: 'button', class: 'btn main', id: 'listo-varias', text: 'Listo con estas', disabled: !(st.m === 'op' && st.o.length), on: { click: () => { if (deck) siguiente(); else { guardar(); render(); } } } }));
+  } else {
+    card.append(h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn va rec', 'data-r': 'rev', 'aria-pressed': String(st.m === 'rev'), text: 'Revisado', on: { click: () => marcar(it, { m: 'rev' }, deck) } })));
+  }
+  if (deck) card.append(h('p', { class: 'mut', id: 'pista', style: 'font-size:13px', text: t === 'sino' ? 'Deslizá a la derecha para Va y a la izquierda para No va.' : 'Deslizá a la derecha para elegir lo recomendado.' }));
+
+  // extras
+  const abrirPanel = k => { T.panel = (T.panel && T.panel.n === it.n && T.panel.k === k) ? null : { n: it.n, k }; render(); };
+  const extras = h('div', { class: 'extras' });
+  if (t === 'sino') extras.append(h('button', { type: 'button', 'data-x': 'editar', text: 'Editar', on: { click: () => abrirPanel(it.campos ? 'editar' : 'comentario') } }));
+  extras.append(h('button', { type: 'button', 'data-x': 'comentario', text: 'Comentario', 'aria-pressed': String(!!(st.c || '').trim()), on: { click: () => abrirPanel('comentario') } }),
+    h('button', { type: 'button', 'data-x': 'info', text: '+info', on: { click: () => abrirPanel('info') } }),
+    h('button', { type: 'button', 'data-x': 'despues', text: 'Después', 'aria-pressed': String(st.m === 'de'), on: { click: () => marcar(it, { m: 'de' }, deck) } }),
+    h('button', { type: 'button', 'data-x': 'regla', text: 'Esto es regla', 'aria-pressed': String(!!st.regla), on: { click: e => {
+      const x = T.marks[it.n] || (T.marks[it.n] = vacio()); x.regla = !x.regla; e.currentTarget.setAttribute('aria-pressed', String(x.regla)); guardar(); } } }));
+  card.append(extras);
+  if (T.panel && T.panel.n === it.n) card.append(panelEl(it, T.panel.k, deck));
+
+  // detalle plegado
+  const imp = it.impacto && (it.impacto.positivo || it.impacto.negativo)
+    ? h('div', { class: 'imp' }, h('div', { class: 'p' }, h('b', { text: 'Impacto positivo' }), it.impacto.positivo || 'nada relevante'), h('div', { class: 'n' }, h('b', { text: 'Impacto negativo' }), it.impacto.negativo || 'nada relevante')) : null;
+  const filas = [['porque', 'Por qué'], ['si_va', 'Si va'], ['si_no_va', 'Si no va'], ['fuente', 'Fuente']].filter(x => it[x[0]]).map(x => h('p', null, h('b', { text: x[1] + ': ' }), it[x[0]]));
+  if (it.detalle) filas.push(h('p', { text: it.detalle }));
+  if (imp || filas.length) card.append(h('details', { class: 'det' }, h('summary', { text: 'Ver el detalle' }), h('div', { class: 'in' }, imp, filas)));
+  if (deck) enganchar(card, it);
+  return card;
+}
+function elegir(it, o, t) {
+  const st = marcaDe(it.n);
+  if (t === 'una') {
+    marcar(it, { m: 'op', o: [o.id] }, !o.abierta);
+    if (o.abierta) { T.panel = { n: it.n, k: 'comentario' }; render(); }
+    return;
+  }
+  const sel = st.m === 'op' ? st.o.slice() : [];
+  const i = sel.indexOf(o.id); if (i >= 0) sel.splice(i, 1); else sel.push(o.id);
+  T.hist.push({ n: it.n, prev: T.marks[it.n] ? clon(T.marks[it.n]) : null, idx: T.idx });
+  T.marks[it.n] = Object.assign(vacio(), T.marks[it.n] || {}, { m: sel.length ? 'op' : '', o: sel });
+  guardar(); render();
+}
+function panelEl(it, k, deck) {
+  const st = T.marks[it.n] || (T.marks[it.n] = vacio());
+  const coment = (rotulo, ph) => [h('label', { for: 'c-' + it.n, text: rotulo }),
+    h('textarea', { id: 'c-' + it.n, placeholder: ph || '', on: { input: e => { st.c = e.target.value; guardar(); } } })];
+  const p = h('div', { class: 'panel' });
+  if (k === 'comentario') {
+    const ta = coment('Tu comentario sobre esta tarjeta'); ta[1].value = st.c || ''; p.append(...ta);
+    p.append(h('button', { type: 'button', class: 'btn', text: 'Cerrar', on: { click: () => { T.panel = null; render(); } } }));
+  } else if (k === 'editar') {
+    const orig = st.f || {}, inputs = {};
+    it.campos.forEach(c => {
+      let el;
+      const val = orig[c.id] != null ? orig[c.id] : c.valor;
+      if (c.tipo === 'opcion') { el = h('select', { id: 'f-' + it.n + '-' + c.id }, c.opciones.map(o => h('option', { value: o, text: o }))); el.value = String(val); }
+      else { el = h('input', { id: 'f-' + it.n + '-' + c.id, type: c.tipo === 'numero' ? 'number' : c.tipo === 'fecha' ? 'date' : 'text', step: c.tipo === 'numero' ? 'any' : null }); el.value = String(val); }
+      inputs[c.id] = el;
+      p.append(h('label', { for: el.id, text: c.etiqueta }), el);
+    });
+    const ta = coment('Comentario (opcional)'); ta[1].value = st.c || ''; p.append(...ta);
+    p.append(h('div', { class: 'row' },
+      h('button', { type: 'button', class: 'btn', text: 'Cancelar', on: { click: () => { T.panel = null; render(); } } }),
+      h('button', { type: 'button', class: 'btn main', id: 'editar-listo', text: 'Listo', on: { click: () => {
+        const f = {}; it.campos.forEach(c => { const v = inputs[c.id].value; if (String(v) !== String(c.valor)) f[c.id] = v; });
+        marcar(it, Object.keys(f).length ? { m: 'vc', f } : { m: 'go' }, deck);
+      } } })));
+  } else if (k === 'info') {
+    const OPC = ['Dibujo corto', 'Dibujo largo', 'Escribilo distinto', 'Otro ejemplo'];
+    const sel = new Set(st.m === 'rot' ? st.rot : []);
+    p.append(h('p', { class: 'mut', style: 'font-size:14px', text: 'Si algo no se entiende, pedí cómo querés que Claude lo explique de nuevo.' }));
+    const botones = OPC.map(o => h('button', { type: 'button', class: 'btn opt', 'data-info': o, 'aria-pressed': String(sel.has(o)), text: o, on: { click: e => {
+      if (sel.has(o)) sel.delete(o); else { sel.add(o); if (o === 'Dibujo corto') sel.delete('Dibujo largo'); if (o === 'Dibujo largo') sel.delete('Dibujo corto'); }
+      botones.forEach((b, i) => b.setAttribute('aria-pressed', String(sel.has(OPC[i])))); ok(); } } }));
+    p.append(h('div', { class: 'stack' }, botones));
+    const ta = coment('Qué no se entiende (opcional)'); ta[1].value = st.c || ''; p.append(...ta);
+    const listo = h('button', { type: 'button', class: 'btn main', id: 'info-listo', text: 'Pedir explicación', disabled: true, on: { click: () => marcar(it, { m: 'rot', rot: OPC.filter(o => sel.has(o)) }, deck) } });
+    const ok = () => { listo.disabled = !(sel.size || (st.c || '').trim()); };
+    ta[1].addEventListener('input', ok); ok();
+    p.append(h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn', text: 'Cancelar', on: { click: () => { T.panel = null; render(); } } }), listo));
+  }
+  return p;
+}
+
+/* ---------- swipe y teclas ---------- */
+function enganchar(card, it) {
+  let x0 = null, id = null, mov = false;
+  card.addEventListener('pointerdown', e => {
+    if (e.button > 0 || e.target.closest('button,textarea,input,select,summary,a,label')) return;
+    x0 = e.clientX; id = e.pointerId; mov = false;
+  });
+  card.addEventListener('pointermove', e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0;
+    if (!mov && Math.abs(dx) > 6) { mov = true; card.classList.add('arrastra'); try { card.setPointerCapture(id); } catch (x) {} }
+    if (mov) {
+      card.style.transform = 'translateX(' + dx + 'px) rotate(' + Math.max(-8, Math.min(8, dx / 25)) + 'deg)';
+      card.classList.toggle('tira-go', dx > 50); card.classList.toggle('tira-no', dx < -50);
+    }
+  });
+  const fin = e => {
+    if (x0 === null) return;
+    const dx = e.type === 'pointercancel' ? 0 : e.clientX - x0;
+    x0 = null; mov = false;
+    card.style.transform = ''; card.classList.remove('arrastra', 'tira-go', 'tira-no');
+    if (dx > 90) accionDerecha(it); else if (dx < -90) accionIzquierda(it);
+  };
+  card.addEventListener('pointerup', fin); card.addEventListener('pointercancel', fin);
+}
+document.addEventListener('keydown', e => {
+  if (!T || S.view !== 'tanda' || T.paso !== 'mazo' || T.lista || T.panel) return;
+  if (/^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName || ''))) return;
+  const it = T.d.items[T.idx]; if (!it) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); accionDerecha(it); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); accionIzquierda(it); }
+});
+
+/* ---------- revisar y enviar ---------- */
+function renderRevisar(main) {
+  const d = T.d, cuentas = { dec: 0, rot: 0, de: 0, sin: 0 };
+  d.items.forEach(it => { const s = marcaDe(it.n); if (decidida(s)) cuentas.dec++; else if (s.m === 'rot') cuentas.rot++; else if (s.m === 'de') cuentas.de++; else cuentas.sin++; });
+  main.append(h('h3', { text: 'Revisá y enviá' }));
+  main.append(h('p', { id: 'resumen-cuentas', text: cuentas.dec + ' decididas · ' + cuentas.rot + ' para explicar de nuevo · ' + cuentas.de + ' para después · ' + cuentas.sin + ' sin marcar' }));
+  main.append(h('div', { class: 'bloque' }, d.items.map((it, i) => h('div', { class: 'fila' },
+    h('div', { class: 'l' }, it.n + '. ' + it.titulo, h('small', { text: resumenMarca(it, marcaDe(it.n)) })),
+    h('button', { type: 'button', class: 'link', text: 'Cambiar', on: { click: () => { T.idx = i; T.paso = 'mazo'; T.lista = false; render(); window.scrollTo(0, 0); } } })))));
+  if (d.fyi && Array.isArray(d.fyi.grupos)) main.append(h('div', { class: 'bloque' }, h('h4', { text: d.fyi.titulo || 'Para tu información, no hay que decidir nada' }),
+    d.fyi.lead ? h('p', { text: d.fyi.lead }) : null,
+    d.fyi.grupos.map(g => [g.titulo ? h('p', null, h('b', { text: g.titulo })) : null, h('ul', null, (g.items || []).map(x => h('li', { text: x })))]).flat()));
+  main.append(h('label', { for: 'notas', class: 'mut', style: 'font-size:14px;font-weight:600', text: '¿Algo más que Claude tenga que saber?' }),
+    h('textarea', { id: 'notas', placeholder: 'Opcional', on: { input: e => { T.notas = e.target.value; guardar(); } } }));
+  $('#notas', main).value = T.notas || '';
+  const btn = h('button', { type: 'button', class: 'btn main', id: 'enviar', style: 'width:100%;margin-top:12px', text: 'Enviar', disabled: T.enviando || S.puedeEscribir === false || !S.db });
+  btn.addEventListener('click', () => enviar(btn));
+  main.append(btn, h('p', { class: 'mut', style: 'font-size:14px;margin-top:8px', text: 'Al tocar Enviar, tu respuesta queda guardada en esta página. Después le avisás a Claude.' }),
+    h('p', { id: 'msg', role: 'status' }));
+  main.append(h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn', text: 'Copiar respuesta', on: { click: e => copiar(textoRespuesta(), $('#msg')) } }),
+    h('button', { type: 'button', class: 'btn', text: 'Volver a las tarjetas', on: { click: () => { T.idx = Math.max(0, T.d.items.length - 1); T.paso = 'mazo'; render(); } } })));
+}
+async function enviar(btn) {
+  if (T.enviando || T.enviada) return;
+  T.enviando = true; btn.disabled = true; btn.textContent = 'Enviando…';
+  const msg = $('#msg');
+  try {
+    const doc = docRespuesta();
+    await S.db.doc('respuestas/' + T.clave).set(doc);
+    T.enviada = true; T.texto = doc.texto; T.paso = 'enviada'; diagSet('escritura', 'ok');
+    render(); window.scrollTo(0, 0);
+  } catch (e) {
+    T.enviando = false; btn.disabled = false; btn.textContent = 'Enviar';
+    diagSet('escritura', (e && e.code) || String(e));
+    if (msg) msg.textContent = 'No se pudo guardar la respuesta. Probá de nuevo, o copiala y pegala en el chat con Claude.';
+  }
+}
+async function copiar(txt, donde) {
+  const dec = m => { if (donde) donde.textContent = m; };
+  try { await navigator.clipboard.writeText(txt); dec('Copiado. Pegalo en el chat con Claude.'); }
+  catch (e) {
+    const ta = h('textarea', { style: 'position:fixed;opacity:0' }); ta.value = txt; document.body.append(ta); ta.select();
+    try { document.execCommand('copy'); dec('Copiado. Pegalo en el chat con Claude.'); } catch (x) { dec('No pude copiar. Seleccioná el texto a mano.'); }
+    ta.remove();
+  }
+}
+
+/* ---------- después de enviar: avisarle a Claude ---------- */
+function renderEnviada(main) {
+  main.append(h('div', { class: 'bloque' }, h('h4', { text: 'Tu respuesta quedó guardada' }),
+    h('p', { text: 'Falta un paso: avisarle a Claude para que la aplique.' }),
+    h('p', { id: 'estado-vivo', style: 'font-weight:600;color:var(--ink)', text: textoEstado(T.clave) })));
+  if (T.d.estado === 'aplicada' && T.d.resumen) main.append(h('div', { class: 'bloque' }, h('h4', { text: 'Lo que hizo Claude' }), h('p', { style: 'white-space:pre-wrap', text: T.d.resumen })));
+  const slot = h('div', { class: 'stack', id: 'aviso-slot' });
+  main.append(slot);
+  main.append(h('p', { class: 'mut', text: 'o volvé al chat y escribí "listo"' }),
+    h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn', id: 'copiar', text: 'Copiar respuesta', on: { click: () => copiar(T.texto || textoRespuesta(), $('#msg')) } })),
+    h('p', { id: 'msg', role: 'status', style: 'margin-top:8px' }),
+    h('details', { class: 'det' }, h('summary', { text: 'Ver lo que mandaste' }), h('div', { class: 'in' }, h('p', { style: 'white-space:pre-wrap', text: T.texto || textoRespuesta() }))),
+    h('button', { type: 'button', class: 'link', id: 'cambiar', text: 'Cambiar mi respuesta', on: { click: () => { T.enviada = false; T.enviando = false; T.paso = 'revisar'; render(); } } }));
+  prepararAviso(slot);
+}
+async function prepararAviso(slot) {
+  let canRoom = null, canCom = null;
+  if (S.room) { try { canRoom = await S.room.canSendToClaudeSession(); } catch (e) { canRoom = 'error'; } }
+  if (S.comments && typeof S.comments.canSendToClaude === 'function') { try { canCom = await S.comments.canSendToClaude(); } catch (e) { canCom = 'error'; } }
+  diagSet('puede avisar con mensaje', canRoom); diagSet('puede avisar con comentario', canCom);
+  if (!slot.isConnected) return;
+  const resultado = h('p', { id: 'aviso-res', role: 'status', style: 'font-weight:600' });
+  if (S.room && ['available', 'available_if_summoned', 'available_if_opened'].includes(canRoom)) {
+    const b = h('button', { type: 'button', class: 'btn main', id: 'avisar', text: 'Avisar a Claude' });
+    b.addEventListener('click', () => {
+      if (b.disabled) return; b.disabled = true; resultado.textContent = 'Mandando el aviso…';
+      const texto = limpio(T.texto || textoRespuesta());
+      const datos = new TextEncoder().encode(texto).length < 3000
+        ? { label: 'Respuesta a las tarjetas', tipo: 'respuesta_tarjetas', clave: T.clave, texto }
+        : { label: 'Respuesta a las tarjetas', tipo: 'respuesta_tarjetas', clave: T.clave, nota: 'La respuesta está en respuestas/' + T.clave };
+      let p;
+      try {
+        p = S.room.sendToClaudeSession(datos, { deliver: 'send', attachPresence: false, onStatus: s => {
+          if (s.state === 'sent') resultado.textContent = 'Claude recibió el aviso.';
+          else if (s.state === 'failed') resultado.textContent = 'No se pudo avisar. Volvé al chat y escribí "listo".'; } });
+      } catch (e) { resultado.textContent = 'No se pudo avisar. Volvé al chat y escribí "listo".'; diagSet('aviso', (e && e.code) || e); return; }
+      Promise.resolve(p).then(() => { if (!/recibió|No se pudo/.test(resultado.textContent)) resultado.textContent = 'Aviso enviado. Si Claude te muestra un cartel para confirmar, aceptalo.'; diagSet('aviso', 'enviado'); },
+        e => { resultado.textContent = 'No se pudo avisar. Volvé al chat y escribí "listo".'; diagSet('aviso', (e && e.code) || e); });
+    });
+    slot.append(b, h('p', { class: 'mut', style: 'font-size:14px', text: 'Claude te va a pedir que confirmes.' }), resultado);
+  } else if (S.comments && canCom === 'available') {
+    const b = h('button', { type: 'button', class: 'btn main', id: 'avisar-comentario', text: 'Avisarle a Claude con un comentario' });
+    b.addEventListener('click', () => {
+      if (b.disabled) return; b.disabled = true; resultado.textContent = 'Mandando el aviso…';
+      const texto = limpio('respuesta a las tarjetas · ' + T.clave + '\n' + (T.texto || textoRespuesta()));
+      S.comments.anchorFor($('#main')).then(a => S.comments.sendToClaude({ anchor: a, text: texto }))
+        .then(() => { resultado.textContent = 'Comentario enviado. Claude puede tardar un rato en contestar.'; diagSet('aviso', 'comentario'); },
+          e => { resultado.textContent = 'No se pudo avisar. Volvé al chat y escribí "listo".'; diagSet('aviso', (e && e.code) || e); });
+    });
+    slot.append(b, h('p', { class: 'mut', style: 'font-size:14px', text: 'Se deja un comentario en esta página y Claude lo lee. Puede llegar con demora.' }), resultado);
+  }
+}
+
+/* ---------- arranque ---------- */
+$('#tec').addEventListener('click', () => { const p = $('#diag'); p.hidden = !p.hidden; });
+iniciar();
+})();
+</script>
+</body>
+</html>

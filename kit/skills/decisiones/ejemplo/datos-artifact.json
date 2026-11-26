@@ -1,0 +1,88 @@
+{
+  "titulo": "Decisiones de la panadería",
+  "fecha": "2026-03-12",
+  "clave": "decisiones-2026-03-12-panaderia",
+  "contexto": "Cuatro cosas abiertas antes de la semana que viene.",
+  "intro": [
+    {"titulo": "Cómo llegamos acá", "texto": "La harina subió 18% desde marzo y los cafés piden reparto fijo.\n\nNada de esto se aplica hasta que mandes tu respuesta."}
+  ],
+  "items": [
+    {
+      "n": 1,
+      "titulo": "Subir el pan de masa madre",
+      "contexto": "La harina subió 18% y el margen del pan bajó de 30% a 12%.",
+      "reco": "va",
+      "reco_motivo": "Con $4.200 el margen vuelve a 28%.",
+      "accion_va": "Subir el precio",
+      "accion_no_va": "Dejarlo como está",
+      "antecedentes": ["El precio actual rige desde septiembre.", "Dos competidores del barrio ya subieron."],
+      "si_no_decidis": "Sigue en $3.500 y el margen sigue bajando.",
+      "vence": "2026-03-20",
+      "accent": "warning",
+      "campos": [
+        {"id": "precio", "etiqueta": "Precio nuevo (ARS)", "valor": 4200, "tipo": "numero"},
+        {"id": "desde", "etiqueta": "Desde cuándo", "valor": "2026-04-01", "tipo": "fecha"}
+      ],
+      "dibujo": {
+        "viewBox": "0 0 240 100",
+        "alt": "El precio pasa de 3.500 pesos a 4.200 pesos",
+        "svg": "<rect class=\"box\" x=\"8\" y=\"14\" width=\"100\" height=\"72\" rx=\"6\"/><text class=\"tm\" x=\"58\" y=\"32\" text-anchor=\"middle\">Hoy</text><text class=\"t\" x=\"58\" y=\"56\" text-anchor=\"middle\">$3.500</text><text class=\"tm\" x=\"58\" y=\"76\" text-anchor=\"middle\">margen 12%</text><path class=\"a\" d=\"M114 50 L128 50 M122 44 L128 50 L122 56\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect class=\"box\" x=\"134\" y=\"14\" width=\"98\" height=\"72\" rx=\"6\"/><text class=\"tm\" x=\"183\" y=\"32\" text-anchor=\"middle\">Propuesta</text><text class=\"t\" x=\"183\" y=\"56\" text-anchor=\"middle\">$4.200</text><text class=\"tm\" x=\"183\" y=\"76\" text-anchor=\"middle\">margen 28%</text>"
+      },
+      "impacto": {
+        "positivo": "El margen vuelve a un nivel que se sostiene.",
+        "negativo": "Puede bajar la venta del pan entre 5% y 10%."
+      },
+      "porque": "El costo de la harina es el 40% del costo del pan.",
+      "aplicar": {"va": "Actualizar la lista de precios y avisar a los dos cafés.", "no_va": "No tocar nada y revisar en un mes."}
+    },
+    {
+      "n": 2,
+      "titulo": "Elegir el día del reparto a cafés",
+      "contexto": "Tres cafés piden entrega fija. Hoy se reparte según el pedido de cada día.",
+      "reco": "mie",
+      "reco_motivo": "Es el día más flojo del horno.",
+      "opciones": [
+        {"id": "lun", "etiqueta": "Los lunes"},
+        {"id": "mie", "etiqueta": "Los miércoles"},
+        {"id": "vie", "etiqueta": "Los viernes"}
+      ],
+      "icono": "calendario",
+      "impacto": {
+        "positivo": "Los cafés saben cuándo llega el pan.",
+        "negativo": "Un día de la semana queda atado al reparto."
+      },
+      "aplicar": {"lun": "Avisar a los cafés: reparto los lunes.", "mie": "Avisar a los cafés: reparto los miércoles.", "vie": "Avisar a los cafés: reparto los viernes."}
+    },
+    {
+      "n": 3,
+      "titulo": "Sumar canales para recibir pedidos",
+      "contexto": "Hoy los pedidos llegan por llamadas sueltas. Se pierden dos o tres por semana.",
+      "reco": ["whatsapp", "web"],
+      "varias": true,
+      "reco_motivo": "Son los dos que ya usan los clientes.",
+      "opciones": [
+        {"id": "whatsapp", "etiqueta": "WhatsApp del local"},
+        {"id": "web", "etiqueta": "Formulario en la web"},
+        {"id": "mostrador", "etiqueta": "Libreta en el mostrador"}
+      ],
+      "impacto": {
+        "positivo": "Cada pedido queda escrito y no se pierde.",
+        "negativo": "Hay que mirar más de un lugar cada mañana."
+      }
+    },
+    {
+      "n": 4,
+      "tipo": "revision",
+      "titulo": "Revisar la lista de precios nueva",
+      "contexto": "Quedó armada con los precios de la tarjeta 1. Falta tu mirada antes de imprimirla.",
+      "hice": ["Armé la lista con 14 productos.", "Apliqué el aumento solo al pan de masa madre."],
+      "verifique": ["Los 14 precios coinciden con la planilla."],
+      "mirar": ["Que los nombres de los panes estén bien escritos."],
+      "detalle": "La lista queda en la carpeta de impresión. Si algo está mal, se corrige antes de mandarla a imprimir."
+    }
+  ],
+  "fyi": {
+    "titulo": "Para tu información",
+    "grupos": [{"titulo": "Ya hecho", "items": ["Pedí presupuesto de harina a dos proveedores.", "Cargué los 14 productos en la planilla."]}]
+  }
+}
