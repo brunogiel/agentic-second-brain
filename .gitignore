@@ -4,7 +4,3 @@
 # Local symlinked files, never committed
 .brain
 CLAUDE.local.md
-
-# Botonera: lo genera botonera/install.sh con tu URL y tu clave
-botonera/web/config.js
-botonera/.vercel/

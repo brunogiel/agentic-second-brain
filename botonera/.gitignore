@@ -1,7 +1,0 @@
-# generado por install.sh con tu URL y tu clave
-web/config.js
-.vercel/
-__pycache__/
-*.pyc
-.DS_Store
-node_modules/

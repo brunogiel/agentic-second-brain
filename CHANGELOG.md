@@ -1,26 +1,5 @@
 # Changelog
 
-## 3.8.0 (2026-11-25)
-
-- **`/brain-decide` ahora puede vivir en una página privada de Claude.** Si tu sesión puede
-  publicar páginas, tus pendientes salen como tarjetas en un link: deslizás o tocás, tocás Enviar,
-  volvés al chat y escribís "listo". Claude lee tu respuesta de la base de esa misma página y la
-  aplica. Una sola página para todas tus tarjetas: arriba lo que falta decidir, abajo lo decidido
-  con lo que hizo Claude. Si tu cuenta no puede publicar, cae a la página local de siempre y te lo dice.
-- **Tipos de tarjeta nuevos en esa página:** elegir una opción, elegir varias y revisión (un solo
-  botón, «Revisado»). Además: Editar con campos precargados, «+info» para pedir que se explique de
-  nuevo (dibujo corto o largo, escribirlo distinto, otro ejemplo), «Después» y «Esto es regla».
-- **`armar.py --artifact`** corre las mismas validaciones y escribe el documento listo para subir.
-  Acepta campos nuevos (opciones, campos editables, antecedentes, revisión, fyi y más). El modo local
-  sigue armando igual. Los dibujos con `<script>`, atributos `on*` o `foreignObject` ahora frenan el armado.
-- **La botonera completa entra al kit, en `botonera/` (1.3.0).** Es la versión con web propia, PIN y
-  avisos al celu, que antes vivía en un repo aparte. Suma las pestañas Sesiones, Decisiones y Bloqueos,
-  tarjetas de revisión, «Ya no aplica», «+info» con cinco formas de volver a explicar (`rot.md` viaja en
-  la carpeta), obstáculos sin inbox, bloqueo temporal del PIN e instalador por agente
-  (`--agente claude|cursor|codex|otro`, `--solo-skill`). Detalle en `botonera/CHANGELOG.md`.
-- **Con arnés de prueba:** `kit/skills/decisiones/artifact/tests/` trae un `window.claude` falso y un
-  recorrido con Playwright de punta a punta.
-
 ## 3.7.0 (2026-11-05)
 
 - **`/brain-deck` arma videos.** Con `MEDIO: video`, el Asset final es un mp4 animado con voz:

@@ -9,7 +9,6 @@
 La fuente de verdad de este sistema es **`CLAUDE.md`** (en esta misma carpeta). Leelo entero: es el índice maestro.
 
 - El cerebro (carpetas de texto, identidad, proyectos) **y los skills de uso** son portables. Los skills viven en `skills/` (carpeta a la vista) y se disparan por la **tabla "Mis skills" del `CLAUDE.md`**: leé esa tabla y, cuando el usuario diga una de esas frases, seguí el `skills/<nombre>/SKILL.md` correspondiente. Así andan igual acá que en Claude.
-- **La botonera** (cards para decidir desde el celu) vive en la carpeta `botonera/` de la raíz del repo, no en `kit/`. Para usarla con cualquier agente, seguí `botonera/skill/SKILL.md` (instalación en `botonera/README.md`).
 - Lo único atado a Claude es el método de armado (el comando `/brain-coach` y un par de skills de mantenimiento, que viven global con el coach). Si ese motor no existe en este harness, no frenes: seguí el fallback de abajo.
 
 ## Fallback para agentes no-Claude

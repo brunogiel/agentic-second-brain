@@ -62,15 +62,11 @@ The plugin ships slash commands that work the moment you install it, with no set
 | `/brain-transcribe` | Transcribes local audio with Whisper, nothing leaves your machine |
 | `/brain-tidy` | Tidies your downloads folder into staging, never moves out, never deletes |
 | `/brain-declutter` | Tidies the folder or file you point at: duplicates, bloat, and the script that keeps making the mess |
-| `/brain-decide` | What you need to decide, as cards with the deciding fact, a recommendation and the impact: one click per item, and only what you mark gets done |
+| `/brain-decide` | What you need to decide, as cards with the deciding fact, a recommendation and the impact: one click per item, and only what you mark gets done. To decide from your phone, with notifications and several agents: [botonera](https://github.com/brunogiel/botonera) (docs in Spanish) |
 | `/brain-dreaming` | Nightly cycle: reads your day (conversations, mail, messages, meetings, tasks, commits), writes what it can verify into your docs, adds your commitments to your tasks and calendar, and flags what needs your call |
 | `/brain-newskill` | Build a new skill following the anatomy that works |
 | `/brain-evalskill` | Grade a skill against its rubric and propose fixes (doesn't apply them) |
 | `/brain-messirve` | Does that thing you saw out there help you? Cross-checks it against yours: what you already have, what to steal, what to add |
-
-**`/brain-decide` on a private Claude page.** If your Claude account can publish pages, your pending decisions land on a private page: one card per thing to decide, which you swipe or tap. You install nothing. When you're done, tap Send, go back to the chat and type "listo": Claude reads your answer and applies it. The page and what you save there live in your Claude account, not in your folder.
-
-**Want to decide from your phone, with notifications and your own URL?** That is the [full botonera](botonera/README.md): the same idea with your own web app, a PIN and push notifications, for Claude Code, Cursor, Codex or any agent that can run Python. It needs a terminal and two free accounts (Supabase and a static host). Its docs and UI are in Spanish. If you'd rather skip that, stay with `/brain-decide`.
 
 Just want one skill, not the whole toolkit? Cherry-pick it: it's MIT and plain text, copy `kit/skills/<name>/` and its command `commands/brain-<name>.md` into your own `~/.claude/skills/` and `~/.claude/commands/`, no coach install, nothing else touched.
 
