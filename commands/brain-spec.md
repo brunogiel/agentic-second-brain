@@ -28,8 +28,14 @@ trabajo termina fijando la vara con la que se lo juzga.
 - `objetivo` (requerido): la tarea en criollo.
 - `dominio`: `codigo` (default si estás parado en un repo) | `entregable`. Cambia el
   reconocimiento, dónde se escribe y la rúbrica del gate. El resto del flujo es idéntico.
-- `profundidad`: `full` (default) | `express` (tope 2 preguntas). Si toca un archivo y no abre
-  decisiones, usá `express` sin preguntar.
+- `profundidad`: cuántas preguntas puede hacer.
+  - `corto`: hasta **3**. Cambio acotado, un solo frente, sin decisiones de producto nuevas.
+  - `completo` (default): hasta **10**. Algo nuevo, o con decisiones abiertas.
+  - `complejo`: **sin tope**. Termina cuando no queda ninguna decisión abierta ni supuesta. Para
+    varios frentes, datos de usuarios reales, plata, o cuando el usuario lo pide.
+  Si no te lo dicen, elegilo vos y declaralo en una línea al arrancar (`profundidad: completo,
+  porque…`). Ante la duda entre dos niveles, el más alto. Los nombres viejos `full` y `express`
+  equivalen a `completo` y `corto`.
 - `interactivo`: `true` (default) | `false`. En `false` no se pregunta nada: cada hueco se escribe
   como una línea `SUPUESTO:` visible, **nunca se resuelve en silencio**.
 
@@ -57,9 +63,32 @@ trabajo termina fijando la vara con la que se lo juzga.
    y qué no, y el borde del alcance. **Descartá todo hueco que la fuente ya responde:** una pregunta
    cuyo dato estaba en el repo es un bug de este skill, no una pregunta.
 
-4. **Entrevista acotada** [LATENT]: máximo **5 preguntas en `full`, 2 en `express`**, de a una,
-   y **la primera opción siempre es lo que asumís**, para que se confirme con un click. Cortá antes
-   si no queda hueco: **cero preguntas es un resultado válido y bueno.**
+4. **Entrevista por secciones** [LATENT]: las preguntas van en **3 secciones, en este orden**.
+   Antes de cada sección, una línea que diga en cuál estás (`Sección 1 de 3 · Qué y para quién`),
+   así el usuario sabe cuánto falta.
+
+   | # | Sección | Qué se decide |
+   |---|---|---|
+   | 1 | **Qué y para quién** | el alcance, para quién es, y qué queda afuera |
+   | 2 | **Comportamiento y casos raros** | qué pasa en el caso borde, umbrales y valores de negocio |
+   | 3 | **Prueba y «listo»** | cómo lo prueba el usuario, y qué tiene que pasar para darlo por terminado |
+
+   - **Por rondas dentro de cada sección:** cada vez que preguntás (en Claude, una llamada a
+     `AskUserQuestion`), van juntas las preguntas que no dependen de otra todavía abierta, hasta 4
+     por ronda. Una pregunta que depende de una respuesta pendiente espera a la ronda siguiente. Una
+     sección puede tomar varias rondas.
+   - **La primera opción es siempre lo que asumís**, marcada `(Recomendado)`, para que se confirme
+     con un click.
+   - **Tope por nivel:** 3 en `corto`, 10 en `completo`, sin tope en `complejo`. Si en `completo`
+     llegás a 10 y quedan decisiones abiertas, decilo y ofrecé seguir como `complejo`. No las
+     cierres en silencio.
+   - **Piso:** en `completo` y `complejo`, toda decisión de producto es una respuesta del usuario o
+     un `SUPUESTO:` visible en el spec, y cada sección con un hueco real lleva al menos una pregunta.
+     Cero preguntas solo vale en `corto`, y solo si la fuente responde todo. Ante la duda entre
+     preguntar y asumir, se pregunta: cerrar el hueco solo es justo lo que este skill existe para
+     evitar.
+   - **Lo que el usuario ya dijo en el pedido no se pregunta:** se declara como supuesto en una línea.
+   - Si `interactivo: false`, saltá este paso entero y convertí cada hueco en un `SUPUESTO:`.
 
 5. **Escritura** [DET]: escribí el spec con el template de abajo. Slug corto en kebab-case.
 
@@ -139,7 +168,11 @@ entregable que no los declara no está terminado.
 ## Success metrics
 
 - 100% de los specs entregados pasan los 6 checks. El que no pasa, no se entrega.
-- ≤5 preguntas en `full`, ≤2 en `express`, y **cero preguntas cuyo dato estuviera en la fuente**.
+- ≤3 preguntas en `corto`, ≤10 en `completo`, sin tope en `complejo`, y **cero preguntas cuyo dato
+  estuviera en la fuente**.
+- En `completo` y `complejo`, **cero decisiones de producto cerradas sin preguntar**: cada una es una
+  respuesta del usuario o un `SUPUESTO:` visible. Un spec de `completo` con cero preguntas es una
+  señal de falla, no de eficiencia.
 - Quien revise después puede decir "falla R3" sin interpretar ni derivar criterios propios.
 - En modo no interactivo, todo hueco queda visible como `SUPUESTO:`. Cero decisiones en silencio.
 - El spec no menciona branch, PR, integrar ni mergear: eso es de la entrega, no del contrato.
@@ -151,5 +184,7 @@ entregable que no los declara no está terminado.
   seguí. El supuesto visible es el punto.
 - **Una verificación no se puede correr** porque falta un acceso o datos que todavía no existen.
   Declarala igual y marcala `[bloqueada: falta X]`. No se borra del spec.
+- **El usuario quiere ir más rápido.** Bajá a `corto`, o tomá su «hacé lo que te parezca» como
+  `SUPUESTO:`. No cierres decisiones en silencio para ahorrar preguntas.
 - **Tentación de meter la ruta de entrega adentro.** No. Si el spec dice "mergear a main", está mal
   escrito.
