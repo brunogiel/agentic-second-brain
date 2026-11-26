@@ -29,7 +29,7 @@ function armar(datos, nombre) {
   execFileSync('python3', [path.join(DEC, 'armar.py'), '--artifact', datos, salida], { stdio: 'pipe' });
   return JSON.parse(fs.readFileSync(salida, 'utf8'));
 }
-const DOC = armar(path.join(DEC, 'ejemplo', 'datos-artifact.json'), 'pan');      // 5 tarjetas: Panadería
+const DOC = armar(path.join(DEC, 'ejemplo', 'datos-artifact.json'), 'pan');      // 6 tarjetas: Anuncios (Agencia Faro)
 const CASA = armar(path.join(AQUI, 'fixture-casa.json'), 'casa');                // 2 tarjetas: Casa
 const HOSTIL = JSON.parse(fs.readFileSync(path.join(AQUI, 'fixture-extra.json'), 'utf8'));   // a mano, con html y script a propósito
 const CLAVE = DOC.clave, CLAVE_CASA = CASA.clave;
@@ -128,39 +128,42 @@ async function arrastrar(page, dx) {
     await p.waitForSelector('.hrow');
     let t = await home(p);
     const cargas0 = await p.evaluate(() => window.__cargas);
-    check('home: una fila por categoría (Casa y Panadería), con sus tarjetas', (await p.locator('.hrow').count()) === 2 && /Panadería/.test(t) && /Casa/.test(t) && /5 tarjetas/.test(t) && /2 tarjetas/.test(t), t);
+    check('home: una fila por categoría (Casa y Anuncios), con sus tarjetas', (await p.locator('.hrow').count()) === 2 && /Anuncios/.test(t) && /Casa/.test(t) && /6 tarjetas/.test(t) && /2 tarjetas/.test(t), t);
     check('home: sin pantalla de PIN, sin «Salir», sin avisos al celu', !(await p.locator('#b-salir, #i-pin, [data-home="avisos"]').count()) && !/PIN|Salir|Activar avisos|Agregala a inicio/.test(await p.evaluate(() => document.body.innerText)));
     check('título de la página: «Tus pendientes»', (await p.title()) === 'Tus pendientes', await p.title());
     check('home 390 px: sin scroll horizontal', await sinScrollX(p));
     check('sin script de afuera, sin service worker, sin manifest', await p.evaluate(() => !document.querySelector('script[src]') && !document.querySelector('link[rel="manifest"]') && !document.querySelector('link[rel*="icon"]')));
-    await entrarCat(p, 'panaderia');
+    await entrarCat(p, 'anuncios');
     t = await p.evaluate(() => document.querySelector('.sw').innerText);
-    check('mazo: pantalla de contexto con la introducción', /Decisiones de la panadería/.test(t) || /Cuatro cosas abiertas|harina/.test(t), t.slice(0, 160));
+    check('mazo: pantalla de contexto con la introducción', /Propuestas de Agencia Faro/.test(t) || /Cinco propuestas|Claude encontró/.test(t), t.slice(0, 160));
     t = await p.evaluate(() => document.querySelector('.sw').innerText);
-    check('tarjeta 1: dice «Claude recomienda» (no «el agente») y «Si no decidís»', /Claude recomienda: Subir el precio/.test(t) && !/agente/i.test(t) && /Si no decidís/.test(t), t.slice(0, 300));
+    check('tarjeta 1: dice «Claude recomienda» (no «el agente») y «Si no decidís»', /Claude recomienda: Sumar las palabras/.test(t) && !/agente/i.test(t) && /Si no decidís/.test(t), t.slice(0, 300));
     check('tarjeta 1: nada viene premarcado', Object.values(await p.evaluate(() => window.__swipe().marcas)).every(m => !m.m));
     check('tarjeta 1: sin scroll horizontal', await sinScrollX(p));
     // Editar con campos
     await tap(p, '[data-a="editar"]'); await p.waitForSelector('#sw-f0');
-    check('Editar: abre los campos cargados', (await p.inputValue('#sw-f0')) === '4200' && (await p.inputValue('#sw-f1')) === '2026-04-01');
-    await p.fill('#sw-f0', '4300'); await sleep(150);
+    check('Editar: abre los campos cargados', (await p.inputValue('#sw-f1')) === '1.2' && (await p.inputValue('#sw-f2')) === 'Tratamientos');
+    await p.fill('#sw-f1', '1.5'); await sleep(150);
     await tap(p, '[data-a="ed-listo"]'); await libre(p);
+    // tarjeta 2 (sí/no con dibujo): Va
+    check('tarjeta 2: la del presupuesto trae su dibujo antes → después', /presupuesto diario/i.test(await p.evaluate(() => document.querySelector('#sw-card h2').innerText)) && (await p.locator('.sw-card img[src^="data:image/svg+xml"]').count()) >= 1);
+    await tap(p, '[data-a="go"]'); await libre(p);
     // opción única
-    check('tarjeta 2: la opción recomendada se ve marcada como recomendada', (await p.locator('.sw-op.rec').count()) === 1 && /Claude recomienda esta/.test(await p.locator('.sw-op.rec').innerText()));
-    await tap(p, '[data-a="op"][data-id="mie"]'); await libre(p);
+    check('tarjeta 3: la opción recomendada se ve marcada como recomendada', (await p.locator('.sw-op.rec').count()) === 1 && /Claude recomienda esta/.test(await p.locator('.sw-op.rec').innerText()));
+    await tap(p, '[data-a="op"][data-id="turno"]'); await libre(p);
     // varias
-    await tap(p, 'input[data-chk="whatsapp"]'); await tap(p, 'input[data-chk="web"]'); await tap(p, '[data-a="op-listo"]'); await libre(p);
+    await tap(p, 'input[data-chk="sonrisa"]'); await tap(p, 'input[data-chk="pulso"]'); await tap(p, '[data-a="op-listo"]'); await libre(p);
+    // la 5, con el gesto de deslizar a la izquierda (No va)
+    check('tarjeta 5: la tarjeta que sigue es la de Marta', /Marta/.test(await p.evaluate(() => document.querySelector('#sw-card h2').innerText)));
+    await arrastrar(p, -170); await libre(p);
     // revisión
     t = await p.evaluate(() => document.querySelector('.sw').innerText);
-    check('tarjeta 4 (revisión): «Qué hice», «Qué verifiqué», «Qué te queda mirar» y el botón Revisado', /Qué hice/.test(t) && /Qué verifiqué/.test(t) && /Qué te queda mirar/.test(t) && (await p.locator('[data-a="rev-ok"]').count()) === 1, t.slice(0, 260));
-    check('tarjeta 4 (revisión): se ve la imagen y el link', (await p.locator('.sw img[src^="data:image/png"]').count()) >= 1 && /example\.com/.test(t));
+    check('tarjeta 6 (revisión): «Qué hice», «Qué verifiqué», «Qué te queda mirar» y el botón Revisado', /Qué hice/.test(t) && /Qué verifiqué/.test(t) && /Qué te queda mirar/.test(t) && (await p.locator('[data-a="rev-ok"]').count()) === 1, t.slice(0, 260));
+    check('tarjeta 6 (revisión): se ve el link', /ejemplo\.com/.test(t), t);
     await tap(p, '[data-a="rev-ok"]'); await libre(p);
-    // la 5, con el gesto de deslizar a la izquierda (No va)
-    check('tarjeta 5: la tarjeta que sigue es la del aviso', /Mandar el aviso/.test(await p.evaluate(() => document.querySelector('#sw-card h2').innerText)));
-    await arrastrar(p, -170); await libre(p);
     await p.waitForSelector('[data-a="enviar"]:visible', { timeout: 8000 });
     t = await p.evaluate(() => document.querySelector('.sw').innerText);
-    check('cierre: cuenta lo marcado (4 Va, la revisión cuenta como Va · 1 No va)', /Marcaste todo/.test(t) && /4 Va · 1 No va · 0 sin marcar/.test(t), t.slice(0, 200));
+    check('cierre: cuenta lo marcado (5 Va, la revisión cuenta como Va · 1 No va)', /Marcaste todo/.test(t) && /5 Va · 1 No va · 0 sin marcar/.test(t), t.slice(0, 200));
     await p.fill('#sw-fin', 'gracias');
     await sleep(200);
     await p.locator('[data-a="enviar"]:visible').first().dblclick();
@@ -171,11 +174,12 @@ async function arrastrar(page, dx) {
     const lineas = (R.texto || '').split('\n');
     const esp = [
       '/botonera respuesta · ' + CLAVE,
-      '1. va con cambios · Subir el pan de masa madre → Subir el precio · campos: precio=4300 (antes 4200)',
-      '2. eligió mie · Elegir el día del reparto a cafés → Los miércoles',
-      '3. eligió whatsapp, web · Sumar canales para recibir pedidos → WhatsApp del local, Formulario en la web',
-      '4. revisado · Revisar la lista de precios nueva',
-      '5. no va · Mandar el aviso del nuevo precio → Esperar una semana',
+      '1. va con cambios · Sumar palabras clave a Dental Sonrisa → Sumar las palabras · campos: puja=1.5 (antes 1.2)',
+      '2. va · Subir el presupuesto diario de Gimnasio Pulso → Subir el presupuesto',
+      '3. eligió turno · Elegir el título de la landing de Dental Sonrisa → Turno hoy, sin esperas',
+      '4. eligió sonrisa, pulso · Qué clientes reciben el reporte del lunes → Clínica Dental Sonrisa, Gimnasio Pulso',
+      '5. no va · Responderle a Marta, de La Espiga → Esperar al jueves',
+      '6. revisado · Revisar el reporte de Gimnasio Pulso',
       'notas: gracias'];
   check('respuestas/<clave>.texto: línea por línea, la primera es el encabezado «/botonera respuesta ·»', JSON.stringify(lineas) === JSON.stringify(esp), lineas);
     check('respuestas/<clave>: clave, por y cuando', R.clave === CLAVE && R.por === 'u_prueba' && !isNaN(Date.parse(R.cuando)), R);
@@ -194,19 +198,19 @@ async function arrastrar(page, dx) {
     await tap(p, '[data-a="salir"]'); await sleep(500);
     await tap(p, '[data-tab="sesiones"]'); await sleep(600);
     t = await home(p);
-    check('Sesiones: la tanda enviada aparece «Mandada», en «Trabajando ahora»', /trabajando ahora/i.test(t) && /Decisiones de la panadería/.test(t) && /Mandada/.test(t), t);
+    check('Sesiones: la tanda enviada aparece «Mandada», en «Trabajando ahora»', /trabajando ahora/i.test(t) && /Propuestas de Agencia Faro/.test(t) && /Mandada/.test(t), t);
     // Claude simulado: estado/<clave> y después tandas.estado = aplicada, sin recargar la página
     await p.evaluate(c => window.__fake.seed('estado/' + c, { texto: 'Cambiando la lista de precios', cuando: new Date().toISOString() }), CLAVE);
     await p.waitForFunction(() => /Trabajando/.test(document.getElementById('home').innerText), null, { timeout: 8000 });
     await p.locator('.hfin').first().tap(); await sleep(300);
     t = await home(p);
     check('Sesiones: lo que escribe Claude se ve («Claude está trabajando» + su texto)', /Claude está trabajando/.test(t) && /Cambiando la lista de precios/.test(t) && !/agente/i.test(t), t);
-    await p.evaluate(([c, d]) => window.__fake.seed('tandas/' + c, Object.assign({}, d, { estado: 'aplicada', resumen: '1. Subí el precio a 4300.\n2. Avisé a los cafés.' })), [CLAVE, DOC]);
+    await p.evaluate(([c, d]) => window.__fake.seed('tandas/' + c, Object.assign({}, d, { estado: 'aplicada', resumen: '1. Sumé las palabras clave.\n2. Subí el presupuesto.' })), [CLAVE, DOC]);
     await p.waitForFunction(() => /hechas hoy/i.test(document.getElementById('home').innerText), null, { timeout: 8000 });
     await sleep(300);
-    if (!/Subí el precio/.test(await home(p))) { await p.locator('.hfin').first().tap(); await sleep(300); }
+    if (!/Sumé las palabras/.test(await home(p))) { await p.locator('.hfin').first().tap(); await sleep(300); }
     t = await home(p);
-    check('Sesiones: «aplicada» + resumen se ven en «Hechas hoy» sin recargar la página', /hechas hoy/i.test(t) && /Hecha/.test(t) && /Subí el precio a 4300/.test(t) && (await p.evaluate(() => window.__cargas)) === cargas0, t);
+    check('Sesiones: «aplicada» + resumen se ven en «Hechas hoy» sin recargar la página', /hechas hoy/i.test(t) && /Hecha/.test(t) && /Sumé las palabras clave/.test(t) && (await p.evaluate(() => window.__cargas)) === cargas0, t);
     check('sesiones: 390 px sin scroll horizontal', await sinScrollX(p));
     // la pestaña Bloqueos queda con su estado vacío (esta versión no tiene obstáculos ni errores)
     await tap(p, '[data-tab="bloqueos"]'); await sleep(500);
@@ -315,7 +319,7 @@ async function arrastrar(page, dx) {
     p = await abrir('', { ancho: 1280, alto: 900, sinTouch: true });
     await p.waitForSelector('.hrow');
     check('1280 px: home sin scroll horizontal', await sinScrollX(p));
-    await p.locator('.hrow[data-cat="panaderia"]').click(); await p.waitForSelector('[data-a="empezar"]');
+    await p.locator('.hrow[data-cat="anuncios"]').click(); await p.waitForSelector('[data-a="empezar"]');
     check('1280 px: pantalla de contexto sin scroll horizontal', await sinScrollX(p));
     await p.locator('[data-a="empezar"]').click(); await p.waitForSelector('.sw-act'); await libre(p);
     check('1280 px: tarjeta sin scroll horizontal', await sinScrollX(p));

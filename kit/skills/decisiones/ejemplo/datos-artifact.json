@@ -1,181 +1,221 @@
 {
-  "titulo": "Decisiones de la panadería",
-  "fecha": "2026-03-12",
-  "clave": "decisiones-2026-03-12-panaderia",
-  "contexto": "Cuatro cosas abiertas antes de la semana que viene.",
+  "titulo": "Propuestas de Agencia Faro",
+  "fecha": "2026-03-16",
+  "clave": "decisiones-2026-03-16-agencia-faro",
+  "contexto": "Cinco propuestas de las cuentas de clientes y un reporte para mirar.",
   "intro": [
     {
-      "titulo": "Cómo llegamos acá",
-      "texto": "La harina subió 18% desde marzo y los cafés piden reparto fijo.\n\nNada de esto se aplica hasta que mandes tu respuesta."
+      "titulo": "Lo que se encontró",
+      "texto": "Esto es lo que Claude encontró en las cuentas. Con el OK, Claude lo hace."
     }
   ],
   "items": [
     {
       "n": 1,
-      "titulo": "Subir el pan de masa madre",
-      "contexto": "La harina subió 18% y el margen del pan bajó de 30% a 12%.",
+      "titulo": "Sumar palabras clave a Dental Sonrisa",
+      "contexto": "Esas búsquedas ya traen visitas a la competencia y hoy los anuncios de la clínica no aparecen.",
       "reco": "va",
-      "reco_motivo": "Con $4.200 el margen vuelve a 28%.",
-      "accion_va": "Subir el precio",
-      "accion_no_va": "Dejarlo como está",
+      "reco_motivo": "La competencia ya capta esas búsquedas todos los días.",
+      "accion_va": "Sumar las palabras",
+      "accion_no_va": "Dejar todo igual",
       "antecedentes": [
-        "El precio actual rige desde septiembre.",
-        "Dos competidores del barrio ya subieron."
+        "Las seis búsquedas suman unas 900 visitas por mes.",
+        "Hoy ningún anuncio de la clínica aparece en ellas."
       ],
-      "si_no_decidis": "Sigue en $3.500 y el margen sigue bajando.",
+      "si_no_decidis": "La competencia sigue captando esas visitas.",
       "vence": "2026-03-20",
-      "accent": "warning",
       "campos": [
         {
-          "id": "precio",
-          "etiqueta": "Precio nuevo (ARS)",
-          "valor": 4200,
-          "tipo": "numero"
+          "id": "palabras",
+          "etiqueta": "Palabras clave",
+          "tipo": "textarea",
+          "valor": "implantes dentales precio\nblanqueamiento dental\nortodoncia invisible\ndentista urgencias\ncarillas dentales\ndentista cerca"
         },
         {
-          "id": "desde",
-          "etiqueta": "Desde cuándo",
-          "valor": "2026-04-01",
-          "tipo": "fecha"
+          "id": "puja",
+          "etiqueta": "Máximo por clic (USD)",
+          "tipo": "numero",
+          "valor": 1.2
+        },
+        {
+          "id": "campana",
+          "etiqueta": "Campaña",
+          "tipo": "opcion",
+          "opciones": [
+            "Tratamientos",
+            "Urgencias"
+          ],
+          "valor": "Tratamientos"
         }
       ],
-      "dibujo": {
-        "viewBox": "0 0 240 100",
-        "alt": "El precio pasa de 3.500 pesos a 4.200 pesos",
-        "svg": "<rect class=\"box\" x=\"8\" y=\"14\" width=\"100\" height=\"72\" rx=\"6\"/><text class=\"tm\" x=\"58\" y=\"32\" text-anchor=\"middle\">Hoy</text><text class=\"t\" x=\"58\" y=\"56\" text-anchor=\"middle\">$3.500</text><text class=\"tm\" x=\"58\" y=\"76\" text-anchor=\"middle\">margen 12%</text><path class=\"a\" d=\"M114 50 L128 50 M122 44 L128 50 L122 56\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect class=\"box\" x=\"134\" y=\"14\" width=\"98\" height=\"72\" rx=\"6\"/><text class=\"tm\" x=\"183\" y=\"32\" text-anchor=\"middle\">Propuesta</text><text class=\"t\" x=\"183\" y=\"56\" text-anchor=\"middle\">$4.200</text><text class=\"tm\" x=\"183\" y=\"76\" text-anchor=\"middle\">margen 28%</text>"
-      },
       "impacto": {
-        "positivo": "El margen vuelve a un nivel que se sostiene.",
-        "negativo": "Puede bajar la venta del pan entre 5% y 10%."
+        "positivo": "Los anuncios de la clínica aparecen donde hoy no están.",
+        "negativo": "El gasto diario puede subir unos USD 4."
       },
       "aplicar": {
-        "va": "Actualizar la lista de precios y avisar a los dos cafés.",
-        "no_va": "No tocar nada y revisar en un mes."
+        "va": "Cargar las seis palabras en la campaña elegida, con el máximo por clic indicado.",
+        "no_va": "No tocar la cuenta y revisar las búsquedas en un mes."
       }
     },
     {
       "n": 2,
-      "titulo": "Elegir el día del reparto a cafés",
-      "contexto": "Tres cafés piden entrega fija. Hoy se reparte según el pedido de cada día.",
-      "reco": "mie",
-      "reco_motivo": "Es el día más flojo del horno.",
-      "opciones": [
+      "titulo": "Subir el presupuesto diario de Gimnasio Pulso",
+      "contexto": "En los últimos 7 días el presupuesto se gastó completo antes de las 17 h.",
+      "reco": "va",
+      "reco_motivo": "Los anuncios se apagan justo cuando más gente busca.",
+      "accion_va": "Subir el presupuesto",
+      "accion_no_va": "Dejarlo en USD 20",
+      "antecedentes": [
+        "Los anuncios se apagaron antes de las 17 h los siete días.",
+        "Las consultas más fuertes llegan entre 18 y 21 h."
+      ],
+      "si_no_decidis": "Los anuncios siguen apagados a la hora de más consultas.",
+      "campos": [
         {
-          "id": "lun",
-          "etiqueta": "Los lunes"
+          "id": "presupuesto",
+          "etiqueta": "Presupuesto diario (USD)",
+          "tipo": "numero",
+          "valor": 30
         },
         {
-          "id": "mie",
-          "etiqueta": "Los miércoles"
-        },
-        {
-          "id": "vie",
-          "etiqueta": "Los viernes"
+          "id": "desde",
+          "etiqueta": "Desde cuándo",
+          "tipo": "fecha",
+          "valor": "2026-03-17"
         }
       ],
-      "icono": "calendario",
+      "dibujo": {
+        "viewBox": "0 0 240 110",
+        "alt": "El presupuesto diario pasa de 20 a 30 dólares",
+        "svg": "<rect class=\"b\" x=\"30\" y=\"50\" width=\"60\" height=\"40\" rx=\"4\"/><text class=\"t\" x=\"60\" y=\"44\" text-anchor=\"middle\">USD 20</text><text class=\"tm\" x=\"60\" y=\"105\" text-anchor=\"middle\">Hoy</text><rect class=\"b\" x=\"140\" y=\"30\" width=\"60\" height=\"60\" rx=\"4\"/><text class=\"t\" x=\"170\" y=\"24\" text-anchor=\"middle\">USD 30</text><text class=\"tm\" x=\"170\" y=\"105\" text-anchor=\"middle\">Propuesta</text><path class=\"a\" d=\"M100 70 L130 70 M124 64 L130 70 L124 76\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>"
+      },
       "impacto": {
-        "positivo": "Los cafés saben cuándo llega el pan.",
-        "negativo": "Un día de la semana queda atado al reparto."
+        "positivo": "Los anuncios siguen activos toda la tarde.",
+        "negativo": "El gasto mensual sube unos USD 300."
       },
       "aplicar": {
-        "lun": "Avisar a los cafés: reparto los lunes.",
-        "mie": "Avisar a los cafés: reparto los miércoles.",
-        "vie": "Avisar a los cafés: reparto los viernes."
+        "va": "Cambiar el presupuesto diario de la campaña de Pulso a USD 30 desde la fecha indicada.",
+        "no_va": "Dejar el presupuesto en USD 20 y volver a mirarlo el lunes."
       }
     },
     {
       "n": 3,
-      "titulo": "Sumar canales para recibir pedidos",
-      "contexto": "Hoy los pedidos llegan por llamadas sueltas. Se pierden dos o tres por semana.",
-      "reco": [
-        "whatsapp",
-        "web"
-      ],
-      "varias": true,
-      "reco_motivo": "Son los dos que ya usan los clientes.",
+      "titulo": "Elegir el título de la landing de Dental Sonrisa",
+      "contexto": "La página actual tiene muchas visitas y pocos turnos pedidos. Se puede probar un título nuevo.",
+      "reco": "turno",
+      "reco_motivo": "Habla de lo que buscan quienes llegan por urgencias.",
       "opciones": [
         {
-          "id": "whatsapp",
-          "etiqueta": "WhatsApp del local"
+          "id": "sonrisa",
+          "etiqueta": "Sonrisa nueva en 3 meses"
         },
         {
-          "id": "web",
-          "etiqueta": "Formulario en la web"
+          "id": "turno",
+          "etiqueta": "Turno hoy, sin esperas"
         },
         {
-          "id": "mostrador",
-          "etiqueta": "Libreta en el mostrador"
+          "id": "gratis",
+          "etiqueta": "Primera consulta gratis"
         }
       ],
+      "icono": "calendario",
       "impacto": {
-        "positivo": "Cada pedido queda escrito y no se pierde.",
-        "negativo": "Hay que mirar más de un lugar cada mañana."
+        "positivo": "Más visitas pueden terminar en un turno pedido.",
+        "negativo": "El título anterior se pierde si no se guarda."
+      },
+      "aplicar": {
+        "sonrisa": "Cambiar el título de la página por el de esta opción y publicarlo.",
+        "turno": "Cambiar el título de la página por el de esta opción y publicarlo.",
+        "gratis": "Cambiar el título de la página por el de esta opción y publicarlo."
       }
     },
     {
       "n": 4,
-      "tipo": "revision",
-      "titulo": "Revisar la lista de precios nueva",
-      "hice": "Armé la lista con 14 productos y el aumento solo en el pan de masa madre.",
-      "verifique": "Los 14 precios coinciden con la planilla.",
-      "mirar": "Que los nombres de los panes estén bien escritos.",
-      "imagen": {
-        "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABQCAIAAAARP+ljAAAA4UlEQVR42u3csQkAIAxFwexfOJc4iaWNfXZIEUQO7D+8a4Mx1iy/e3b52e3ZDaEBCw1YaMCAAdsFbBewXcCAhQYsNGChAdsFbBewXcCAhQYsNGChAQNuBRbr713AgIUGLDRgwIDtArYL2C5gwEIDFhqw0IDtArYL2C5gwEIDFhqw0IAB9wKL5apSaMBCAwYM2C5gu4DtAgYsNGChAQsN2C5gu4DtAgYsNGChAQsNGDBgu/7Jsuuq0i5gwEIDFhqw0IDtArYL2C5gwEIDFhqw0IDtArYL2C5gwEIDFhqw0A/uJmMRLDYZ5OsdAAAAAElFTkSuQmCC",
-        "alt": "Vista previa de la lista de precios",
-        "link": "https://example.com/lista-de-precios"
+      "titulo": "Qué clientes reciben el reporte del lunes",
+      "contexto": "El reporte semanal está armado para los tres clientes.",
+      "reco": [
+        "sonrisa",
+        "pulso"
+      ],
+      "varias": true,
+      "reco_motivo": "La Espiga todavía espera la respuesta a Marta.",
+      "opciones": [
+        {
+          "id": "sonrisa",
+          "etiqueta": "Clínica Dental Sonrisa"
+        },
+        {
+          "id": "pulso",
+          "etiqueta": "Gimnasio Pulso"
+        },
+        {
+          "id": "espiga",
+          "etiqueta": "Panadería La Espiga"
+        }
+      ],
+      "impacto": {
+        "positivo": "Cada cliente recibe sus números a tiempo.",
+        "negativo": "Quien no esté marcado espera una semana más."
       },
       "aplicar": {
-        "comun": "Si pide cambios, corregir la lista y volver a mostrarla."
+        "comun": "Mandar el reporte armado solo a los marcados."
       }
     },
     {
       "n": 5,
-      "titulo": "Mandar el aviso del nuevo precio",
-      "contexto": "Los dos cafés tienen que enterarse antes del lunes.",
+      "titulo": "Responderle a Marta, de La Espiga",
+      "contexto": "Marta preguntó por qué bajaron las visitas. Se pausaron dos anuncios que gastaban sin traer pedidos.",
       "reco": "va",
-      "reco_motivo": "Con aviso previo no hay sorpresas en la factura.",
-      "accion_va": "Mandar el aviso",
-      "accion_no_va": "Esperar una semana",
+      "reco_motivo": "Una respuesta rápida evita que Marta se preocupe.",
+      "accion_va": "Enviar el mensaje",
+      "accion_no_va": "Esperar al jueves",
+      "antecedentes": [
+        "Las visitas bajaron 12% frente a la semana anterior.",
+        "Los pedidos por la web se mantuvieron iguales."
+      ],
+      "si_no_decidis": "Marta sigue sin respuesta.",
       "campos": [
         {
-          "id": "asunto",
-          "etiqueta": "Asunto",
-          "valor": "Nuevo precio del pan de masa madre",
-          "tipo": "texto"
-        },
-        {
-          "id": "borrador",
-          "etiqueta": "Mensaje",
-          "valor": "Hola. Desde el lunes el pan de masa madre pasa a $4.200. Cualquier duda, escribime.",
-          "tipo": "textarea"
+          "id": "respuesta",
+          "etiqueta": "Mensaje para Marta",
+          "tipo": "textarea",
+          "valor": "Hola, Marta. Las visitas bajaron 12% porque se pausaron dos anuncios que gastaban sin traer pedidos.\nLos pedidos por la web se mantuvieron iguales.\nEsta semana se prueba un anuncio nuevo de las tortas.\nCualquier duda, escribinos."
         }
       ],
       "impacto": {
-        "positivo": "Los cafés se enteran por nosotros.",
-        "negativo": "Alguno puede pedir un plazo."
+        "positivo": "Marta entiende la baja y mantiene la confianza.",
+        "negativo": "Hay que seguir de cerca los pedidos de la semana."
       },
       "aplicar": {
-        "va": "Mandar el mensaje a los dos cafés con los campos que quedaron.",
-        "no_va": "Dejar el aviso para la semana próxima."
+        "va": "Enviar a Marta el mensaje de `respuesta`. Nada se manda antes del OK.",
+        "no_va": "No mandar nada y dejar la respuesta para el jueves."
       }
+    },
+    {
+      "n": 6,
+      "tipo": "revision",
+      "titulo": "Revisar el reporte de Gimnasio Pulso",
+      "hice": "Armé el reporte de la semana con gasto, consultas y costo por consulta.",
+      "verifique": "Los números coinciden con las cuentas de anuncios.",
+      "mirar": "Que el texto de resumen suene bien para el cliente.",
+      "link": "https://ejemplo.com/reporte-pulso"
     }
   ],
   "fyi": {
     "titulo": "Para tu información",
     "grupos": [
       {
-        "titulo": "Ya hecho",
+        "titulo": "Sin decisión",
         "items": [
-          "Pedí presupuesto de harina a dos proveedores.",
-          "Cargué los 14 productos en la planilla."
+          "Gimnasio Pulso: campaña de verano sin cambios esta semana.",
+          "Clínica Dental Sonrisa: anuncios de ortodoncia estables."
         ]
       }
     ]
   },
   "origen": {
-    "sesion_titulo": "Revisión semanal de la panadería",
+    "sesion_titulo": "Revisión del lunes",
     "skill": "tarjetas",
-    "categoria": "Panadería"
+    "categoria": "Anuncios"
   }
 }
