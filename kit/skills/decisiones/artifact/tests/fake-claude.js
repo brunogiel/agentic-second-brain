@@ -5,7 +5,7 @@
      ?canroom=available|no_session|off         respuesta de room.canSendToClaudeSession()
      ?cancomment=available|off|no_session      respuesta de comments.canSendToClaude()
      ?write=0                                  user.can("data.write") resuelve false
-     ?lat=150                                  demora (ms) de cada escritura en la base (para probar el doble toque)
+     ?lat=40                                   demora (ms) de cada escritura en la base (para probar el doble toque)
      ?mudo=1                                   las suscripciones nunca contestan (prueba del tiempo de espera) */
 (function () {
   const q = new URLSearchParams(location.search);
@@ -13,7 +13,7 @@
   const clon = o => JSON.parse(JSON.stringify(o));
   const store = new Map();
   const subs = new Set();
-  const F = (window.__fake = { docs: store, escrituras: {}, enviados: [], comentarios: [], suscripciones: 0 });
+  const F = (window.__fake = { docs: store, escrituras: {}, escritos: [], enviados: [], comentarios: [], suscripciones: 0 });
 
   const snapDoc = path => ({
     id: path.split('/').pop(), exists: store.has(path),
@@ -43,14 +43,14 @@
       onSnapshot: (next) => suscribir(() => next(snapQuery(col, order, lim)))
     };
   }
-  const demora = () => new Promise(r => setTimeout(r, Number(opt('lat', '150'))));
+  const demora = () => new Promise(r => setTimeout(r, Number(opt('lat', '40'))));
   const db = {
     doc: path => ({
       id: path.split('/').pop(), path,
       get: () => Promise.resolve(snapDoc(path)),
-      set: async data => { await demora(); F.escrituras[path] = (F.escrituras[path] || 0) + 1; store.set(path, clon(data)); notificar(); },
-      update: async data => { await demora(); store.set(path, Object.assign({}, store.get(path) || {}, clon(data))); notificar(); },
-      delete: async () => { store.delete(path); notificar(); },
+      set: async data => { await demora(); F.escrituras[path] = (F.escrituras[path] || 0) + 1; F.escritos.push({ path, op: 'set', data: clon(data) }); store.set(path, clon(data)); notificar(); },
+      update: async data => { await demora(); F.escritos.push({ path, op: 'update', data: clon(data) }); store.set(path, Object.assign({}, store.get(path) || {}, clon(data))); notificar(); },
+      delete: async () => { F.escritos.push({ path, op: 'delete' }); store.delete(path); notificar(); },
       onSnapshot: next => suscribir(() => next(snapDoc(path)))
     }),
     collection: col => Query(col)

@@ -13,10 +13,13 @@ adelante, html. El índice lateral no va por cantidad: aparece cuando el JSON tr
 da un aviso, no un error.
 
 --artifact corre las MISMAS validaciones y escribe un JSON (no un html): la tanda con los dibujos saneados,
-el ícono resuelto a svg, `creada` (ISO UTC) y `estado: "abierta"`. Claude lo sube a la base de la página privada
-(`tandas/<clave>`). Con --artifact además valen las tarjetas de opciones (`opciones`, `varias`) y de revisión
-(`tipo: "revision"` con `hice`, `verifique`, `mirar`). Campos opcionales que la página usa: accion_va,
-accion_no_va, antecedentes, si_no_decidis, vence, campos, aplicar, detalle y fyi.
+`categoria` embebida ({id, nombre, color, icono, orden, privada}: sale de origen.categoria, o de origen.proyecto;
+sin ninguno, «Pendientes»), `creada` (ISO UTC) y `estado: "abierta"`. Es el mismo documento que la web de la
+botonera entiende como `datos` de una tanda. Claude lo sube a la base de la página privada (`tandas/<clave>`).
+Con --artifact además valen las tarjetas de opciones (`opciones`, `varias`) y de revisión (`tipo: "revision"`
+con `hice`, `verifique`, `mirar` y un `link` https o una `imagen`). Campos opcionales que la página usa:
+origen {sesion_titulo, skill, proyecto, categoria}, intro, fyi, accion_va, accion_no_va, antecedentes,
+si_no_decidis, vence, campos (texto, numero, fecha, opcion, textarea), aplicar, detalle e imagen {src, alt, link}.
 
 Valida los campos y los techos de palabras (la carga visual baja es el contrato
 del skill). Si algo se pasa, avisa por stderr y sale con código 1 sin escribir.
@@ -26,6 +29,7 @@ import html as H
 import json
 import re
 import sys
+import unicodedata
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -49,9 +53,18 @@ def es_va(it):
 TECHO_ANTECEDENTE = 15   # palabras por viñeta de antecedentes (y por si_no_decidis)
 TECHO_APLICAR = 40       # palabras por plan de `aplicar` (y por su `comun`)
 TECHO_DETALLE = 60       # palabras del `detalle` plegado
-TECHO_REVISION = 15      # palabras por viñeta de hice / verifique / mirar
 MAX_CAMPOS = 5           # campos editables por tarjeta (botón Editar)
-TIPOS_CAMPO = ("texto", "numero", "fecha", "opcion")
+TIPOS_CAMPO = ("texto", "textarea", "numero", "fecha", "opcion")
+MAX_TEXTAREA = 3000      # caracteres de un campo textarea (un mail entero)
+IMAGEN_SRC = re.compile(r"data:image/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+")
+URL_HTTPS = re.compile(r"https://[^\s\"'<>]+")
+TECHOS_REVISION = {"titulo": 12, "hice": 25, "verifique": 25, "mirar": 25}
+PROHIBIDOS_REVISION = ("reco", "reco_motivo", "accion_va", "accion_no_va", "antecedentes", "si_no_decidis", "impacto", "opciones", "campos")
+ORDEN_LIBRE = 1
+COLORES_LIBRES = ["#8ECAC8", "#F2C6A0", "#BFD8A8", "#D9CBA3", "#C9B8E0", "#E8B4B8", "#B8D4E8"]
+ICONO_LIBRE = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+               'stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/>'
+               '<circle cx="7.5" cy="7.5" r="1.3"/></svg>')
 ID_SEGURO = re.compile(r"[A-Za-z0-9_-]{1,40}")   # ids de sección: van a atributos y a selectores del html
 ID_OPCION = re.compile(r"[a-z0-9_-]{1,30}")
 SOLO_ARTIFACT = "solo las muestra la página privada de Claude: armá con --artifact"
@@ -223,7 +236,7 @@ def validar_campos(n, it):
             errores.append(f"ítem {n}: cada campo tiene que ser {{id, etiqueta, valor, tipo}}")
             continue
         cid = c.get("id")
-        if not (isinstance(cid, str) and ID_OPCION.fullmatch(cid)):
+        if not (isinstance(cid, str) and ID_OPCION.fullmatch(cid.lower()) and cid == cid.lower()):
             errores.append(f"ítem {n}: el 'id' de un campo va en minúscula, sin espacios (a-z 0-9 _ -, hasta 30)")
             continue
         if cid in ids:
@@ -238,6 +251,8 @@ def validar_campos(n, it):
         if tipo not in TIPOS_CAMPO:
             errores.append(f"ítem {n}: el tipo del campo '{cid}' tiene que ser {' | '.join(TIPOS_CAMPO)}")
             continue
+        if tipo != "opcion" and c.get("opciones") is not None:
+            errores.append(f"ítem {n}: 'opciones' va solo en un campo de tipo opcion ('{cid}')")
         if tipo == "numero":
             ok = (isinstance(val, (int, float)) and not isinstance(val, bool)) or (isinstance(val, str) and re.fullmatch(r"-?\d+(\.\d+)?", val.strip() or "x"))
             if not ok:
@@ -253,8 +268,18 @@ def validar_campos(n, it):
             ops = c.get("opciones")
             if not (isinstance(ops, list) and 2 <= len(ops) <= 8 and all(isinstance(o, str) and o.strip() for o in ops)):
                 errores.append(f"ítem {n}: el campo '{cid}' (opcion) necesita 'opciones': una lista de 2 a 8 textos")
-            elif val not in ops:
-                errores.append(f"ítem {n}: el valor de '{cid}' tiene que ser una de sus opciones")
+            else:
+                if any(palabras(o) > 6 for o in ops):
+                    errores.append(f"ítem {n}: una opción de '{cid}' pasa las 6 palabras")
+                if val not in ops:
+                    errores.append(f"ítem {n}: el valor de '{cid}' tiene que ser una de sus opciones")
+        elif tipo == "textarea":
+            if not (isinstance(val, str) and val.strip()):
+                errores.append(f"ítem {n}: el valor del campo textarea '{cid}' tiene que ser un texto")
+            elif len(val) > MAX_TEXTAREA:
+                errores.append(f"ítem {n}: el valor de '{cid}' (textarea) pasa los {MAX_TEXTAREA} caracteres ({len(val)}): recortá el borrador")
+            elif "⏎" in val:
+                errores.append(f"ítem {n}: el valor de '{cid}' (textarea) no puede traer el carácter ⏎ (es el marcador del salto de línea en la respuesta)")
         else:  # texto
             if not (isinstance(val, str) and val.strip()):
                 errores.append(f"ítem {n}: el valor del campo de texto '{cid}' tiene que ser un texto")
@@ -292,6 +317,111 @@ def validar_svg(n, campo, svg):
     return []
 
 
+def _lista_de_textos(x):
+    return isinstance(x, list) and all(isinstance(i, str) and i.strip() for i in x)
+
+
+def validar_intro(intro):
+    """`intro`: una LISTA de bloques {titulo?, texto?, items?}."""
+    if intro is None:
+        return []
+    if not isinstance(intro, list):
+        return ["'intro' tiene que ser una lista de bloques [{\"titulo\": ..., \"texto\": ..., \"items\": [...]}]. Para un solo párrafo: [{\"texto\": \"...\"}]"]
+    errores = []
+    for i, b in enumerate(intro, 1):
+        if not isinstance(b, dict):
+            errores.append(f"intro[{i}] tiene que ser un bloque {{titulo?, texto?, items?}}")
+            continue
+        for k in ("titulo", "texto"):
+            if b.get(k) is not None and not isinstance(b[k], str):
+                errores.append(f"intro[{i}].{k} tiene que ser un texto")
+        if b.get("items") is not None and not _lista_de_textos(b["items"]):
+            errores.append(f"intro[{i}].items tiene que ser una lista de textos")
+    return errores
+
+
+def validar_fyi(fyi):
+    """`fyi`: UN objeto {titulo?, lead?, grupos:[{titulo?, items:[texto]}]}."""
+    if fyi is None:
+        return []
+    if not isinstance(fyi, dict):
+        return ["'fyi' tiene que ser un objeto {titulo, lead?, grupos:[{titulo, items:[...]}]}"]
+    errores = []
+    for k in ("titulo", "lead"):
+        if fyi.get(k) is not None and not isinstance(fyi[k], str):
+            errores.append(f"fyi.{k} tiene que ser un texto")
+    grupos = fyi.get("grupos")
+    if grupos is not None and not isinstance(grupos, list):
+        return errores + ["fyi.grupos tiene que ser una lista de grupos {titulo, items:[...]}"]
+    for i, g in enumerate(grupos or [], 1):
+        if not isinstance(g, dict) or not g.get("items"):
+            errores.append(f"fyi.grupos[{i}] necesita 'items' (una lista de textos)")
+            continue
+        if not _lista_de_textos(g["items"]):
+            errores.append(f"fyi.grupos[{i}].items tiene que ser una lista de textos")
+        if g.get("titulo") is not None and not isinstance(g["titulo"], str):
+            errores.append(f"fyi.grupos[{i}].titulo tiene que ser un texto")
+    return errores
+
+
+def validar_imagen(n, img):
+    """`imagen` {src, alt, link?}: lo que se aprueba se tiene que ver. `src` es un data:image png/jpeg/webp (la página solo deja ver esos)."""
+    if img is None:
+        return []
+    if not isinstance(img, dict):
+        return [f"ítem {n}: 'imagen' tiene que ser {{src, alt, link?}}"]
+    err = []
+    if not (isinstance(img.get("src"), str) and IMAGEN_SRC.fullmatch(img["src"])):
+        err.append(f"ítem {n}: imagen necesita 'src' data:image/(png|jpeg|webp);base64 (achicala a unos 800 px antes: el documento admite 200 KB en total)")
+    if not (isinstance(img.get("alt"), str) and img["alt"].strip()):
+        err.append(f"ítem {n}: imagen.alt dice qué muestra (obligatorio)")
+    if img.get("link") is not None and not (isinstance(img["link"], str) and URL_HTTPS.fullmatch(img["link"])):
+        err.append(f"ítem {n}: imagen.link tiene que ser una URL https")
+    return err
+
+
+def validar_revision(n, it):
+    """Ítem `tipo: "revision"`: no es una decisión, es algo hecho para mirar. hice, verifique y mirar son un texto cada uno."""
+    errores = []
+    for k in ("n", "titulo", "hice", "verifique", "mirar"):
+        if it.get(k) in (None, ""):
+            errores.append(f"ítem {n}: falta '{k}' (una revisión lleva n, titulo, hice, verifique y mirar)")
+    for campo, techo in TECHOS_REVISION.items():
+        v = it.get(campo)
+        if v in (None, ""):
+            continue
+        if not isinstance(v, str):
+            errores.append(f"ítem {n}: '{campo}' tiene que ser un texto")
+        elif palabras(v) > techo:
+            errores.append(f"ítem {n}: '{campo}' tiene {palabras(v)} palabras (techo {techo} en una revisión)")
+    prohibidos = [k for k in PROHIBIDOS_REVISION if it.get(k) not in (None, "", [], {})]
+    if prohibidos:
+        errores.append(f"ítem {n}: una revisión no lleva {', '.join(repr(k) for k in prohibidos)} (es de una decisión sí/no u opciones)")
+    img, link = it.get("imagen"), it.get("link")
+    if not img and not link:
+        errores.append(f"ítem {n}: revisión sin nada para mirar: va como una línea en el `fyi` de la tanda, no como tarjeta (necesita 'link' https o 'imagen')")
+    else:
+        if link and not (isinstance(link, str) and URL_HTTPS.fullmatch(link)):
+            errores.append(f"ítem {n}: 'link' tiene que ser una URL https")
+        if img:
+            errores += validar_imagen(n, img)
+            if isinstance(img, dict) and not img.get("link") and not link:
+                errores.append(f"ítem {n}: la imagen de una revisión necesita 'link' https (el de la imagen o un 'link' del ítem)")
+    ap = it.get("aplicar")
+    if ap is not None:
+        if not (isinstance(ap, dict) and ap):
+            errores.append(f"ítem {n}: 'aplicar' de una revisión es {{comun: texto}} (o se omite)")
+        else:
+            for k, v in ap.items():
+                if k != "comun":
+                    errores.append(f"ítem {n}: 'aplicar.{k}' no va en una revisión (solo 'comun': no hay un Va ni un No va)")
+                elif not (isinstance(v, str) and v.strip()):
+                    errores.append(f"ítem {n}: 'aplicar.comun' tiene que ser un texto")
+                elif palabras(v) > TECHO_APLICAR:
+                    errores.append(f"ítem {n}: 'aplicar.comun' tiene {palabras(v)} palabras (techo {TECHO_APLICAR})")
+    return errores
+
+
 def validar(d, artifact=False):
     errores = []
     for k in ("titulo", "fecha", "clave", "items"):
@@ -301,6 +431,14 @@ def validar(d, artifact=False):
         errores.append("fecha tiene que ser AAAA-MM-DD")
     if artifact and not re.fullmatch(r"[A-Za-z0-9_-]{1,100}", str(d.get("clave", ""))):
         errores.append("clave: solo letras, números, _ y - (va en la ruta de la base), hasta 100")
+    origen = d.get("origen")
+    if origen is not None:
+        if not isinstance(origen, dict):
+            errores.append("'origen' tiene que ser {sesion_titulo, skill, proyecto, categoria}")
+        else:
+            for k in ("sesion_titulo", "skill", "proyecto", "categoria"):
+                if origen.get(k) is not None and not isinstance(origen[k], str):
+                    errores.append(f"origen.{k} tiene que ser un string")
     secciones = d.get("secciones") or []
     ids = [x.get("id") for x in secciones]
     for x in secciones:
@@ -315,32 +453,33 @@ def validar(d, artifact=False):
         if secciones and it.get("seccion") not in ids:
             errores.append(f"ítem {it.get('n', '?')}: seccion '{it.get('seccion')}' no está en 'secciones'")
         n = it.get("n", "?")
+        if "n" in it and (not isinstance(it["n"], int) or isinstance(it["n"], bool)):
+            errores.append(f"ítem {n}: 'n' tiene que ser un entero")
+        if it.get("seccion") is not None and not (isinstance(it["seccion"], str) and ID_SEGURO.fullmatch(it["seccion"])):
+            errores.append(f"ítem {n}: 'seccion' solo admite letras, números, _ y - (hasta 40)")
         rev = it.get("tipo") == "revision"
         if it.get("tipo") not in (None, "", "revision"):
             errores.append(f"ítem {n}: 'tipo' solo puede ser 'revision'")
         if (rev or it.get("opciones") is not None) and not artifact:
             errores.append(f"ítem {n}: las tarjetas de {'revisión' if rev else 'opciones'} {SOLO_ARTIFACT}")
-        for k in (("n", "titulo", "contexto") if rev else OBLIGATORIOS):
-            if it.get(k) in (None, ""):
-                errores.append(f"ítem {n}: falta '{k}'")
         if n in vistos:
             errores.append(f"ítem {n}: número repetido")
         vistos.add(n)
-        if rev:
-            if not any(it.get(k) for k in ("hice", "verifique", "mirar")):
-                errores.append(f"ítem {n}: una revisión necesita 'hice', 'verifique' o 'mirar'")
-            for k in ("hice", "verifique", "mirar"):
-                errores += lista_textos(n, it, k, 3, TECHO_REVISION)
-            for k in ("opciones", "campos", "accion_va", "accion_no_va"):
-                if it.get(k):
-                    errores.append(f"ítem {n}: '{k}' no va en una tarjeta de revisión (solo tiene el botón «Revisado»)")
-        else:
-            errores += validar_opciones(n, it)
-            errores += validar_campos(n, it)
-            for k in ("hice", "verifique", "mirar"):
-                if it.get(k):
-                    errores.append(f"ítem {n}: '{k}' va solo con tipo 'revision'")
+        if rev:   # no es una decisión: no pasa por los chequeos de sí/no
+            errores += validar_revision(n, it)
+            continue
+        for k in OBLIGATORIOS:
+            if it.get(k) in (None, ""):
+                errores.append(f"ítem {n}: falta '{k}'")
+        errores += validar_opciones(n, it)
+        errores += validar_campos(n, it)
+        for k in ("hice", "verifique", "mirar"):
+            if it.get(k):
+                errores.append(f"ítem {n}: '{k}' va solo con tipo 'revision'")
         errores += validar_aplicar(n, it)
+        errores += validar_imagen(n, it.get("imagen"))
+        if it.get("imagen") is not None and not artifact:
+            errores.append(f"ítem {n}: 'imagen' {SOLO_ARTIFACT}")
         if it.get("icono") and it["icono"] not in ICONOS:
             errores.append(f"ítem {n}: icono '{it.get('icono')}' no existe (o pasá 'svg' propio)")
         dib = it.get("dibujo")
@@ -383,29 +522,36 @@ def validar(d, artifact=False):
         for campo in ("accion_va", "accion_no_va"):
             if it.get(campo) and palabras(it[campo]) > 6:
                 errores.append(f"ítem {n}: '{campo}' tiene {palabras(it[campo])} palabras (techo 6: es la etiqueta del botón)")
-    fyi = d.get("fyi")
-    if fyi is not None:
-        if not (isinstance(fyi, dict) and isinstance(fyi.get("grupos"), list)):
-            errores.append("'fyi' tiene que ser un objeto {titulo, lead?, grupos:[{titulo, items:[...]}]}")
-        else:
-            for g in fyi["grupos"]:
-                if not (isinstance(g, dict) and isinstance(g.get("items"), list) and g["items"]
-                        and all(isinstance(x, str) for x in g["items"])):
-                    errores.append("cada grupo de 'fyi' necesita 'items' (una lista de textos)")
+    errores += validar_intro(d.get("intro"))
+    errores += validar_fyi(d.get("fyi"))
     return errores
 
 
+def _slug(texto):
+    s = re.sub(r"[^a-z0-9]+", "-", unicodedata.normalize("NFKD", str(texto)).encode("ascii", "ignore").decode().lower()).strip("-")[:30].strip("-")
+    return s or "cat"
+
+
+def resolver_categoria(origen):
+    """origen -> la categoría que se embebe en la tanda: {id, nombre, color, icono, orden, privada}.
+    Sale de origen.categoria (o de origen.proyecto); sin ninguno, «Pendientes». El color se elige por el id: la misma categoría, el mismo color."""
+    origen = origen if isinstance(origen, dict) else {}
+    nombre = str(origen.get("categoria") or origen.get("proyecto") or "").strip() or "Pendientes"
+    cid = _slug(nombre)
+    return {"id": cid, "nombre": nombre, "color": COLORES_LIBRES[sum(ord(c) for c in cid) % len(COLORES_LIBRES)],
+            "icono": ICONO_LIBRE, "orden": ORDEN_LIBRE, "privada": False}
+
+
 def armar_artifact(d):
-    """El documento listo para subir a la base de la página privada de Claude: la tanda validada, con los
-    dibujos saneados, el ícono resuelto a svg (la página no trae el catálogo) y los campos que agrega Claude."""
+    """El documento listo para subir a la base de la página privada de Claude: la tanda validada, con los dibujos
+    saneados, la categoría embebida y los campos que agrega Claude. Es el mismo `datos` que entiende la web de la botonera."""
     doc = json.loads(json.dumps(d, ensure_ascii=False))
     for it in doc["items"]:
         if isinstance(it.get("dibujo"), dict):
             it["dibujo"]["svg"] = sanear_svg(it["dibujo"]["svg"])[0]
         if it.get("svg"):
             it["svg"] = sanear_svg(it["svg"])[0]
-        elif it.get("icono"):
-            it["svg"] = sanear_svg(ICONOS[it["icono"]])[0]
+    doc["categoria"] = resolver_categoria(doc.get("origen"))
     doc["creada"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     doc["estado"] = "abierta"
     return doc
